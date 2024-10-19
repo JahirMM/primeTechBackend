@@ -10,6 +10,8 @@ import com.primetech.primetech_store.auth.infraestructure.services.AuthService;
 import com.primetech.primetech_store.jwt.services.JwtService;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +33,23 @@ public class AuthController {
     private final SignUpApplication signUpApplication;
 
     @PostMapping(value = "login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
 
-        // llamamos al servicio de aplicacion para autenticar al usuario
+        // Autenticar al usuario y obtener UserDetails
         UserDetails userDetails = loginApplication.login(request);
 
-        // generamos el token
+        // Generar el token
         String token = jwtService.getToken(userDetails);
+
+        // Crear la cookie con el token JWT
+        String cookieName = "jwt";
+        Cookie cookie = new Cookie(cookieName, token);
+
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(cookie);
 
         AuthResponse authResponse = new AuthResponse();
         authResponse.setToken(token);

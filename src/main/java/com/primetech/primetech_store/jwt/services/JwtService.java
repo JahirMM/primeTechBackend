@@ -23,10 +23,10 @@ public class JwtService {
     private String secretKey;
 
     public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
+        return createToken(new HashMap<>(), user);
     }
 
-    private String getToken(Map<String, Object> extraClaims,UserDetails  user){
+    private String createToken(Map<String, Object> extraClaims,UserDetails  user){
         return Jwts
                 .builder()
                 .claims(extraClaims)
@@ -43,13 +43,13 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String getUserNameFromToken(String token) {
+    public String getEmailFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
 
     public  boolean isTokenValid(String token, UserDetails userDetails) {
-        final String userName = getUserNameFromToken(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String email = getEmailFromToken(token);
+        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Claims getAllClaims(String token) {
