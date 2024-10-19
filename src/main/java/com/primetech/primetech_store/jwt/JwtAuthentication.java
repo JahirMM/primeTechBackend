@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 // Extendemos de OncePerRequestFilter para asegurar que el filtro se ejecute una vez por cada solicitud HTTP,
 @Component
@@ -25,14 +26,22 @@ public class JwtAuthentication extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
+    private static final List<String> PUBLIC_URLS = List.of("/auth/login", "/auth/register", "/auth/logout");
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String path = request.getRequestURI();
+
+        if (PUBLIC_URLS.contains(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String TOKEN = getTokenFromRequest(request);
         final String email;
 
         if (TOKEN == null) {
-//            sendErrorResponse(response, "Por favor inicie sesión");
-            filterChain.doFilter(request, response);
+            sendErrorResponse(response, "Por favor inicie sesión");
             return;
         }
 
