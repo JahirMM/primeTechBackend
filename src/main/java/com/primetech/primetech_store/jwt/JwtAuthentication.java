@@ -41,14 +41,14 @@ public class JwtAuthentication extends OncePerRequestFilter {
         final String email;
 
         if (TOKEN == null) {
-            sendErrorResponse(response, "Por favor inicie sesión");
+            sendErrorResponse(response, "Please log in");
             return;
         }
 
         email = jwtService.getEmailFromToken(TOKEN);
         // Si no se puede extraer el email, retorna un mensaje
         if (email == null || SecurityContextHolder.getContext().getAuthentication() != null) {
-            sendErrorResponse(response, "Token inválido o expirado");
+            sendErrorResponse(response, "Invalid or expired token");
             return;
         }
 
@@ -62,7 +62,7 @@ public class JwtAuthentication extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         } else {
-            sendErrorResponse(response, "Token inválido o expirado");
+            sendErrorResponse(response, "Invalid or expired token");
             return;
         }
 
