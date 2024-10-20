@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -46,6 +43,12 @@ public class AuthController {
         cookie.setSecure(true);
         cookie.setMaxAge(24 * 60 * 60);
         response.addCookie(cookie);
+        String cookieHeader = String.format("%s=%s; HttpOnly; Path=/; Secure; Max-Age=%d; SameSite=Strict",
+                cookieName,
+                token,
+                24 * 60 * 60);
+
+        response.setHeader("Set-Cookie", cookieHeader);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setMessage("session successfully logged in");
@@ -60,5 +63,20 @@ public class AuthController {
         signUpResponse.setMessage("user successfully created");
         signUpResponse.setUser(user);
         return ResponseEntity.ok(signUpResponse);
+    }
+
+    @PostMapping(value = "logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        String cookieName = "jwt";
+        Cookie cookie = new Cookie(cookieName, "");
+
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        response.setHeader("Set-Cookie", "jwt=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0");
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -26,7 +26,7 @@ public class JwtAuthentication extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    private static final List<String> PUBLIC_URLS = List.of("/auth/login", "/auth/register", "/auth/logout");
+    private static final List<String> PUBLIC_URLS = List.of("/auth/login", "/auth/signUp", "/auth/logout");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
