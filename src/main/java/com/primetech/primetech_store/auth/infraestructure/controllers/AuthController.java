@@ -2,7 +2,10 @@ package com.primetech.primetech_store.auth.infraestructure.controllers;
 
 import com.primetech.primetech_store.auth.application.LoginApplication;
 import com.primetech.primetech_store.auth.application.SignUpApplication;
-import com.primetech.primetech_store.auth.domain.dto.*;
+import com.primetech.primetech_store.auth.application.dto.LoginRequest;
+import com.primetech.primetech_store.auth.application.dto.LoginResponse;
+import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
+import com.primetech.primetech_store.auth.application.dto.SignUpResponse;
 import com.primetech.primetech_store.jwt.services.JwtService;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.servlet.http.Cookie;

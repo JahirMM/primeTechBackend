@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.auth.domain.dto;
+package com.primetech.primetech_store.auth.application.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

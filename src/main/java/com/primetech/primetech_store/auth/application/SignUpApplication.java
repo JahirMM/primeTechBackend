@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.auth.application;
 
-import com.primetech.primetech_store.auth.domain.dto.SignUpRequest;
+import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
