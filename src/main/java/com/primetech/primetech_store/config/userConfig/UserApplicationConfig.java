@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.userConfig;
 
 import com.primetech.primetech_store.user.application.GetUserInformationApplication;
+import com.primetech.primetech_store.user.application.UpdateUserInformationApplication;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,4 +14,7 @@ public class UserApplicationConfig {
 
     @Bean
     public GetUserInformationApplication getUserInformationApplication(){return new GetUserInformationApplication(userService);}
+
+    @Bean
+    public UpdateUserInformationApplication updateUserInformation(){return  new UpdateUserInformationApplication(userService);}
 }

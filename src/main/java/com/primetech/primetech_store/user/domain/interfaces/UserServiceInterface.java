@@ -9,4 +9,5 @@ public interface UserServiceInterface {
     User findUserInformationByEmail(String email);
     List<UUID> findAssignedRolesByUserId(UUID userId);
     List<String> findRoleNamesByRoleIds(List<UUID> roleIds);
+    User saveUser(User user);
 }

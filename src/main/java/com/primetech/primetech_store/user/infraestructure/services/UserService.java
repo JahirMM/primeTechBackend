@@ -41,4 +41,9 @@ public class UserService implements UserServiceInterface {
                 .map(UserRole::getRoleName)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 }
