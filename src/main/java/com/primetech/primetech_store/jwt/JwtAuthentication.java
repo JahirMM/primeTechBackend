@@ -52,18 +52,23 @@ public class JwtAuthentication extends OncePerRequestFilter {
             return;
         }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+        try {
 
-        // Si el token es válido, establece la autenticación
-        if (jwtService.isTokenValid(TOKEN, userDetails)) {
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities()
-            );
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        } else {
-            sendErrorResponse(response, "Invalid or expired token");
-            return;
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+            // Si el token es válido, establece la autenticación
+            if (jwtService.isTokenValid(TOKEN, userDetails)) {
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                );
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            } else {
+                sendErrorResponse(response, "Invalid or expired token");
+                return;
+            }
+        } catch (RuntimeException exception) {
+            sendErrorResponse(response, "User not found");
         }
 
         filterChain.doFilter(request, response);
@@ -75,7 +80,7 @@ public class JwtAuthentication extends OncePerRequestFilter {
         response.setCharacterEncoding("UTF-8");
 
         // Crea el JSON de respuesta
-        String jsonResponse = String.format("{\"mensajeLogin\": \"%s\"}", mensaje);
+        String jsonResponse = String.format("{\"message\": \"%s\"}", mensaje);
         response.getWriter().write(jsonResponse);
     }
 
