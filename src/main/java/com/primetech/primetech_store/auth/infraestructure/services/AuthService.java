@@ -2,6 +2,8 @@ package com.primetech.primetech_store.auth.infraestructure.services;
 
 import com.primetech.primetech_store.auth.application.dto.LoginRequest;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
+import com.primetech.primetech_store.common.exception.RoleNotFoundException;
+import com.primetech.primetech_store.common.exception.UserNotFoundException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
@@ -21,7 +23,7 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public User findUserByEmail(LoginRequest request) {
-        return userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
@@ -31,7 +33,7 @@ public class AuthService implements AuthServiceInterface {
 
     @Override
     public UserRole findRolByRoleName(String roleName) {
-        return userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RuntimeException("Role not found"));
+        return userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 
     @Override

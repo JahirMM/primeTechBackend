@@ -1,5 +1,8 @@
 package com.primetech.primetech_store.user.infraestructure.services;
 
+import com.primetech.primetech_store.common.exception.RoleNotFoundException;
+import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
+import com.primetech.primetech_store.common.exception.UserNotFoundException;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
@@ -7,6 +10,7 @@ import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleAssignmentRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +28,7 @@ public class UserService implements UserServiceInterface {
     @Override
     public User findUserInformationByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email));
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
     }
 
     @Override
@@ -46,5 +50,27 @@ public class UserService implements UserServiceInterface {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserRole findRolByRoleName(String roleName) {
+        return userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
+    }
+
+    @Override
+    public UserRoleAssignment saveUserRoleAssignment(UUID userId, String roleName) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserRole userRole = userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        List<UserRoleAssignment> assignedRoles = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
+
+        if (!assignedRoles.isEmpty()) {
+            throw new UserAlreadyHasRoleException("El usuario ya tiene el rol de vendedor");
+        }
+
+        UserRoleAssignment userRoleAssignment = new UserRoleAssignment();
+        userRoleAssignment.setUser(user);
+        userRoleAssignment.setUserRole(userRole);
+
+        return userRoleAssignmentRepository.save(userRoleAssignment);
     }
 }
