@@ -23,7 +23,8 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User findUserInformationByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email));
     }
 
     @Override

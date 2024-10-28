@@ -5,6 +5,7 @@ import com.primetech.primetech_store.user.application.UpdateUserInformationAppli
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
 import com.primetech.primetech_store.user.application.dto.UserInformationResponseDTO;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,8 +44,8 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = "user")
-    public ResponseEntity<UserInformationResponseDTO> updateUserInformation(@Valid  @RequestBody UpdateUserInformationRequestDTO userRequest) {
+    @PostMapping(value = "/user")
+    public ResponseEntity<UserInformationResponseDTO> updateUserInformation(@Valid @RequestBody UpdateUserInformationRequestDTO userRequest, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             try {
@@ -64,4 +65,5 @@ public class UserController {
                     .body(new UserInformationResponseDTO(null, "Please log in"));
         }
     }
+
 }

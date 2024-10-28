@@ -17,11 +17,7 @@ public class UpdateUserInformationApplication {
     public UserDTO updateUserInformation(UpdateUserInformationRequestDTO updateUserInformationRequest, Authentication authentication) {
         User existingUser = userService.findUserInformationByEmail(authentication.getName());
 
-        // Aplicamos solo los cambios que se recibieron en la solicitud
-        if (updateUserInformationRequest.getEmail() != null && !updateUserInformationRequest.getEmail().isEmpty()) {
-            validateUniqueEmail(updateUserInformationRequest.getEmail(), existingUser.getEmail());
-            existingUser.setEmail(updateUserInformationRequest.getEmail());
-        }
+
         if (updateUserInformationRequest.getFirstName() != null && !updateUserInformationRequest.getFirstName().isEmpty()) {
             existingUser.setFirstName(updateUserInformationRequest.getFirstName());
         }
@@ -35,7 +31,6 @@ public class UpdateUserInformationApplication {
             existingUser.setMaternalSurname(updateUserInformationRequest.getMaternalSurname());
         }
 
-        // Guardamos el usuario actualizado
         User updatedUser = userService.saveUser(existingUser);
         if (updatedUser == null) {
             throw new IllegalArgumentException("Error saving user");
@@ -44,14 +39,5 @@ public class UpdateUserInformationApplication {
         List<UUID> associatedRoles = userService.findAssignedRolesByUserId(updatedUser.getUserId());
         List<String> roleNames = userService.findRoleNamesByRoleIds(associatedRoles);
         return new UserDTO(updatedUser, roleNames);
-    }
-
-    // Validación de email único y diferente del actual
-    private void validateUniqueEmail(String nuevoEmail, String emailActual) {
-        if (!nuevoEmail.equals(emailActual)) {
-            if (userService.findUserInformationByEmail(nuevoEmail) != null) {
-                throw new IllegalArgumentException("The new email is already in use");
-            }
-        }
     }
 }
