@@ -30,6 +30,12 @@ public class CustomExceptionHandler {
                 .body(new ErrorResponseDTO(ex.getMessage(), "Role not found"));
     }
 
+    @ExceptionHandler(UserRoleAssignmentNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUserRoleAssignmentNotFoundException(UserRoleAssignmentNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponseDTO(ex.getMessage(), "No role assignment found for the specified user and role"));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();

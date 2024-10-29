@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.userConfig;
 
 import com.primetech.primetech_store.user.application.AssignRoleApplication;
+import com.primetech.primetech_store.user.application.DeleteAssignedRoleApplication;
 import com.primetech.primetech_store.user.application.GetUserInformationApplication;
 import com.primetech.primetech_store.user.application.UpdateUserInformationApplication;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
@@ -23,4 +24,7 @@ public class UserApplicationConfig {
 
     @Bean
     public AssignRoleApplication assignSellerRoleApplication(){return  new AssignRoleApplication(userRoleAssignmentService);}
+
+    @Bean
+    public DeleteAssignedRoleApplication deleteAssignedRoleApplication(){return  new DeleteAssignedRoleApplication(userRoleAssignmentService);}
 }

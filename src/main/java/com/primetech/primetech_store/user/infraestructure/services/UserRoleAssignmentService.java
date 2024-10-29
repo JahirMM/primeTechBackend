@@ -3,6 +3,7 @@ package com.primetech.primetech_store.user.infraestructure.services;
 import com.primetech.primetech_store.common.exception.RoleNotFoundException;
 import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
 import com.primetech.primetech_store.common.exception.UserNotFoundException;
+import com.primetech.primetech_store.common.exception.UserRoleAssignmentNotFoundException;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
@@ -48,7 +49,7 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
         List<UserRoleAssignment> assignedRoles = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
 
         if (!assignedRoles.isEmpty()) {
-            throw new UserAlreadyHasRoleException("El usuario ya tiene el rol de vendedor");
+            throw new UserAlreadyHasRoleException("The user already has that role assigned");
         }
 
         UserRoleAssignment userRoleAssignment = new UserRoleAssignment();
@@ -56,5 +57,18 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
         userRoleAssignment.setUserRole(userRole);
 
         return userRoleAssignmentRepository.save(userRoleAssignment);
+    }
+
+    @Override
+    public void deleteAssignedRole(UUID userId, String roleName) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserRole userRole = userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        List<UserRoleAssignment> userRoleAssignments = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
+
+        if (userRoleAssignments.isEmpty()) {
+            throw new UserRoleAssignmentNotFoundException("No role assignment found for the specified user and role");
+        }
+
+        userRoleAssignmentRepository.deleteAll(userRoleAssignments);
     }
 }
