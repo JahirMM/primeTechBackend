@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
-public class AssignSellerRoleApplication {
+public class AssignRoleApplication {
     private final UserServiceInterface userService;
 
-    public UserDTO assignSellerRole(UUID userId) {
-        UserRoleAssignment userRoleAssignment = userService.saveUserRoleAssignment(userId, "seller");
+    public UserDTO assignRole(UUID userId, String rolName) {
+        UserRoleAssignment userRoleAssignment = userService.saveUserRoleAssignment(userId, rolName);
         List<UUID> associatedRoles = userService.findAssignedRolesByUserId(userId);
         List<String> roleNames = userService.findRoleNamesByRoleIds(associatedRoles);
         return new UserDTO(userRoleAssignment.getUser(), roleNames);

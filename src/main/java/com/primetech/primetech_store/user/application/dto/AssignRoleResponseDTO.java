@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class AssignSellerRoleResponseDTO {
+public class AssignRoleResponseDTO {
     private UserDTO user;
     private String message;
 }

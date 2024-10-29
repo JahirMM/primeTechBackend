@@ -1,7 +1,6 @@
 package com.primetech.primetech_store.user.domain.interfaces;
 
 import com.primetech.primetech_store.user.domain.models.User;
-import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
 
 import java.util.List;
@@ -12,6 +11,5 @@ public interface UserServiceInterface {
     List<UUID> findAssignedRolesByUserId(UUID userId);
     List<String> findRoleNamesByRoleIds(List<UUID> roleIds);
     User saveUser(User user);
-    UserRole findRolByRoleName(String roleName);
     UserRoleAssignment saveUserRoleAssignment(UUID userId, String roleName);
 }

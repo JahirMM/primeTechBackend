@@ -3,10 +3,10 @@ package com.primetech.primetech_store.user.infraestructure.controllers;
 import com.primetech.primetech_store.common.exception.RoleNotFoundException;
 import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
 import com.primetech.primetech_store.common.exception.UserNotFoundException;
-import com.primetech.primetech_store.user.application.AssignSellerRoleApplication;
+import com.primetech.primetech_store.user.application.AssignRoleApplication;
 import com.primetech.primetech_store.user.application.GetUserInformationApplication;
 import com.primetech.primetech_store.user.application.UpdateUserInformationApplication;
-import com.primetech.primetech_store.user.application.dto.AssignSellerRoleResponseDTO;
+import com.primetech.primetech_store.user.application.dto.AssignRoleResponseDTO;
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
 import com.primetech.primetech_store.user.application.dto.UserInformationResponseDTO;
@@ -27,7 +27,7 @@ public class UserController {
 
     private final GetUserInformationApplication userInformationApplication;
     private final UpdateUserInformationApplication updateUserInformationApplication;
-    private final AssignSellerRoleApplication assignSellerRoleApplication;
+    private final AssignRoleApplication assignRoleApplication;
     private final UserService userService;
 
     @GetMapping(value = "user")
@@ -66,7 +66,7 @@ public class UserController {
             } catch (RuntimeException ex) {
                 System.out.println("Error interno del servidor: " + ex.getMessage());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(new UserInformationResponseDTO(null, "Error interno del servidor"));
+                        .body(new UserInformationResponseDTO(null, "Internal server error"));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -74,27 +74,27 @@ public class UserController {
         }
     }
 
-    @PostMapping("/assign-seller")
-    public ResponseEntity<AssignSellerRoleResponseDTO> assignSellerRole() {
+    @PostMapping("/assign-role/{rolName}")
+    public ResponseEntity<AssignRoleResponseDTO> assignSellerRole(@PathVariable String rolName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             try {
                 User user = userService.findUserInformationByEmail(authentication.getName());
-                UserDTO userDTO = assignSellerRoleApplication.assignSellerRole(user.getUserId());
-                return ResponseEntity.ok(new AssignSellerRoleResponseDTO(userDTO, "Rol de vendedor asignado correctamente"));
+                UserDTO userDTO = assignRoleApplication.assignRole(user.getUserId(), rolName);
+                return ResponseEntity.ok(new AssignRoleResponseDTO(userDTO, "correctly assigned role"));
             } catch (UserAlreadyHasRoleException ex) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body(new AssignSellerRoleResponseDTO(null, ex.getMessage()));
+                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
             } catch (UserNotFoundException | RoleNotFoundException ex) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new AssignSellerRoleResponseDTO(null, ex.getMessage()));
+                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
             } catch (RuntimeException ex) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new AssignSellerRoleResponseDTO(null, ex.getMessage()));
+                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
             }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new AssignSellerRoleResponseDTO(null, "Please log in"));
+                    .body(new AssignRoleResponseDTO(null, "Please log in"));
         }
     }
 }

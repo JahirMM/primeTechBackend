@@ -10,7 +10,6 @@ import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleAssignmentRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +49,6 @@ public class UserService implements UserServiceInterface {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
-    }
-
-    @Override
-    public UserRole findRolByRoleName(String roleName) {
-        return userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 
     @Override
