@@ -35,8 +35,8 @@ public class RoleController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             try {
-                User user = userService.findUserInformationByEmail(authentication.getName());
-                UserDTO userDTO = assignRoleApplication.assignRole(user.getUserId(), roleName);
+                String email = authentication.getName();
+                UserDTO userDTO = assignRoleApplication.assignRole(email, roleName);
                 return ResponseEntity.ok(new AssignRoleResponseDTO(userDTO, "correctly assigned role"));
             } catch (UserAlreadyHasRoleException ex) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -60,8 +60,8 @@ public class RoleController {
         Map<String, String> response = new HashMap<>();
         if (authentication != null && authentication.isAuthenticated()) {
             try {
-                User user = userService.findUserInformationByEmail(authentication.getName());
-                deleteAssignedRoleApplication.deleteAssignedRole(user.getUserId(), roleName);
+                String email = authentication.getName();
+                deleteAssignedRoleApplication.deleteAssignedRole(email, roleName);
                 response.put("message", "The assigned role has been successfully deleted");
                 return ResponseEntity.ok(response);
             } catch (UserRoleAssignmentNotFoundException | UserNotFoundException | RoleNotFoundException ex) {

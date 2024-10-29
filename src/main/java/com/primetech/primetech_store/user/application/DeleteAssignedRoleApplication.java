@@ -9,7 +9,7 @@ import java.util.UUID;
 public class DeleteAssignedRoleApplication {
     private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
-    public void deleteAssignedRole(UUID userId, String roleName) {
-        userRoleAssignmentService.deleteAssignedRole(userId, roleName);
+    public void deleteAssignedRole(String email, String roleName) {
+        userRoleAssignmentService.deleteAssignedRole(email, roleName);
     }
 }

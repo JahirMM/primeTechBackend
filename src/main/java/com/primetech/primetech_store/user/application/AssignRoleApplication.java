@@ -12,9 +12,9 @@ import java.util.UUID;
 public class AssignRoleApplication {
     private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
-    public UserDTO assignRole(UUID userId, String rolName) {
-        UserRoleAssignment userRoleAssignment = userRoleAssignmentService.saveUserRoleAssignment(userId, rolName);
-        List<UUID> associatedRoles = userRoleAssignmentService.findAssignedRolesByUserId(userId);
+    public UserDTO assignRole(String email, String rolName) {
+        UserRoleAssignment userRoleAssignment = userRoleAssignmentService.saveUserRoleAssignment(email, rolName);
+        List<UUID> associatedRoles = userRoleAssignmentService.findAssignedRolesByUserId(userRoleAssignment.getUser().getUserId());
         List<String> roleNames = userRoleAssignmentService.findRoleNamesByRoleIds(associatedRoles);
         return new UserDTO(userRoleAssignment.getUser(), roleNames);
     }

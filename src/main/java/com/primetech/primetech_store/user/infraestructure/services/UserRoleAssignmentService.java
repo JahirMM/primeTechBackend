@@ -26,6 +26,8 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
 
+    private final UserService userService;
+
     @Override
     public List<UUID> findAssignedRolesByUserId(UUID userId) {
         List<UserRoleAssignment> assignments = userRoleAssignmentRepository.findByUser_UserId(userId);
@@ -43,8 +45,8 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
     }
 
     @Override
-    public UserRoleAssignment saveUserRoleAssignment(UUID userId, String roleName) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+    public UserRoleAssignment saveUserRoleAssignment(String email, String roleName) {
+        User user = userService.findUserInformationByEmail(email);
         UserRole userRole = userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
         List<UserRoleAssignment> assignedRoles = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
 
@@ -60,8 +62,8 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
     }
 
     @Override
-    public void deleteAssignedRole(UUID userId, String roleName) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+    public void deleteAssignedRole(String email, String roleName) {
+        User user = userService.findUserInformationByEmail(email);
         UserRole userRole = userRoleRepository.findByRoleName(roleName).orElseThrow(() -> new RoleNotFoundException("Role not found"));
         List<UserRoleAssignment> userRoleAssignments = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
 
