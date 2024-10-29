@@ -2,6 +2,7 @@ package com.primetech.primetech_store.user.application;
 
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
+import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UpdateUserInformationApplication {
     private final UserServiceInterface userService;
+    private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
     public UserDTO updateUserInformation(UpdateUserInformationRequestDTO updateUserInformationRequest, Authentication authentication) {
         User existingUser = userService.findUserInformationByEmail(authentication.getName());
@@ -36,8 +38,8 @@ public class UpdateUserInformationApplication {
             throw new IllegalArgumentException("Error saving user");
         }
 
-        List<UUID> associatedRoles = userService.findAssignedRolesByUserId(updatedUser.getUserId());
-        List<String> roleNames = userService.findRoleNamesByRoleIds(associatedRoles);
+        List<UUID> associatedRoles = userRoleAssignmentService.findAssignedRolesByUserId(updatedUser.getUserId());
+        List<String> roleNames = userRoleAssignmentService.findRoleNamesByRoleIds(associatedRoles);
         return new UserDTO(updatedUser, roleNames);
     }
 }

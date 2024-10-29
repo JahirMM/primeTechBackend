@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.user.application;
 
 import com.primetech.primetech_store.user.application.dto.UserDTO;
-import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
+import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
 import lombok.AllArgsConstructor;
 
@@ -10,12 +10,12 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class AssignRoleApplication {
-    private final UserServiceInterface userService;
+    private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
     public UserDTO assignRole(UUID userId, String rolName) {
-        UserRoleAssignment userRoleAssignment = userService.saveUserRoleAssignment(userId, rolName);
-        List<UUID> associatedRoles = userService.findAssignedRolesByUserId(userId);
-        List<String> roleNames = userService.findRoleNamesByRoleIds(associatedRoles);
+        UserRoleAssignment userRoleAssignment = userRoleAssignmentService.saveUserRoleAssignment(userId, rolName);
+        List<UUID> associatedRoles = userRoleAssignmentService.findAssignedRolesByUserId(userId);
+        List<String> roleNames = userRoleAssignmentService.findRoleNamesByRoleIds(associatedRoles);
         return new UserDTO(userRoleAssignment.getUser(), roleNames);
     }
 }
