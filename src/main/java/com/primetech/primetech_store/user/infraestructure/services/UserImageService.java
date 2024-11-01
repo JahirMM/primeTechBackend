@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.user.infraestructure.services;
 
-import com.primetech.primetech_store.user.domain.interfaces.UploadUserImageServiceInterface;
+import com.primetech.primetech_store.common.exception.UserImageDeletionException;
+import com.primetech.primetech_store.common.exception.UserImageNotFoundException;
+import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserImage;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserImageRepository;
@@ -8,10 +10,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UploadUserImageService implements UploadUserImageServiceInterface {
+public class UserImageService implements UserImageServiceInterface {
 
     private final UserImageRepository userImageRepository;
 
@@ -41,5 +45,22 @@ public class UploadUserImageService implements UploadUserImageServiceInterface {
     public List<UserImage> findUserImage(String email) {
         User user = userService.findUserInformationByEmail(email);
         return userImageRepository.findByUser_UserId(user.getUserId());
+    }
+
+    @Override
+    public void deleteUserImage(String email, UUID userImageId) {
+        userService.findUserInformationByEmail(email);
+        Optional<UserImage> userImageOptional = userImageRepository.findByUserImageId(userImageId);
+
+        userImageRepository.findByUserImageId(userImageId);
+        if (userImageOptional.isEmpty()) {
+            throw new UserImageNotFoundException("User image not found");
+        }
+        UserImage image = userImageOptional.get();
+        try {
+            userImageRepository.delete(image);
+        } catch (Exception e) {
+            throw new UserImageDeletionException("Failed to delete user image from database");
+        }
     }
 }

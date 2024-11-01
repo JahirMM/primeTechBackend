@@ -2,7 +2,7 @@ package com.primetech.primetech_store.config.userConfig;
 
 import com.primetech.primetech_store.common.filesystem.FileStorageService;
 import com.primetech.primetech_store.user.application.*;
-import com.primetech.primetech_store.user.domain.interfaces.UploadUserImageServiceInterface;
+import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class UserApplicationConfig {
     private UserServiceInterface userService;
     private UserRoleAssignmentServiceInterface userRoleAssignmentService;
-    private UploadUserImageServiceInterface uploadUserImageServiceInterface;
+    private UserImageServiceInterface userImageService;
     private final FileStorageService fileStorageService;
 
     @Bean
@@ -30,5 +30,8 @@ public class UserApplicationConfig {
     public DeleteAssignedRoleApplication deleteAssignedRoleApplication(){return  new DeleteAssignedRoleApplication(userRoleAssignmentService);}
 
     @Bean
-    public UploadUserImageApplication uploadUserProfileApplication(){return  new UploadUserImageApplication(uploadUserImageServiceInterface, fileStorageService);}
+    public UploadUserImageApplication uploadUserProfileApplication(){return  new UploadUserImageApplication(userImageService, fileStorageService);}
+
+    @Bean
+    public DeleteUserImageApplication deleteUserImageApplication(){return new DeleteUserImageApplication(userImageService, fileStorageService);}
 }

@@ -62,6 +62,12 @@ public class CustomExceptionHandler {
                 .body(new ErrorResponseDTO(ex.getMessage(), "Invalid file format or size"));
     }
 
+    @ExceptionHandler(UserImageDeletionException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUserImageDeletionException(UserImageDeletionException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponseDTO(ex.getMessage(), "Error deleting user image"));
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponseDTO> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
