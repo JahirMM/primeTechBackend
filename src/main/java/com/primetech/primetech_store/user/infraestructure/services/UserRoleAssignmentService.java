@@ -2,13 +2,11 @@ package com.primetech.primetech_store.user.infraestructure.services;
 
 import com.primetech.primetech_store.common.exception.RoleNotFoundException;
 import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
 import com.primetech.primetech_store.common.exception.UserRoleAssignmentNotFoundException;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
-import com.primetech.primetech_store.user.infraestructure.repositories.UserRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleAssignmentRepository;
 import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,6 @@ import java.util.stream.Collectors;
 public class UserRoleAssignmentService implements UserRoleAssignmentServiceInterface {
 
     private final UserRoleAssignmentRepository userRoleAssignmentRepository;
-    private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
 
     private final UserService userService;

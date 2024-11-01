@@ -9,8 +9,6 @@ import com.primetech.primetech_store.user.application.AssignRoleApplication;
 import com.primetech.primetech_store.user.application.DeleteAssignedRoleApplication;
 import com.primetech.primetech_store.user.application.dto.AssignRoleResponseDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
-import com.primetech.primetech_store.user.domain.models.User;
-import com.primetech.primetech_store.user.infraestructure.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,6 @@ public class RoleController {
 
     private final AssignRoleApplication assignRoleApplication;
     private final DeleteAssignedRoleApplication deleteAssignedRoleApplication;
-    private final UserService userService;
 
     @PostMapping("/assign/{roleName}")
     public ResponseEntity<AssignRoleResponseDTO> assignRole(@PathVariable String roleName) {
