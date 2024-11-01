@@ -2,6 +2,7 @@ package com.primetech.primetech_store.auth.application;
 
 import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
+import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
@@ -17,7 +18,7 @@ public class SignUpApplication {
         this.authService = authService;
     }
 
-    private String hasPasswrod(String password) {
+    private String hashPassword(String password) {
         return passwordEncoder.encode(password);
     }
 
@@ -32,15 +33,27 @@ public class SignUpApplication {
         authService.saveAssignedRole(roleAssigment);
     }
 
-    public User signUp(SignUpRequest request) {
-        String email = request.getEmail();
-        String password = hasPasswrod(request.getPassword());
-        String firstName = request.getFirstName();
-        String middleName = request.getMiddleName();
-        String paternalSurname = request.getPaternalSurname();
-        String maternalSurname = request.getMaternalSurname();
+    private void validateRequestFields(SignUpRequest request) {
+        if (!request.getFirstName().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("First name must contain only letters and spaces");
+        }
+        if (request.getMiddleName() != null && !request.getMiddleName().matches("^[a-zA-Z\\s]*$")) {
+            throw new InvalidFieldFormatException("Middle name must contain only letters and spaces");
+        }
+        if (!request.getPaternalSurname().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("Paternal surname must contain only letters and spaces");
+        }
+        if (!request.getMaternalSurname().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("Maternal surname must contain only letters and spaces");
+        }
+    }
 
-        User user = new User(email, password, firstName, middleName, paternalSurname, maternalSurname);
+    public User signUp(SignUpRequest request) {
+
+        validateRequestFields(request);
+        String email = request.getEmail();
+        String password = hashPassword(request.getPassword());
+        User user = new User(email, password, request.getFirstName(), request.getMiddleName(), request.getPaternalSurname(), request.getMaternalSurname());
         User savedUser = authService.createUser(user);
 
         authService.createUser(savedUser);
