@@ -13,27 +13,27 @@ import java.util.Map;
 @RestControllerAdvice
 public class CustomExceptionHandler {
     @ExceptionHandler(UserAlreadyHasRoleException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserAlreadyHasRoleException(UserAlreadyHasRoleException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleUserAlreadyHasRoleException() {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ErrorResponseDTO(ex.getMessage(), "User already has the specified role"));
+                .body(new ErrorResponseDTO("User already has the specified role"));
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserNotFoundException(UserNotFoundException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleUserNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage(), "User not found"));
+                .body(new ErrorResponseDTO("User not found"));
     }
 
     @ExceptionHandler(RoleNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleRoleNotFoundException(RoleNotFoundException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleRoleNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage(), "Role not found"));
+                .body(new ErrorResponseDTO("Role not found"));
     }
 
     @ExceptionHandler(UserRoleAssignmentNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserRoleAssignmentNotFoundException(UserRoleAssignmentNotFoundException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleUserRoleAssignmentNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage(), "No role assignment found for the specified user and role"));
+                .body(new ErrorResponseDTO("No role assignment found for the specified user and role"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -45,32 +45,38 @@ public class CustomExceptionHandler {
     }
 
     @ExceptionHandler(UserImageNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserImageNotFoundException(UserImageNotFoundException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleUserImageNotFoundException() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage(), "User image not found"));
+                .body(new ErrorResponseDTO("User image not found"));
     }
 
     @ExceptionHandler(FileStorageException.class)
-    public ResponseEntity<ErrorResponseDTO> handleFileStorageException(FileStorageException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleFileStorageException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponseDTO(ex.getMessage(), "An error occurred while handling the file storage"));
+                .body(new ErrorResponseDTO("An error occurred while handling the file storage"));
     }
 
     @ExceptionHandler(InvalidFileFormatException.class)
-    public ResponseEntity<ErrorResponseDTO> handleInvalidFileFormatException(InvalidFileFormatException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleInvalidFileFormatException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponseDTO(ex.getMessage(), "Invalid file format or size"));
+                .body(new ErrorResponseDTO("Invalid file format or size"));
     }
 
     @ExceptionHandler(UserImageDeletionException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserImageDeletionException(UserImageDeletionException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleUserImageDeletionException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponseDTO(ex.getMessage(), "Error deleting user image"));
+                .body(new ErrorResponseDTO("Error deleting user image"));
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponseDTO> handleRuntimeException(RuntimeException ex) {
+    public ResponseEntity<ErrorResponseDTO> handleRuntimeException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponseDTO(ex.getMessage(), "Unexpected error occurred"));
+                .body(new ErrorResponseDTO("Unexpected error occurred"));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponseDTO> handleIllegalArgumentException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponseDTO("Invalid argument provided"));
     }
 }

@@ -31,20 +31,9 @@ public class RoleController {
     public ResponseEntity<AssignRoleResponseDTO> assignRole(@PathVariable String roleName) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                String email = authentication.getName();
-                UserDTO userDTO = assignRoleApplication.assignRole(email, roleName);
-                return ResponseEntity.ok(new AssignRoleResponseDTO(userDTO, "correctly assigned role"));
-            } catch (UserAlreadyHasRoleException ex) {
-                return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
-            } catch (UserNotFoundException | RoleNotFoundException ex) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
-            } catch (RuntimeException ex) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new AssignRoleResponseDTO(null, ex.getMessage()));
-            }
+            String email = authentication.getName();
+            UserDTO userDTO = assignRoleApplication.assignRole(email, roleName);
+            return ResponseEntity.ok(new AssignRoleResponseDTO(userDTO, "correctly assigned role"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AssignRoleResponseDTO(null, "Please log in"));
@@ -56,20 +45,10 @@ public class RoleController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Map<String, String> response = new HashMap<>();
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                String email = authentication.getName();
-                deleteAssignedRoleApplication.deleteAssignedRole(email, roleName);
-                response.put("message", "The assigned role has been successfully deleted");
-                return ResponseEntity.ok(response);
-            } catch (UserRoleAssignmentNotFoundException | UserNotFoundException | RoleNotFoundException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(response);
-            } catch (RuntimeException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(response);
-            }
+            String email = authentication.getName();
+            deleteAssignedRoleApplication.deleteAssignedRole(email, roleName);
+            response.put("message", "The assigned role has been successfully deleted");
+            return ResponseEntity.ok(response);
         } else {
             response.put("message", "Please log in");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

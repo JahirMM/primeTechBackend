@@ -27,39 +27,24 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                UserDTO userDTO = userInformationApplication.getUserInformation(authentication.getName());
-                if (userDTO == null) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                            .body(new UserInformationResponseDTO(null, "User not found"));
-                }
-                return ResponseEntity.ok(new UserInformationResponseDTO(userDTO, "User found"));
-            } catch (UserNotFoundException ex) {
+            UserDTO userDTO = userInformationApplication.getUserInformation(authentication.getName());
+            if (userDTO == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new UserInformationResponseDTO(null, ex.getMessage()));
+                        .body(new UserInformationResponseDTO(null, "User not found"));
             }
+            return ResponseEntity.ok(new UserInformationResponseDTO(userDTO, "User found"));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new UserInformationResponseDTO(null, "Please log in"));
         }
     }
 
-    @PostMapping(value = "/user")
+    @PutMapping(value = "/user")
     public ResponseEntity<UserInformationResponseDTO> updateUserInformation(@Valid @RequestBody UpdateUserInformationRequestDTO userRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
                 UserDTO userDTO = updateUserInformationApplication.updateUserInformation(userRequest, authentication);
                 return ResponseEntity.ok(new UserInformationResponseDTO(userDTO, "Data has been correctly updated"));
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Error de validación: " + ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(new UserInformationResponseDTO(null, ex.getMessage()));
-            } catch (RuntimeException ex) {
-                System.out.println("Error interno del servidor: " + ex.getMessage());
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body(new UserInformationResponseDTO(null, "Internal server error"));
-            }
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new UserInformationResponseDTO(null, "Please log in"));

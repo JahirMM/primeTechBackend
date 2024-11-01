@@ -33,54 +33,38 @@ public class AuthController {
 
     @PostMapping(value = "login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
-        try {
-            // Autenticar al usuario y obtener UserDetails
-            UserDetails userDetails = loginApplication.login(request);
+        // Autenticar al usuario y obtener UserDetails
+        UserDetails userDetails = loginApplication.login(request);
 
-            // Generar el token
-            String token = jwtService.getToken(userDetails);
+        // Generar el token
+        String token = jwtService.getToken(userDetails);
 
-            // Crear la cookie con el token JWT
-            String cookieName = "jwt";
-            Cookie cookie = new Cookie(cookieName, token);
+        // Crear la cookie con el token JWT
+        String cookieName = "jwt";
+        Cookie cookie = new Cookie(cookieName, token);
 
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            cookie.setSecure(true);
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
-            String cookieHeader = String.format("%s=%s; HttpOnly; Path=/; Secure; Max-Age=%d; SameSite=Strict",
-                    cookieName,
-                    token,
-                    24 * 60 * 60);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setMaxAge(24 * 60 * 60);
+        response.addCookie(cookie);
+        String cookieHeader = String.format("%s=%s; HttpOnly; Path=/; Secure; Max-Age=%d; SameSite=Strict",
+                cookieName,
+                token,
+                24 * 60 * 60);
 
-            response.setHeader("Set-Cookie", cookieHeader);
+        response.setHeader("Set-Cookie", cookieHeader);
 
-            LoginResponse loginResponse = new LoginResponse("session successfully logged in");
-            return ResponseEntity.ok(loginResponse);
-        } catch (UserNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new LoginResponse(ex.getMessage()));
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new LoginResponse("Unexpected error occurred"));
-        }
+        LoginResponse loginResponse = new LoginResponse("session successfully logged in");
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping(value = "signUp")
     public ResponseEntity<SignUpResponse> register(@Valid @RequestBody SignUpRequest request) {
-        try {
-            User user = signUpApplication.signUp(request);
+        User user = signUpApplication.signUp(request);
 
-            SignUpResponse signUpResponse = new SignUpResponse("user successfully created", user);
-            return ResponseEntity.ok(signUpResponse);
-        } catch (RoleNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new SignUpResponse(ex.getMessage(), null));
-        } catch (RuntimeException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new SignUpResponse("Unexpected error occurred", null));
-        }
+        SignUpResponse signUpResponse = new SignUpResponse("user successfully created", user);
+        return ResponseEntity.ok(signUpResponse);
     }
 
     @PostMapping(value = "logout")

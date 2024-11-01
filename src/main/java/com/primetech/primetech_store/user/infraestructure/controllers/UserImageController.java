@@ -25,49 +25,32 @@ public class UserImageController {
     private final DeleteUserImageApplication deleteUserImageApplication;
 
     @PostMapping("")
-    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("image") MultipartFile file) throws Exception {
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("image") MultipartFile file) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Map<String, String> response = new HashMap<>();
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                String email = authentication.getName();
-                uploadUserImageApplication.uploadUserProfile(file, email);
-                response.put("message", "Image successfully uploaded");
-                return ResponseEntity.ok(response);
-            } catch (UserNotFoundException | UserImageNotFoundException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-            } catch (RuntimeException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-            }
+            String email = authentication.getName();
+            uploadUserImageApplication.uploadUserProfile(file, email);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Image successfully uploaded");
+            return ResponseEntity.ok(response);
         } else {
+            Map<String, String> response = new HashMap<>();
             response.put("message", "Please log in");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 
     @DeleteMapping("/{userImageId}")
-    public ResponseEntity<Map<String, String>> deleteUserImage(@PathVariable("userImageId") UUID userImageId) throws Exception {
+    public ResponseEntity<Map<String, String>> deleteUserImage(@PathVariable("userImageId") UUID userImageId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Map<String, String> response = new HashMap<>();
         if (authentication != null && authentication.isAuthenticated()) {
-            try {
-                String email = authentication.getName();
-                deleteUserImageApplication.deleteUserImage(email, userImageId);
-                response.put("message", "Image deleted correctly");
-                return ResponseEntity.ok(response);
-            } catch (UserNotFoundException | UserImageNotFoundException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-            } catch (UserImageDeletionException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-            } catch (RuntimeException ex) {
-                response.put("message", ex.getMessage());
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-            }
+            String email = authentication.getName();
+            deleteUserImageApplication.deleteUserImage(email, userImageId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Image deleted correctly");
+            return ResponseEntity.ok(response);
         } else {
+            Map<String, String> response = new HashMap<>();
             response.put("message", "Please log in");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
