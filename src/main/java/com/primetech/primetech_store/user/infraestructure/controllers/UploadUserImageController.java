@@ -31,7 +31,7 @@ public class UploadUserImageController {
             try {
                 String email = authentication.getName();
                 uploadUserImageApplication.uploadUserProfile(file, email);
-                response.put("message", "Imagen subida correctamente");
+                response.put("message", "Image successfully uploaded");
                 return ResponseEntity.ok(response);
             } catch (UserNotFoundException | UserImageNotFoundException ex) {
                 response.put("message", ex.getMessage());

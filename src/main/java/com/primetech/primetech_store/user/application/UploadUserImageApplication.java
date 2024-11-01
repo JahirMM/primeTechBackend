@@ -18,7 +18,7 @@ public class UploadUserImageApplication {
     private final UploadUserImageServiceInterface uploadUserImageService;
     private final FileStorageService fileStorageService;
 
-    public String uploadUserProfile(MultipartFile file, String email) {
+    public void uploadUserProfile(MultipartFile file, String email) {
         String originalName = file.getOriginalFilename();
 
         if (!fileStorageService.isValidFile(file, originalName)) {
@@ -42,7 +42,6 @@ public class UploadUserImageApplication {
         try {
             String relativePath = fileStorageService.saveFile(file, "userImages" ,newFileName);
             uploadUserImageService.uploadUserProfile(email, relativePath);
-            return "File uploaded successfully!";
         } catch (IOException e) {
             throw new FileStorageException("Error saving file");
         }
