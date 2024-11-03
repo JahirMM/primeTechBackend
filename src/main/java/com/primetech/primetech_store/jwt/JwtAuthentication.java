@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -25,14 +26,16 @@ public class JwtAuthentication extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    private static final List<String> PUBLIC_URLS = List.of("/auth/login", "/auth/signUp", "/auth/logout");
+    private static final List<String> PUBLIC_URLS = List.of("/auth/**", "/userImage/**");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
 
-        if (PUBLIC_URLS.contains(path)) {
+        // Utiliza AntPathMatcher para verificar si la URL es pública
+        if (PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path))) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -46,17 +49,14 @@ public class JwtAuthentication extends OncePerRequestFilter {
         }
 
         email = jwtService.getEmailFromToken(TOKEN);
-        // Si no se puede extraer el email, retorna un mensaje
         if (email == null || SecurityContextHolder.getContext().getAuthentication() != null) {
             sendErrorResponse(response, "Invalid or expired token");
             return;
         }
 
         try {
-
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-            // Si el token es válido, establece la autenticación
             if (jwtService.isTokenValid(TOKEN, userDetails)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
@@ -79,7 +79,6 @@ public class JwtAuthentication extends OncePerRequestFilter {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // Crea el JSON de respuesta
         String jsonResponse = String.format("{\"message\": \"%s\"}", mensaje);
         response.getWriter().write(jsonResponse);
     }

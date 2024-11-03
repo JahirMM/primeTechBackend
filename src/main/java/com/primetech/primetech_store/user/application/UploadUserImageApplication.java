@@ -40,7 +40,7 @@ public class UploadUserImageApplication {
 
         // Guardar el nuevo archivo
         try {
-            String relativePath = fileStorageService.saveFile(file, "userImages" ,newFileName);
+            String relativePath = fileStorageService.saveFile(file, "userImage" ,newFileName);
             uploadUserImageService.uploadUserProfile(email, relativePath);
         } catch (IOException e) {
             throw new FileStorageException("Error saving file");
