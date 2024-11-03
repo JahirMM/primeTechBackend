@@ -1,5 +1,7 @@
 package com.primetech.primetech_store.user.application;
 
+import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
+import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
@@ -16,7 +18,24 @@ public class UpdateUserInformationApplication {
     private final UserServiceInterface userService;
     private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
+    private void validateRequestFields(UpdateUserInformationRequestDTO request) {
+        if (!request.getFirstName().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("First name must contain only letters and spaces");
+        }
+        if (request.getMiddleName() != null && !request.getMiddleName().matches("^[a-zA-Z\\s]*$")) {
+            throw new InvalidFieldFormatException("Middle name must contain only letters and spaces");
+        }
+        if (!request.getPaternalSurname().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("Paternal surname must contain only letters and spaces");
+        }
+        if (!request.getMaternalSurname().matches("^[a-zA-Z\\s]+$")) {
+            throw new InvalidFieldFormatException("Maternal surname must contain only letters and spaces");
+        }
+    }
+
     public UserDTO updateUserInformation(UpdateUserInformationRequestDTO updateUserInformationRequest, Authentication authentication) {
+        validateRequestFields(updateUserInformationRequest);
+
         User existingUser = userService.findUserInformationByEmail(authentication.getName());
 
 
