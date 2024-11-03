@@ -10,4 +10,5 @@ public interface AuthServiceInterface {
     User createUser(User user);
     UserRole findRolByRoleName(String roleName);
     UserRoleAssignment saveAssignedRole(UserRoleAssignment userRoleAssignment);
+    boolean emailExists(String email);
 }

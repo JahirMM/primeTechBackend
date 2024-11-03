@@ -13,6 +13,10 @@ import com.primetech.primetech_store.user.infraestructure.repositories.UserRoleR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService implements AuthServiceInterface {
@@ -25,6 +29,12 @@ public class AuthService implements AuthServiceInterface {
     public User findUserByEmail(LoginRequest request) {
         return userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
+
+    @Override
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 
     @Override
     public User createUser(User user) {

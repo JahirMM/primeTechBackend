@@ -2,6 +2,7 @@ package com.primetech.primetech_store.auth.application;
 
 import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
+import com.primetech.primetech_store.common.exception.EmailAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
@@ -49,9 +50,12 @@ public class SignUpApplication {
     }
 
     public User signUp(SignUpRequest request) {
-
         validateRequestFields(request);
+
         String email = request.getEmail();
+        if (authService.emailExists(email)) {
+            throw new EmailAlreadyExistsException("The email address is already registered.");
+        }
         String password = hashPassword(request.getPassword());
         User user = new User(email, password, request.getFirstName(), request.getMiddleName(), request.getPaternalSurname(), request.getMaternalSurname());
         User savedUser = authService.createUser(user);
