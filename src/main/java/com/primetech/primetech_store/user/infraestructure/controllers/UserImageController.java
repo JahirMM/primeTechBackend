@@ -1,10 +1,9 @@
 package com.primetech.primetech_store.user.infraestructure.controllers;
 
-import com.primetech.primetech_store.common.exception.UserImageDeletionException;
-import com.primetech.primetech_store.common.exception.UserImageNotFoundException;
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
 import com.primetech.primetech_store.user.application.DeleteUserImageApplication;
+import com.primetech.primetech_store.user.application.GetUserImageApplication;
 import com.primetech.primetech_store.user.application.UploadUserImageApplication;
+import com.primetech.primetech_store.user.domain.models.UserImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,23 @@ import java.util.UUID;
 public class UserImageController {
     private final UploadUserImageApplication uploadUserImageApplication;
     private final DeleteUserImageApplication deleteUserImageApplication;
+    private final GetUserImageApplication getUserImageApplication;
+
+    @GetMapping("")
+    public ResponseEntity<Map<String, String>> getImage() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            UserImage userImage = getUserImageApplication.getUserImage(email);
+            Map<String, String> response = new HashMap<>();
+            response.put("imageUrl", userImage.getImgURL());
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Please log in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
 
     @PostMapping("")
     public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("image") MultipartFile file) {

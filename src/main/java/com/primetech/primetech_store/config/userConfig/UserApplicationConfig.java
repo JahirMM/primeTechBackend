@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @AllArgsConstructor
 public class UserApplicationConfig {
-    private UserServiceInterface userService;
-    private UserRoleAssignmentServiceInterface userRoleAssignmentService;
-    private UserImageServiceInterface userImageService;
+    private final UserServiceInterface userService;
+    private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
+    private final UserImageServiceInterface userImageService;
     private final FileStorageService fileStorageService;
 
     @Bean
@@ -34,4 +34,7 @@ public class UserApplicationConfig {
 
     @Bean
     public DeleteUserImageApplication deleteUserImageApplication(){return new DeleteUserImageApplication(userImageService, fileStorageService);}
+
+    @Bean
+    public GetUserImageApplication getUserImageApplication(){return new GetUserImageApplication(userImageService);}
 }
