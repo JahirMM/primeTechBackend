@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpResponse {
+public class SignUpResponseDTO {
     String message;
     User user;
 }

@@ -1,6 +1,5 @@
 package com.primetech.primetech_store.user.application;
 
-import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
 import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;

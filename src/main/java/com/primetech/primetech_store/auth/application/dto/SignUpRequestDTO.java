@@ -9,13 +9,25 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+@AllArgsConstructor
+public class SignUpRequestDTO {
+
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
-    String email;
+    private String email;
 
     @NotBlank(message = "Password is mandatory")
-    String password;
+    private String password;
+
+    @NotBlank(message = "First name is mandatory")
+    private String firstName;
+
+    private String middleName;
+
+    @NotBlank(message = "Paternal surname is mandatory")
+    private String paternalSurname;
+
+    @NotBlank(message = "Maternal surname is mandatory")
+    private String maternalSurname;
 }

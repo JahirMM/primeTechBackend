@@ -2,13 +2,10 @@ package com.primetech.primetech_store.auth.infraestructure.controllers;
 
 import com.primetech.primetech_store.auth.application.LoginApplication;
 import com.primetech.primetech_store.auth.application.SignUpApplication;
-import com.primetech.primetech_store.auth.application.dto.LoginRequest;
-import com.primetech.primetech_store.auth.application.dto.LoginResponse;
-import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
-import com.primetech.primetech_store.auth.application.dto.SignUpResponse;
-import com.primetech.primetech_store.common.DTO.ErrorResponseDTO;
-import com.primetech.primetech_store.common.exception.RoleNotFoundException;
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
+import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
+import com.primetech.primetech_store.auth.application.dto.LoginResponseDTO;
+import com.primetech.primetech_store.auth.application.dto.SignUpRequestDTO;
+import com.primetech.primetech_store.auth.application.dto.SignUpResponseDTO;
 import com.primetech.primetech_store.jwt.services.JwtService;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.servlet.http.Cookie;
@@ -16,14 +13,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/prime-tech/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -32,7 +28,7 @@ public class AuthController {
     private final SignUpApplication signUpApplication;
 
     @PostMapping(value = "login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO request, HttpServletResponse response) {
         // Autenticar al usuario y obtener UserDetails
         UserDetails userDetails = loginApplication.login(request);
 
@@ -55,15 +51,15 @@ public class AuthController {
 
         response.setHeader("Set-Cookie", cookieHeader);
 
-        LoginResponse loginResponse = new LoginResponse("session successfully logged in");
+        LoginResponseDTO loginResponse = new LoginResponseDTO("session successfully logged in");
         return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping(value = "signUp")
-    public ResponseEntity<SignUpResponse> register(@Valid @RequestBody SignUpRequest request) {
+    public ResponseEntity<SignUpResponseDTO> register(@Valid @RequestBody SignUpRequestDTO request) {
         User user = signUpApplication.signUp(request);
 
-        SignUpResponse signUpResponse = new SignUpResponse("user successfully created", user);
+        SignUpResponseDTO signUpResponse = new SignUpResponseDTO("user successfully created", user);
         return ResponseEntity.ok(signUpResponse);
     }
 

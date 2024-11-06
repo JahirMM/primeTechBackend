@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.auth.application;
 
-import com.primetech.primetech_store.auth.application.dto.SignUpRequest;
+import com.primetech.primetech_store.auth.application.dto.SignUpRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
 import com.primetech.primetech_store.common.exception.EmailAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
@@ -24,7 +24,7 @@ public class SignUpApplication {
     }
 
     private void assignRole(User user) {
-        UserRole role = authService.findRolByRoleName("normal");
+        UserRole role = authService.findRoleByRoleName("normal");
         UserRoleAssignment roleAssigment = new UserRoleAssignment();
         // alacenamos el User en roleAssigment para manejar sus datos
         roleAssigment.setUser(user);
@@ -34,7 +34,7 @@ public class SignUpApplication {
         authService.saveAssignedRole(roleAssigment);
     }
 
-    private void validateRequestFields(SignUpRequest request) {
+    private void validateRequestFields(SignUpRequestDTO request) {
         if (!request.getFirstName().matches("^[a-zA-Z\\s]+$")) {
             throw new InvalidFieldFormatException("First name must contain only letters and spaces");
         }
@@ -49,7 +49,7 @@ public class SignUpApplication {
         }
     }
 
-    public User signUp(SignUpRequest request) {
+    public User signUp(SignUpRequestDTO request) {
         validateRequestFields(request);
 
         String email = request.getEmail();

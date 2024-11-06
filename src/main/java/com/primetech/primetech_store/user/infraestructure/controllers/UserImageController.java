@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/user-image")
+@RequestMapping("/prime-tech/api/v1/user-image")
 @RequiredArgsConstructor
 public class UserImageController {
     private final UploadUserImageApplication uploadUserImageApplication;

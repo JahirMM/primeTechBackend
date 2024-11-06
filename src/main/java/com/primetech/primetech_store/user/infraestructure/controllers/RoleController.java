@@ -1,10 +1,6 @@
 package com.primetech.primetech_store.user.infraestructure.controllers;
 
 
-import com.primetech.primetech_store.common.exception.RoleNotFoundException;
-import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
-import com.primetech.primetech_store.common.exception.UserRoleAssignmentNotFoundException;
 import com.primetech.primetech_store.user.application.AssignRoleApplication;
 import com.primetech.primetech_store.user.application.DeleteAssignedRoleApplication;
 import com.primetech.primetech_store.user.application.dto.AssignRoleResponseDTO;
@@ -20,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/role")
+@RequestMapping("/prime-tech/api/v1/role")
 @RequiredArgsConstructor
 public class RoleController {
 

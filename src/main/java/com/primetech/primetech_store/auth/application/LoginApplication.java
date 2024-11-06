@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.auth.application;
 
-import com.primetech.primetech_store.auth.application.dto.LoginRequest;
+import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
@@ -17,7 +17,7 @@ public class LoginApplication {
         this.authService = authService;
     }
 
-    public UserDetails login(LoginRequest request) {
+    public UserDetails login(LoginRequestDTO request) {
         // autenticar al usuario
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 

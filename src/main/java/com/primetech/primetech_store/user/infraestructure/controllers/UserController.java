@@ -1,6 +1,5 @@
 package com.primetech.primetech_store.user.infraestructure.controllers;
 
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
 import com.primetech.primetech_store.user.application.GetUserInformationApplication;
 import com.primetech.primetech_store.user.application.UpdateUserInformationApplication;
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
@@ -15,7 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/prime-tech/api/v1")
 @RequiredArgsConstructor
 public class UserController {
 
