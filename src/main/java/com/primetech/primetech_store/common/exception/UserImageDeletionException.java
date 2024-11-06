@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class UserImageDeletionException extends RuntimeException {
+import com.primetech.primetech_store.common.exception.basicException.InternalServerErrorException;
+
+public class UserImageDeletionException extends InternalServerErrorException {
     public UserImageDeletionException(String message) {
         super(message);
     }

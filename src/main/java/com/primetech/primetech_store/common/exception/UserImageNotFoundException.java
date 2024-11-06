@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class UserImageNotFoundException extends RuntimeException {
+import com.primetech.primetech_store.common.exception.basicException.NotFoundException;
+
+public class UserImageNotFoundException extends NotFoundException {
     public UserImageNotFoundException(String message) {
         super(message);
     }

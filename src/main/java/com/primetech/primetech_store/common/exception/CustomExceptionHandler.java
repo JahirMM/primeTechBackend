@@ -1,6 +1,10 @@
 package com.primetech.primetech_store.common.exception;
 
 import com.primetech.primetech_store.common.DTO.ErrorResponseDTO;
+import com.primetech.primetech_store.common.exception.basicException.BadRequestException;
+import com.primetech.primetech_store.common.exception.basicException.ConflictException;
+import com.primetech.primetech_store.common.exception.basicException.InternalServerErrorException;
+import com.primetech.primetech_store.common.exception.basicException.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,29 +16,29 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
-    @ExceptionHandler(UserAlreadyHasRoleException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserAlreadyHasRoleException(UserAlreadyHasRoleException ex) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
+//    @ExceptionHandler(UserAlreadyHasRoleException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleUserAlreadyHasRoleException(UserAlreadyHasRoleException ex) {
+//        return ResponseEntity.status(HttpStatus.CONFLICT)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserNotFoundException(UserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
+//    @ExceptionHandler(UserNotFoundException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleUserNotFoundException(UserNotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
 
-    @ExceptionHandler(RoleNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleRoleNotFoundException(RoleNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
+//    @ExceptionHandler(RoleNotFoundException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleRoleNotFoundException(RoleNotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
 
-    @ExceptionHandler(UserRoleAssignmentNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserRoleAssignmentNotFoundException( UserRoleAssignmentNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
+//    @ExceptionHandler(UserRoleAssignmentNotFoundException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleUserRoleAssignmentNotFoundException( UserRoleAssignmentNotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException exception) {
@@ -44,42 +48,69 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(UserImageNotFoundException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserImageNotFoundException(UserImageNotFoundException ex) {
+//    @ExceptionHandler(UserImageNotFoundException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleUserImageNotFoundException(UserImageNotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    @ExceptionHandler(FileStorageException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleFileStorageException(FileStorageException ex) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    @ExceptionHandler(InvalidFileFormatException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleInvalidFileFormatException(InvalidFileFormatException ex) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    @ExceptionHandler(UserImageDeletionException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleUserImageDeletionException(UserImageDeletionException ex) {
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    @ExceptionHandler(InvalidFieldFormatException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleInvalidFieldFormatException(InvalidFieldFormatException ex) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    @ExceptionHandler(EmailAlreadyExistsException.class)
+//    public ResponseEntity<ErrorResponseDTO> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
+//        return ResponseEntity.status(HttpStatus.CONFLICT)
+//                .body(new ErrorResponseDTO(ex.getMessage()));
+//    }
+
+//    --
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleNotFoundException(NotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponseDTO(ex.getMessage()));
     }
 
-    @ExceptionHandler(FileStorageException.class)
-    public ResponseEntity<ErrorResponseDTO> handleFileStorageException(FileStorageException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
-
-    @ExceptionHandler(InvalidFileFormatException.class)
-    public ResponseEntity<ErrorResponseDTO> handleInvalidFileFormatException(InvalidFileFormatException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
-
-    @ExceptionHandler(UserImageDeletionException.class)
-    public ResponseEntity<ErrorResponseDTO> handleUserImageDeletionException(UserImageDeletionException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
-
-    @ExceptionHandler(InvalidFieldFormatException.class)
-    public ResponseEntity<ErrorResponseDTO> handleInvalidFieldFormatException(InvalidFieldFormatException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponseDTO(ex.getMessage()));
-    }
-
-    @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDTO> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex){
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponseDTO> handleConflictException(ConflictException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(new ErrorResponseDTO(ex.getMessage()));
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponseDTO> handleBadRequestException(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponseDTO(ex.getMessage()));
+    }
+
+    @ExceptionHandler(InternalServerErrorException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInternalServerErrorException(InternalServerErrorException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorResponseDTO(ex.getMessage()));
+    }
+
+
+    //    ---
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponseDTO> handleRuntimeException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

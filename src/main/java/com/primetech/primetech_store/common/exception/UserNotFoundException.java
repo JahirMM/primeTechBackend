@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class UserNotFoundException extends RuntimeException{
+import com.primetech.primetech_store.common.exception.basicException.NotFoundException;
+
+public class UserNotFoundException extends NotFoundException {
     public UserNotFoundException(String message) {
         super(message);
     }

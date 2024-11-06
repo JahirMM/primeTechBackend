@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class FileStorageException extends RuntimeException {
+import com.primetech.primetech_store.common.exception.basicException.InternalServerErrorException;
+
+public class FileStorageException extends InternalServerErrorException {
     public FileStorageException(String message) {
         super(message);
     }

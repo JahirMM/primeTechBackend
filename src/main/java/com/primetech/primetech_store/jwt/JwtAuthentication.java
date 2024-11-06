@@ -28,7 +28,7 @@ public class JwtAuthentication extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    private static final List<String> PUBLIC_URLS = List.of("/auth/**", "/userImage/**");
+    private static final List<String> PUBLIC_URLS = List.of("/prime-tech/api/v1/auth/**", "/userImage/**");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class EmailAlreadyExistsException extends RuntimeException {
+import com.primetech.primetech_store.common.exception.basicException.ConflictException;
+
+public class EmailAlreadyExistsException extends ConflictException {
     public EmailAlreadyExistsException(String message) {
         super(message);
     }

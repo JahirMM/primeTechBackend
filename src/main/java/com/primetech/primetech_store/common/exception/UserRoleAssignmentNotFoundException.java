@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.common.exception;
 
-public class UserRoleAssignmentNotFoundException extends RuntimeException {
+import com.primetech.primetech_store.common.exception.basicException.NotFoundException;
+
+public class UserRoleAssignmentNotFoundException extends NotFoundException {
     public UserRoleAssignmentNotFoundException(String message) {
         super(message);
     }
