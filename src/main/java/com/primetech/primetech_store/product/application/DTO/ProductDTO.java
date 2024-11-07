@@ -17,5 +17,6 @@ public class ProductDTO {
     private int stock;
     private BigDecimal price;
     private String category;
+    private String deviceType;
     private LocalDateTime createdAt;
 }
