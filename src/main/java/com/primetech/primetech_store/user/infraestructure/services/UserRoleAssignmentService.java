@@ -70,4 +70,17 @@ public class UserRoleAssignmentService implements UserRoleAssignmentServiceInter
 
         userRoleAssignmentRepository.deleteAll(userRoleAssignments);
     }
+
+    @Override
+    public boolean isSeller(User user) {
+        UserRole userRole = userRoleRepository.findByRoleName("seller").orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        List<UserRoleAssignment> userRoleAssignments = userRoleAssignmentRepository.findByUser_UserIdAndUserRole_RoleId(user.getUserId(), userRole.getRoleId());
+        for (UserRoleAssignment roleAssignment : userRoleAssignments) {
+            if (roleAssignment.getUserRole().getRoleId().equals(userRole.getRoleId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

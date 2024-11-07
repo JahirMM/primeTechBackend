@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.user.domain.interfaces;
 
+import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface UserRoleAssignmentServiceInterface {
     List<String> findRoleNamesByRoleIds(List<UUID> roleIds);
     UserRoleAssignment saveUserRoleAssignment(String email, String roleName);
     void deleteAssignedRole(String email, String roleName);
+    boolean isSeller(User user);
 }
