@@ -18,8 +18,6 @@ import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
 @AllArgsConstructor
 public class AddProductApplication {
     private final ProductServiceInterface productService;
