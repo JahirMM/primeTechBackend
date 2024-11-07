@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
+import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.AddProductRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.ProductDTO;
@@ -15,6 +16,9 @@ import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentSe
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 public class AddProductApplication {
@@ -25,6 +29,7 @@ public class AddProductApplication {
     private final DeviceServiceInterface deviceService;
     private final DeviceTypeServiceInterface deviceTypeService;
 
+    @Transactional
     public ProductDTO addProduct(AddProductRequestDTO request, String email) {
         User user = userService.findUserInformationByEmail(email);
 
@@ -37,8 +42,10 @@ public class AddProductApplication {
 
         // buscar categoria por category_name para asignar al producto
         Category category = categoryService.findCategoryByCategoryName(request.getCategory());
-
         product.setCategory(category);
+
+        // guardar el producto en la tabla product
+        Product saveProduct = productService.saveProduct(product);
 
         // buscar el deviceType que se tiene que agregar
         DeviceType deviceType = determineDeviceByCategory(category);
@@ -49,9 +56,6 @@ public class AddProductApplication {
         device.setDeviceType(deviceType);
 
         deviceService.saveDevice(product, deviceType);
-
-        // guardar el producto en la tabla product
-        Product saveProduct = productService.saveProduct(product);
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setName(saveProduct .getName());

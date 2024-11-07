@@ -4,6 +4,7 @@ import com.primetech.primetech_store.product.application.AddProductApplication;
 import com.primetech.primetech_store.product.application.DTO.AddProductRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.AddProductResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.ProductDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ProductController {
     private final AddProductApplication addProductApplication;
 
     @PostMapping("")
-    public ResponseEntity<AddProductResponseDTO> addProduct(@RequestBody AddProductRequestDTO request){
+    public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody AddProductRequestDTO request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
