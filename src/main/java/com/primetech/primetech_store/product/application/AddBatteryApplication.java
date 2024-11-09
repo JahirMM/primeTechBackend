@@ -1,14 +1,13 @@
 package com.primetech.primetech_store.product.application;
 
+import com.primetech.primetech_store.common.exception.BatteryAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.common.exception.ScreenAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.AddScreenRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.ScreenDTO;
+import com.primetech.primetech_store.product.application.DTO.*;
 import com.primetech.primetech_store.product.domain.interfaces.*;
+import com.primetech.primetech_store.product.domain.models.Battery;
 import com.primetech.primetech_store.product.domain.models.Device;
 import com.primetech.primetech_store.product.domain.models.DeviceType;
-import com.primetech.primetech_store.product.domain.models.Screen;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
@@ -18,16 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @AllArgsConstructor
-public class AddScreenApplication {
+public class AddBatteryApplication {
     private final UserServiceInterface userService;
     private final ProductServiceInterface productService;
     private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
     private final DeviceTypeServiceInterface deviceTypeService;
     private final DeviceServiceInterface deviceService;
-    private final ScreenServiceInterface screenService;
+    private final BatteryServiceInterface batteryService;
 
     @Transactional
-    public ScreenDTO addScreenApplication(AddScreenRequestDTO request, String email, UUID productId) {
+    public BatteryDTO addBatteryApplication(AddBatteryRequestDTO request, String email, UUID productId) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -43,24 +42,24 @@ public class AddScreenApplication {
 
         Device device = deviceService.findDeviceByMultipleDeviceTypes(productId, deviceMobileType.getDeviceTypeId(), deviceLaptopType.getDeviceTypeId());
 
-        if (screenService.screenExistsForDevice(device.getDeviceId())) {
-            throw new ScreenAlreadyExistsException("Screen already exists for device");
+        if (batteryService.batteryExistsForDevice(device.getDeviceId())) {
+            throw new BatteryAlreadyExistsException("Battery already exists for device");
         }
 
-        Screen screen = createScreen(device, request);
-        Screen saveScreen = screenService.saveScreen(screen);
+        Battery battery = createBattery(device, request);
+        Battery saveBattery = batteryService.saveBattery(battery);
 
-        return ScreenDTO.from(saveScreen);
+        return BatteryDTO.from(saveBattery);
     }
 
-    private Screen createScreen(Device device, AddScreenRequestDTO request) {
-        return new Screen(
+    private Battery createBattery(Device device, AddBatteryRequestDTO request) {
+        return new Battery(
                 device,
-                request.getResolution(),
-                request.getPixelDensity(),
-                request.getRefreshRate(),
-                request.getScreenType(),
-                request.getScreenSize()
+                request.getCapacity(),
+                request.getType(),
+                request.getWirelessCharging(),
+                request.getFastCharging(),
+                request.getMaxBatteryDuration()
         );
     }
 }

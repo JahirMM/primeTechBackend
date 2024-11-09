@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
-import com.primetech.primetech_store.product.application.AddScreenApplication;
+import com.primetech.primetech_store.product.application.AddBatteryApplication;
 import com.primetech.primetech_store.product.application.DTO.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/prime-tech/api/v1/screen")
+@RequestMapping("/prime-tech/api/v1/battery")
 @RequiredArgsConstructor
-public class ScreenController {
-    private final AddScreenApplication addMobileDeviceApplication;
+public class BatteryController {
+    private final AddBatteryApplication addBatteryApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddScreenResponseDTO> addScreen(@Valid @RequestBody AddScreenRequestDTO request, @PathVariable UUID productId){
+    public ResponseEntity<AddBatteryResponseDTO> addBattery(@Valid @RequestBody AddBatteryRequestDTO request, @PathVariable UUID productId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
-            ScreenDTO screenDTO = addMobileDeviceApplication.addScreenApplication(request, authentication.getName(), productId);
+            BatteryDTO batteryDTO = addBatteryApplication.addBatteryApplication(request, authentication.getName(), productId);
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new AddScreenResponseDTO("Screen successfully added", screenDTO));
+                    .body(new AddBatteryResponseDTO("Battery successfully added", batteryDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new AddScreenResponseDTO("Please log in", null));
+                    .body(new AddBatteryResponseDTO("Please log in", null));
         }
     }
 }
