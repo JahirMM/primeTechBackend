@@ -3,6 +3,7 @@ package com.primetech.primetech_store.config.productConfig;
 import com.primetech.primetech_store.product.application.AddCameraApplication;
 import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
 import com.primetech.primetech_store.product.application.AddProductApplication;
+import com.primetech.primetech_store.product.application.AddScreenApplication;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
@@ -21,6 +22,7 @@ public class ProductConfig {
     private final DeviceTypeServiceInterface deviceTypeService;
     private final MobileDeviceServiceInterface mobileDeviceService;
     private final CameraServiceInterface cameraService;
+    private final ScreenServiceInterface screenService;
 
     @Bean
     public AddProductApplication addProductApplication(){
@@ -45,6 +47,15 @@ public class ProductConfig {
                 userService, productService,
                 userRoleAssignmentService, deviceTypeService,
                 deviceService, cameraService
+        );
+    }
+
+    @Bean
+    public AddScreenApplication addScreenApplication() {
+        return new AddScreenApplication(
+                userService, productService,
+                userRoleAssignmentService, deviceTypeService,
+                deviceService, screenService
         );
     }
 }
