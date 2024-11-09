@@ -22,6 +22,7 @@ public class ProductConfig {
     private final ScreenServiceInterface screenService;
     private final BatteryServiceInterface batteryService;
     private final LaptopServiceInterface laptopService;
+    private final SimCardServiceInterface simCardService;
 
     @Bean
     public AddProductApplication addProductApplication(){
@@ -74,5 +75,10 @@ public class ProductConfig {
                 productService, userService, userRoleAssignmentService,
                 laptopService
         );
+    }
+
+    @Bean
+    public AddSimCardApplication addSimCardApplication() {
+        return new AddSimCardApplication(userService, userRoleAssignmentService, simCardService, mobileDeviceService);
     }
 }
