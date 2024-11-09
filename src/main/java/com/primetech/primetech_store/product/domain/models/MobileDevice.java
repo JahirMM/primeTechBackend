@@ -10,41 +10,41 @@ import java.util.UUID;
 @Table(name = "mobile_device", schema = "prime_tech_schema")
 public class MobileDevice {
      @Id
-     @Column(name = "mobile_device_id")
+     @Column(name = "mobile_device_id", nullable = false)
     private UUID mobileDeviceId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "device_id", referencedColumnName = "device_id")
+    @JoinColumn(name = "device_id", referencedColumnName = "device_id", nullable = false)
     private Device device;
 
-    @Column(name = "internal_memory")
+    @Column(name = "internal_memory", nullable = false)
     private int internalMemory;
 
-    @Column(name = "internal_memory_type")
+    @Column(name = "internal_memory_type", nullable = false)
     private String internalMemoryType;
 
-    @Column(name = "ram")
+    @Column(name = "ram", nullable = false)
     private int ram;
 
-    @Column(name = "color")
+    @Column(name = "color", nullable = false)
     private String color;
 
-    @Column(name = "processor")
+    @Column(name = "processor", nullable = false)
     private String processor;
 
-    @Column(name = "operating_system")
+    @Column(name = "operating_system", nullable = false)
     private String operatingSystem;
 
     @Column(name = "ip_rating")
     private String ipRating;
 
-    @Column(name = "splash_resistant")
+    @Column(name = "splash_resistant", nullable = false)
     private boolean splashResistant;
 
-    @Column(name = "dust_resistant")
+    @Column(name = "dust_resistant", nullable = false)
     private boolean dustResistant;
 
-    @Column(name = "water_resistant")
+    @Column(name = "water_resistant", nullable = false)
     private boolean waterResistant;
 
     public MobileDevice() {

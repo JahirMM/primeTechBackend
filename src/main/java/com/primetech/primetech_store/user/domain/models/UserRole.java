@@ -17,8 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserRole {
     @Id
-    @Column(name = "role_id")
+    @Column(name = "role_id", nullable = false)
     private UUID roleId;
-    @Column(name = "role_name")
+    @Column(name = "role_name", nullable = false)
     private String roleName;
 }

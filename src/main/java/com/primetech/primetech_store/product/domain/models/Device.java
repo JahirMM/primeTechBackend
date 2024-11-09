@@ -10,15 +10,15 @@ import java.util.UUID;
 @Table(name = "device", schema = "prime_tech_schema")
 public class Device {
     @Id
-    @Column(name = "device_id")
+    @Column(name = "device_id", nullable = false)
     private final UUID deviceId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id")
+    @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id", nullable = false)
     private DeviceType deviceType;
 
     public Device() {

@@ -43,7 +43,6 @@ public class AddMobileDeviceRequestDTO {
     @JsonDeserialize(using = StringDeserializer.class)
     private String operatingSystem;
 
-    @NotBlank(message = "IP rating is mandatory")
     @Size(max = 10, message = "IP rating can have a maximum of 10 characters")
     @JsonDeserialize(using = StringDeserializer.class)
     private String ipRating;

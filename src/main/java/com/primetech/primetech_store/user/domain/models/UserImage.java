@@ -13,14 +13,14 @@ import java.util.UUID;
 public class UserImage {
 
     @Id
-    @Column(name = "user_image_id")
+    @Column(name = "user_image_id", nullable = false)
     private UUID userImageId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "img_url")
+    @Column(name = "img_url", nullable = false)
     private String imgURL;
 
     public UserImage() {

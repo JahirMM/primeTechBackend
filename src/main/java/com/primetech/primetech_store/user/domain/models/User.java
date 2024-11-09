@@ -15,34 +15,34 @@ import java.util.UUID;
 @Table(name = "user", schema = "prime_tech_schema")
 public class User{
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private UUID userId;
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotBlank(message = "Password is mandatory")
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @NotBlank(message = "First name is mandatory")
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "middle_name")
     private String middleName;
 
     @NotBlank(message = "Paternal surname is mandatory")
-    @Column(name = "paternal_surname")
+    @Column(name = "paternal_surname", nullable = false)
     private String paternalSurname;
 
     @NotBlank(message = "Maternal surname is mandatory")
-    @Column(name = "maternal_surname")
+    @Column(name = "maternal_surname", nullable = false)
     private String maternalSurname;
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     public User() {

@@ -13,10 +13,10 @@ import java.util.UUID;
 @Table(name = "category", schema = "prime_tech_schema")
 public class Category {
     @Id
-    @Column(name = "category_id")
+    @Column(name = "category_id", nullable = false)
     private UUID categoryId;
 
-    @Column(name = "category_name")
+    @Column(name = "category_name", nullable = false)
     private String categoryName;
 
     public Category() {
