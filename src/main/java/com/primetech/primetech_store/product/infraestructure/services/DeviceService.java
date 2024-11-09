@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.MobileDeviceNotAllowedException;
+import com.primetech.primetech_store.common.exception.DeviceInformationNotAllowedException;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
 import com.primetech.primetech_store.product.domain.models.DeviceType;
@@ -26,10 +26,10 @@ public class DeviceService implements DeviceServiceInterface {
     }
 
     @Override
-    public Device findDevice(UUID productId, UUID deviceTypeID) {
+    public Device findDevice(UUID productId, UUID deviceTypeID, String deviceTypeName) {
         Optional<Device> deviceOptional = deviceRepository.findByProduct_ProductIdAndDeviceType_DeviceTypeId(productId, deviceTypeID);
-        if (deviceOptional.isEmpty()) {
-            throw new MobileDeviceNotAllowedException("Product is not allowed additional information in mobile_device");
+        if (!deviceOptional.isEmpty()) {
+            throw new DeviceInformationNotAllowedException("Product is not allowed additional information in " + deviceTypeName);
         }
         return deviceOptional.get();
     }
@@ -40,7 +40,7 @@ public class DeviceService implements DeviceServiceInterface {
         Optional<Device> deviceOptional = deviceRepository.findByProduct_ProductIdAndDeviceType_DeviceTypeIdIn(productId, deviceTypeIds);
 
         if (deviceOptional.isEmpty()) {
-            throw new MobileDeviceNotAllowedException("Product does not allow additional information for the specified device types.");
+            throw new DeviceInformationNotAllowedException("Product does not allow additional information for the specified device types.");
         }
 
         return deviceOptional.get();

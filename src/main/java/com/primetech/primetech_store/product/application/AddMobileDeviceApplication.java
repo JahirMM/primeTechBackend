@@ -46,7 +46,7 @@ public class AddMobileDeviceApplication {
         DeviceType deviceType = deviceTypeService.findDeviceTypeByTypeName("mobile");
 
         // buscar el device
-        Device device = deviceService.findDevice(productId, deviceType.getDeviceTypeId());
+        Device device = deviceService.findDevice(productId, deviceType.getDeviceTypeId(), "mobile_type");
 
         //creamos el mobileDevice donde necesitamos el Device y los datos del request
         MobileDevice mobileDevice = createMobileDevice(device, request);

@@ -21,6 +21,7 @@ public class ProductConfig {
     private final CameraServiceInterface cameraService;
     private final ScreenServiceInterface screenService;
     private final BatteryServiceInterface batteryService;
+    private final LaptopServiceInterface laptopService;
 
     @Bean
     public AddProductApplication addProductApplication(){
@@ -63,6 +64,15 @@ public class ProductConfig {
                 userService, productService,
                 userRoleAssignmentService, deviceTypeService,
                 deviceService, batteryService
+        );
+    }
+
+    @Bean
+    public AddLaptopApplication addLaptopApplication() {
+        return new AddLaptopApplication(
+                deviceTypeService, deviceService,
+                productService, userService, userRoleAssignmentService,
+                laptopService
         );
     }
 }

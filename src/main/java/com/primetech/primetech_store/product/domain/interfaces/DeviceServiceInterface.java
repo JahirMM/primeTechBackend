@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface DeviceServiceInterface {
     Device saveDevice(Product product, DeviceType deviceType);
-    Device findDevice(UUID productId, UUID deviceTypeID);
+    Device findDevice(UUID productId, UUID deviceTypeID, String deviceTypeName);
     Device findDeviceByMultipleDeviceTypes(UUID productId, UUID deviceMobileTypeId, UUID deviceLaptopTypeId);
 }
