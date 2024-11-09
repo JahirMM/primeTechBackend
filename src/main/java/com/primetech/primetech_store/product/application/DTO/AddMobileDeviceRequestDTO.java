@@ -20,7 +20,7 @@ public class AddMobileDeviceRequestDTO {
     private int internalMemory;
 
     @NotBlank(message = "Internal memory type is mandatory")
-    @Size(max = 5, message = "Internal memory type can have a maximum of 20 characters")
+    @Size(max = 5, message = "Internal memory type can have a maximum of 5 characters")
     @JsonDeserialize(using = StringDeserializer.class)
     private String internalMemoryType;
 

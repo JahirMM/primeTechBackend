@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface DeviceServiceInterface {
     Device saveDevice(Product product, DeviceType deviceType);
     Device findDevice(UUID productId, UUID deviceTypeID);
+    Device findDeviceByMultipleDeviceTypes(UUID productId, UUID deviceMobileTypeId, UUID deviceLaptopTypeId);
 }

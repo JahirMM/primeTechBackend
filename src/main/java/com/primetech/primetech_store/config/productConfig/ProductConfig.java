@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.config.productConfig;
 
+import com.primetech.primetech_store.product.application.AddCameraApplication;
 import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
 import com.primetech.primetech_store.product.application.AddProductApplication;
 import com.primetech.primetech_store.product.domain.interfaces.*;
@@ -19,6 +20,7 @@ public class ProductConfig {
     private final DeviceServiceInterface deviceService;
     private final DeviceTypeServiceInterface deviceTypeService;
     private final MobileDeviceServiceInterface mobileDeviceService;
+    private final CameraServiceInterface cameraService;
 
     @Bean
     public AddProductApplication addProductApplication(){
@@ -34,6 +36,15 @@ public class ProductConfig {
                 deviceTypeService, deviceService,
                 productService, userService, userRoleAssignmentService,
                 mobileDeviceService
+        );
+    }
+
+    @Bean
+    public AddCameraApplication addCameraApplication(){
+        return new AddCameraApplication(
+                userService, productService,
+                userRoleAssignmentService, deviceTypeService,
+                deviceService, cameraService
         );
     }
 }
