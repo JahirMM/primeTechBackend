@@ -34,8 +34,9 @@ public class JwtAuthentication extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
 
-        // Utiliza AntPathMatcher para verificar si la URL es pública
-        if (PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path))) {
+        boolean isPublicUrl = PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path));
+
+        if (isPublicUrl || (pathMatcher.match("/prime-tech/api/v1/products/**", path) && "GET".equalsIgnoreCase(request.getMethod()))) {
             filterChain.doFilter(request, response);
             return;
         }
