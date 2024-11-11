@@ -1,6 +1,5 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.AddProductRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.ProductDTO;

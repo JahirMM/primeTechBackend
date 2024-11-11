@@ -10,4 +10,5 @@ public interface DeviceServiceInterface {
     Device saveDevice(Product product, DeviceType deviceType);
     Device findDevice(UUID productId, UUID deviceTypeID, String deviceTypeName);
     Device findDeviceByMultipleDeviceTypes(UUID productId, UUID deviceMobileTypeId, UUID deviceLaptopTypeId);
+    Device findDevicebyProductId(UUID productId);
 }

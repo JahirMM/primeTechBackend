@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
 import com.primetech.primetech_store.common.exception.DeviceInformationNotAllowedException;
+import com.primetech.primetech_store.common.exception.DeviceNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
 import com.primetech.primetech_store.product.domain.models.DeviceType;
@@ -41,6 +42,16 @@ public class DeviceService implements DeviceServiceInterface {
 
         if (deviceOptional.isEmpty()) {
             throw new DeviceInformationNotAllowedException("Product does not allow additional information for the specified device types.");
+        }
+
+        return deviceOptional.get();
+    }
+
+    @Override
+    public Device findDevicebyProductId(UUID productId) {
+        Optional<Device> deviceOptional = deviceRepository.findByProduct_ProductId(productId);
+        if (deviceOptional.isEmpty()) {
+            throw new DeviceNotFoundException("Device not found");
         }
 
         return deviceOptional.get();

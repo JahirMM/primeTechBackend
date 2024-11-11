@@ -33,6 +33,13 @@ public class ProductConfig {
         );}
 
     @Bean
+    public GetProductApplication getProductApplication() {
+        return new GetProductApplication(
+                productService, deviceService
+        );
+    }
+
+    @Bean
     public AddMobileDeviceApplication addMobileDeviceApplication(){
         return new AddMobileDeviceApplication(
                 deviceTypeService, deviceService,
