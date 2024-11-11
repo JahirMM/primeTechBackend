@@ -1,11 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddProductApplication;
-import com.primetech.primetech_store.product.application.DTO.AddProductRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.AddProductResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.GetProductResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.ProductDTO;
+import com.primetech.primetech_store.product.application.DTO.*;
 import com.primetech.primetech_store.product.application.GetProductApplication;
+import com.primetech.primetech_store.product.application.GetProductsApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class ProductController {
     private final AddProductApplication addProductApplication;
     private final GetProductApplication getProductApplication;
+    private final GetProductsApplication getProductsApplication;
 
     @PostMapping("")
     public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody AddProductRequestDTO request){
@@ -42,5 +44,16 @@ public class ProductController {
         ProductDTO productDTO = getProductApplication.getProductApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetProductResponseDTO(productDTO));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Map<String, List<GetProductsResponseDTO>>> getProducts(){
+        Map<String, List<GetProductsResponseDTO>> response = new HashMap<>();
+        List<GetProductsResponseDTO> products = getProductsApplication.getProductsApplication();
+
+        response.put("Products", products);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
     }
 }

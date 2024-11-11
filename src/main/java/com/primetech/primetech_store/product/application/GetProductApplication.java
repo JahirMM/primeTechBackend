@@ -13,8 +13,6 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class GetProductApplication {
-    // no tenemos que validar si el usuario esta autenticado ni si es vendedor
-    // en este caso solo se traira la informde un solo producto
     private final ProductServiceInterface productService;
     private final DeviceServiceInterface deviceService;
 

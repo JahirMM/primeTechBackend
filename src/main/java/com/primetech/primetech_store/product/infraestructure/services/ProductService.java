@@ -7,6 +7,7 @@ import com.primetech.primetech_store.product.infraestructure.repositories.Produc
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,5 +35,10 @@ public class ProductService implements ProductServiceInterface {
     @Override
     public boolean existsProductByProductId(UUID productId) {
         return productRepository.existsByProductId(productId);
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
     }
 }
