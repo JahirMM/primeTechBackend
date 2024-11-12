@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetBatteryResponseDTO {
-    private List<BatteryDTO> batteries;
+    private List<BatteryDTO> battery;
 }

@@ -1,9 +1,13 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
+import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
+import com.primetech.primetech_store.product.application.DTO.battery.GetBatteryResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.GetMobileDeviceApplicationDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceDTO;
+import com.primetech.primetech_store.product.application.GetMobileDeviceApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -19,6 +24,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MobileDeviceController {
     private final AddMobileDeviceApplication addMobileDeviceApplication;
+    private final GetMobileDeviceApplication getMobileDeviceApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddMobileDeviceResponseDTO> addMobileDevice(@PathVariable UUID productId, @Valid @RequestBody AddMobileDeviceRequestDTO request){
@@ -32,5 +38,12 @@ public class MobileDeviceController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AddMobileDeviceResponseDTO("Please log in", null));
         }
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<GetMobileDeviceApplicationDTO> getMobileDevice(@PathVariable UUID productId) {
+        List<MobileDeviceDTO> mobileDevices = getMobileDeviceApplication.getMobileDeviceApplication(productId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new GetMobileDeviceApplicationDTO(mobileDevices));
     }
 }

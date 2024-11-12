@@ -1,13 +1,13 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
 import com.primetech.primetech_store.common.exception.MobileDeviceNotFoundException;
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.MobileDeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.models.MobileDevice;
 import com.primetech.primetech_store.product.infraestructure.repositories.MobileDeviceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,5 +30,10 @@ public class MobileDeviceService implements MobileDeviceServiceInterface {
         }
 
         return mobileDeviceOptional.get();
+    }
+
+    @Override
+    public List<MobileDevice> findMobileDeviceInformationByDeviceId(UUID deviceId) {
+        return mobileDeviceRepository.findByDevice_DeviceId(deviceId);
     }
 }

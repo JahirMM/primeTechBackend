@@ -69,6 +69,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public GetMobileDeviceApplication getMobileDeviceApplication() {
+        return new GetMobileDeviceApplication(
+                mobileDeviceService, deviceService,
+                productService
+        );
+    }
+
     /*
      * Camera
      */

@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetCameraResponseDTO {
-    private List<CameraDTO> cameras;
+    private List<CameraDTO> camera;
 }
