@@ -116,6 +116,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public GetBatteryApplication getBatteryApplication() {
+        return new GetBatteryApplication(
+                batteryService, deviceService,
+                productService
+        );
+    }
+
     /*
      * Laptop
      */

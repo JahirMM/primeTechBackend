@@ -6,6 +6,7 @@ import com.primetech.primetech_store.product.infraestructure.repositories.Batter
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,5 +22,10 @@ public class BatteryService implements BatteryServiceInterface {
     @Override
     public boolean batteryExistsForDevice(UUID deviceId) {
         return batteryRepository.existsByDevice_DeviceId(deviceId);
+    }
+
+    @Override
+    public List<Battery> findBatteryInformationByDeviceId(UUID deviceId) {
+        return batteryRepository.findByDevice_DeviceId(deviceId);
     }
 }
