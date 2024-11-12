@@ -91,7 +91,10 @@ public class ProductConfig {
 
     @Bean
     public GetCameraApplication getCameraApplication() {
-        return new GetCameraApplication(cameraService, deviceService, productService);
+        return new GetCameraApplication(
+                cameraService, deviceService,
+                productService
+        );
     }
 
     /*
@@ -108,8 +111,10 @@ public class ProductConfig {
 
     @Bean
     public GetScreenApplication getScreenApplication() {
-        return new GetScreenApplication(screenService, deviceService,
-                productService);
+        return new GetScreenApplication(
+                screenService, deviceService,
+                productService
+        );
     }
 
     /*
@@ -144,11 +149,22 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public GetLaptopApplication getLaptopApplication() {
+        return new GetLaptopApplication(
+                laptopService, deviceService,
+                productService
+        );
+    }
+
     /*
      * SimCard
      */
     @Bean
     public AddSimCardApplication addSimCardApplication() {
-        return new AddSimCardApplication(userService, userRoleAssignmentService, simCardService, mobileDeviceService);
+        return new AddSimCardApplication(
+                userService, userRoleAssignmentService,
+                simCardService, mobileDeviceService
+        );
     }
 }

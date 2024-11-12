@@ -6,6 +6,9 @@ import com.primetech.primetech_store.product.infraestructure.repositories.Laptop
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class LaptopService implements LaptopServiceInterface {
@@ -14,5 +17,10 @@ public class LaptopService implements LaptopServiceInterface {
     @Override
     public Laptop saveLaptop(Laptop laptop) {
         return laptopRepository.save(laptop);
+    }
+
+    @Override
+    public List<Laptop> findLaptopInformationByDeviceId(UUID deviceId) {
+        return laptopRepository.findByDevice_DeviceId(deviceId);
     }
 }
