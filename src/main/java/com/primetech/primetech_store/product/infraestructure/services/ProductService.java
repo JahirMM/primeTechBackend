@@ -1,13 +1,16 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
+import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.product.infraestructure.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,7 +41,12 @@ public class ProductService implements ProductServiceInterface {
     }
 
     @Override
-    public List<Product> findAllProducts() {
-        return productRepository.findAll();
+    public PriceRangeDTO findMinimumAndMaximumPrice() {
+        return productRepository.findPriceRange();
+    }
+
+    @Override
+    public Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
+        return productRepository.findByCriteria(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable);
     }
 }

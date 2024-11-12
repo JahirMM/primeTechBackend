@@ -47,6 +47,11 @@ public class ProductConfig {
     }
 
     @Bean
+    public GetMinimumAndMaximumPrice getMinimumAndMaximumPrice() {
+        return new GetMinimumAndMaximumPrice(productService);
+    }
+
+    @Bean
     public AddMobileDeviceApplication addMobileDeviceApplication(){
         return new AddMobileDeviceApplication(
                 deviceTypeService, deviceService,

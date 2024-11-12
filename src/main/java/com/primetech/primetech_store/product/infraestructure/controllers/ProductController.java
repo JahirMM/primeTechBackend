@@ -2,19 +2,23 @@ package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddProductApplication;
 import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.GetMinimumAndMaximumPrice;
 import com.primetech.primetech_store.product.application.GetProductApplication;
 import com.primetech.primetech_store.product.application.GetProductsApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.UUID;
 
 @RestController
@@ -24,6 +28,7 @@ public class ProductController {
     private final AddProductApplication addProductApplication;
     private final GetProductApplication getProductApplication;
     private final GetProductsApplication getProductsApplication;
+    private final GetMinimumAndMaximumPrice getMinimumAndMaximumPrice;
 
     @PostMapping("")
     public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody AddProductRequestDTO request){
@@ -47,13 +52,41 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Map<String, List<GetProductsResponseDTO>>> getProducts(){
-        Map<String, List<GetProductsResponseDTO>> response = new HashMap<>();
-        List<GetProductsResponseDTO> products = getProductsApplication.getProductsApplication();
+    public ResponseEntity<GetProductsResponseDTO> getProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) String categoryId,
+            @RequestParam(required = false) String sellerId,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice,
+            @PageableDefault(page = 0, size = 2) Pageable pageable) {
 
-        response.put("Products", products);
+        name = (name == null) ? "" : name;
+        brand = (brand == null) ? "" : brand;
+        minPrice = (minPrice == null) ? getMinimumAndMaximumPrice.getMinimumAndMaximumPrice().getMinPrice() : minPrice;
+        maxPrice = (maxPrice == null) ? getMinimumAndMaximumPrice.getMinimumAndMaximumPrice().getMaxPrice() : maxPrice;
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(response);
+        UUID sellerUUID = null;
+        UUID categoryUUID = null;
+
+        try {
+            if (sellerId != null) {
+                sellerUUID = UUID.fromString(sellerId);
+            }
+            if (categoryId != null) {
+                categoryUUID = UUID.fromString(categoryId);
+            }
+        } catch (IllegalArgumentException e) {
+            GetProductsResponseDTO emptyResponse = new GetProductsResponseDTO(Collections.emptyList(), new PagedModel.PageMetadata(0, 0, 0));
+            return ResponseEntity.status(HttpStatus.OK).body(emptyResponse);
+        }
+
+
+        Page<ProductDetailsDTO> products = getProductsApplication.getProductsApplication(name, brand, categoryUUID, sellerUUID, minPrice, maxPrice, pageable);
+        PagedModel.PageMetadata pageMetadata = new PagedModel.PageMetadata(products.getSize(), products.getNumber(), products.getTotalElements());
+
+        GetProductsResponseDTO response = new GetProductsResponseDTO(products.getContent(), pageMetadata);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
