@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddScreenApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.screen.AddScreenRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.screen.AddScreenResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.screen.ScreenDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

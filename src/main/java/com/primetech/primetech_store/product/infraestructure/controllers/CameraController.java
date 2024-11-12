@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddCameraApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.camera.AddCameraRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.camera.AddCameraResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.camera.CameraDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

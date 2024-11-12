@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.application.DTO;
+package com.primetech.primetech_store.product.application.DTO.laptop;
 
 import com.primetech.primetech_store.product.domain.models.Laptop;
 import lombok.AllArgsConstructor;

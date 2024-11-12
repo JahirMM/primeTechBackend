@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

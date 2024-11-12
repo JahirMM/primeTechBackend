@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.product.application.DTO.ProductDetailsDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
 import lombok.AllArgsConstructor;

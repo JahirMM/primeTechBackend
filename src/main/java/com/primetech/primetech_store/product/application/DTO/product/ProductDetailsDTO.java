@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.application.DTO;
+package com.primetech.primetech_store.product.application.DTO.product;
 
 import com.primetech.primetech_store.product.domain.models.Product;
 import lombok.AllArgsConstructor;

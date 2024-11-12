@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddLaptopApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.laptop.AddLaptopRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.laptop.AddLaptopResponsiveDTO;
+import com.primetech.primetech_store.product.application.DTO.laptop.LaptopDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

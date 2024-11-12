@@ -1,8 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
-import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
 import com.primetech.primetech_store.product.application.AddSimCardApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.simCard.AddSimCardRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.simCard.AddSimCardResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.simCard.SimCardDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

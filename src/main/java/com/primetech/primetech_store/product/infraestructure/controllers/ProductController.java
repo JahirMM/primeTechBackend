@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddProductApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.product.*;
 import com.primetech.primetech_store.product.application.GetMinimumAndMaximumPrice;
 import com.primetech.primetech_store.product.application.GetProductApplication;
 import com.primetech.primetech_store.product.application.GetProductsApplication;
@@ -59,7 +59,7 @@ public class ProductController {
             @RequestParam(required = false) String sellerId,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
-            @PageableDefault(page = 0, size = 2) Pageable pageable) {
+            @PageableDefault(page = 0, size = 20) Pageable pageable) {
 
         name = (name == null) ? "" : name;
         brand = (brand == null) ? "" : brand;
@@ -82,8 +82,12 @@ public class ProductController {
         }
 
 
-        Page<ProductDetailsDTO> products = getProductsApplication.getProductsApplication(name, brand, categoryUUID, sellerUUID, minPrice, maxPrice, pageable);
-        PagedModel.PageMetadata pageMetadata = new PagedModel.PageMetadata(products.getSize(), products.getNumber(), products.getTotalElements());
+        Page<ProductDetailsDTO> products = getProductsApplication.getProductsApplication(name, brand,
+                categoryUUID, sellerUUID,
+                minPrice, maxPrice, pageable);
+        PagedModel.PageMetadata pageMetadata = new PagedModel.PageMetadata(products.getSize(),
+                products.getNumber(),
+                products.getTotalElements());
 
         GetProductsResponseDTO response = new GetProductsResponseDTO(products.getContent(), pageMetadata);
 

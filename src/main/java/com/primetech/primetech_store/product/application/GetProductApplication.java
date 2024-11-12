@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.product.application.DTO.ProductDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;

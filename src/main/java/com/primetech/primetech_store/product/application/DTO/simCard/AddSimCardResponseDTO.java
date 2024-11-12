@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.application.DTO;
+package com.primetech.primetech_store.product.application.DTO.simCard;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductResponseDTO {
+public class AddSimCardResponseDTO {
     private String message;
-    private ProductDTO product;
+    private SimCardDTO simCard;
 }

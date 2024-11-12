@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.application.DTO;
+package com.primetech.primetech_store.product.application.DTO.mobileDevice;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddScreenResponseDTO {
+public class AddMobileDeviceResponseDTO {
     private String message;
-    private ScreenDTO screen;
+    private MobileDeviceDTO mobileDevice;
 }

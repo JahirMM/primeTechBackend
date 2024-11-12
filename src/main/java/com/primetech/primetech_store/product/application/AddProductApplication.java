@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.AddProductRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.ProductDTO;
+import com.primetech.primetech_store.product.application.DTO.product.AddProductRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
 import com.primetech.primetech_store.product.domain.interfaces.CategoryServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceTypeServiceInterface;

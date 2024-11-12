@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.application.DTO;
+package com.primetech.primetech_store.product.application.DTO.mobileDevice;
 
 import com.primetech.primetech_store.product.domain.models.MobileDevice;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddBatteryApplication;
-import com.primetech.primetech_store.product.application.DTO.*;
+import com.primetech.primetech_store.product.application.DTO.battery.AddBatteryRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.battery.AddBatteryResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
