@@ -6,6 +6,9 @@ import com.primetech.primetech_store.product.infraestructure.repositories.Camera
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class CameraService implements CameraServiceInterface {
@@ -14,5 +17,10 @@ public class CameraService implements CameraServiceInterface {
     @Override
     public Camera saveCamera(Camera camera) {
         return cameraRepository.save(camera);
+    }
+
+    @Override
+    public List<Camera> findCameraInformationByDeviceId(UUID deviceId) {
+        return cameraRepository.findByDevice_DeviceId(deviceId);
     }
 }

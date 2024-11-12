@@ -70,6 +70,11 @@ public class ProductConfig {
     }
 
     @Bean
+    public GetCameraApplication getCameraApplication() {
+        return new GetCameraApplication(cameraService, deviceService, productService);
+    }
+
+    @Bean
     public AddScreenApplication addScreenApplication() {
         return new AddScreenApplication(
                 userService, productService,
