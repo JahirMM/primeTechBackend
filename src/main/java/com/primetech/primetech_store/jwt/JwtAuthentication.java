@@ -28,15 +28,30 @@ public class JwtAuthentication extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
-    private static final List<String> PUBLIC_URLS = List.of("/prime-tech/api/v1/auth/**", "/userImage/**");
+    private static final List<String> ALWAYS_PUBLIC_URLS = List.of(
+            "/prime-tech/api/v1/auth/**",
+            "/userImage/**"
+    );
+
+    private static final List<String> GET_ONLY_PUBLIC_URLS = List.of(
+            "/prime-tech/api/v1/camera/**",
+            "/prime-tech/api/v1/battery/**",
+            "/prime-tech/api/v1/screen/**",
+            "/prime-tech/api/v1/mobile-device/**",
+            "/prime-tech/api/v1/laptop/**",
+            "/prime-tech/api/v1/sim-card/**",
+            "/prime-tech/api/v1/products/**"
+    );
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
+        String method = request.getMethod();
 
-        boolean isPublicUrl = PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path));
+        boolean isAlwaysPublicUrl = ALWAYS_PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path));
+        boolean isGetOnlyPublicUrl = "GET".equalsIgnoreCase(method) && GET_ONLY_PUBLIC_URLS.stream().anyMatch(publicUrl -> pathMatcher.match(publicUrl, path));
 
-        if (isPublicUrl || (pathMatcher.match("/prime-tech/api/v1/products/**", path) && "GET".equalsIgnoreCase(request.getMethod()))) {
+        if (isAlwaysPublicUrl || isGetOnlyPublicUrl) {
             filterChain.doFilter(request, response);
             return;
         }

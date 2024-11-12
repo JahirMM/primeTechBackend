@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
+
 // Esta clase se utilizará para la configuración. Contendrá métodos anotados con @Bean,
 // los cuales se emplearán para configurar los objetos necesarios.
 @Configuration
@@ -23,17 +25,32 @@ public class SecurityConfig {
     private final AuthenticationProvider authProvider;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
+    private static final List<String> ALWAYS_PUBLIC_URLS = List.of(
+            "/prime-tech/api/v1/auth/**",
+            "/userImage/**"
+    );
+
+    // Rutas públicas solo para solicitudes GET
+    private static final List<String> GET_ONLY_PUBLIC_URLS = List.of(
+            "/prime-tech/api/v1/products/**",
+            "/prime-tech/api/v1/camera/**",
+            "/prime-tech/api/v1/battery/**",
+            "/prime-tech/api/v1/screen/**",
+            "/prime-tech/api/v1/mobile-device/**",
+            "/prime-tech/api/v1/laptop/**",
+            "/prime-tech/api/v1/sim-card/**"
+    );
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authRequest ->
-                        authRequest
-                                .requestMatchers(HttpMethod.GET, "/prime-tech/api/v1/products/**").permitAll()
-                                .requestMatchers("/prime-tech/api/v1/auth/**", "/userImage/**").permitAll()
-                                .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(authRequest -> {
+                    ALWAYS_PUBLIC_URLS.forEach(url -> authRequest.requestMatchers(url).permitAll());
+                    GET_ONLY_PUBLIC_URLS.forEach(url -> authRequest.requestMatchers(HttpMethod.GET, url).permitAll());
+                    authRequest.anyRequest().authenticated();
+                })
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(customAuthenticationEntryPoint))
                 .sessionManagement(sessionManager->
                         sessionManager
