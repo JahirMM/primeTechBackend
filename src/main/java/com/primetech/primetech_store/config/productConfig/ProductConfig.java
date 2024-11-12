@@ -167,4 +167,12 @@ public class ProductConfig {
                 simCardService, mobileDeviceService
         );
     }
+
+    @Bean
+    public GetSimCardApplication getSimCardApplication() {
+        return new GetSimCardApplication(
+                simCardService, productService,
+                deviceService, mobileDeviceService
+        );
+    }
 }

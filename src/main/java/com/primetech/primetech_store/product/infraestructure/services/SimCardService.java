@@ -6,6 +6,7 @@ import com.primetech.primetech_store.product.infraestructure.repositories.SimCar
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,5 +22,10 @@ public class SimCardService implements SimCardServiceInterface {
     @Override
     public boolean existsSimCardByMobileDeviceId(UUID mobileDeviceId) {
         return simCardRepository.existsByMobileDevice_MobileDeviceId(mobileDeviceId);
+    }
+
+    @Override
+    public List<SimCard> findSimCardInformationByMobileDevice(UUID mobileDevice) {
+        return simCardRepository.findByMobileDevice_MobileDeviceId(mobileDevice);
     }
 }
