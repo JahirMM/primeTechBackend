@@ -24,6 +24,9 @@ public class ProductConfig {
     private final LaptopServiceInterface laptopService;
     private final SimCardServiceInterface simCardService;
 
+    /*
+    * Product
+    */
     @Bean
     public AddProductApplication addProductApplication(){
         return new AddProductApplication(
@@ -46,11 +49,17 @@ public class ProductConfig {
         );
     }
 
+    /*
+     * Price
+     */
     @Bean
     public GetMinimumAndMaximumPrice getMinimumAndMaximumPrice() {
         return new GetMinimumAndMaximumPrice(productService);
     }
 
+    /*
+     * MobileDevice
+     */
     @Bean
     public AddMobileDeviceApplication addMobileDeviceApplication(){
         return new AddMobileDeviceApplication(
@@ -60,6 +69,9 @@ public class ProductConfig {
         );
     }
 
+    /*
+     * Camera
+     */
     @Bean
     public AddCameraApplication addCameraApplication(){
         return new AddCameraApplication(
@@ -74,6 +86,9 @@ public class ProductConfig {
         return new GetCameraApplication(cameraService, deviceService, productService);
     }
 
+    /*
+     * Screen
+     */
     @Bean
     public AddScreenApplication addScreenApplication() {
         return new AddScreenApplication(
@@ -84,6 +99,15 @@ public class ProductConfig {
     }
 
     @Bean
+    public GetScreenApplication getScreenApplication() {
+        return new GetScreenApplication(screenService, deviceService,
+                productService);
+    }
+
+    /*
+     * Battery
+     */
+    @Bean
     public AddBatteryApplication addBatteryApplication() {
         return new AddBatteryApplication(
                 userService, productService,
@@ -92,6 +116,9 @@ public class ProductConfig {
         );
     }
 
+    /*
+     * Laptop
+     */
     @Bean
     public AddLaptopApplication addLaptopApplication() {
         return new AddLaptopApplication(
@@ -101,6 +128,9 @@ public class ProductConfig {
         );
     }
 
+    /*
+     * SimCard
+     */
     @Bean
     public AddSimCardApplication addSimCardApplication() {
         return new AddSimCardApplication(userService, userRoleAssignmentService, simCardService, mobileDeviceService);

@@ -6,6 +6,7 @@ import com.primetech.primetech_store.product.infraestructure.repositories.Screen
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,5 +22,10 @@ public class ScreenService implements ScreenServiceInterface {
     @Override
     public boolean screenExistsForDevice(UUID deviceId) {
         return screenRepository.existsByDevice_DeviceId(deviceId);
+    }
+
+    @Override
+    public List<Screen> findScreenInformationByDeviceId(UUID deviceId) {
+        return screenRepository.findByDevice_DeviceId(deviceId);
     }
 }
