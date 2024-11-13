@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BatteryDTO {
+    private UUID batteryId;
     private String capacity;
     private String type;
     private boolean wirelessCharging;
@@ -19,6 +21,7 @@ public class BatteryDTO {
 
     public static BatteryDTO from(Battery battery) {
         return new BatteryDTO(
+                battery.getBatteryId(),
                 battery.getCapacity(),
                 battery.getType(),
                 battery.isWirelessCharging(),

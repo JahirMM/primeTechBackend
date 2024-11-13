@@ -9,4 +9,5 @@ public interface BatteryServiceInterface {
     Battery saveBattery(Battery battery);
     boolean batteryExistsForDevice(UUID deviceId);
     List<Battery> findBatteryInformationByDeviceId(UUID deviceId);
+    Battery findBatteryByBatteryId(UUID batteryId);
 }

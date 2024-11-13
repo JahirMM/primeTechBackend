@@ -161,6 +161,13 @@ public class ProductConfig {
         );
     }
 
+    @Bean UpdateBatteryApplication updateBatteryApplication() {
+        return new UpdateBatteryApplication(
+                batteryService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Laptop
      */

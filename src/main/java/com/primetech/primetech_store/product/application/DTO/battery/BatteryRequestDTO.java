@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddBatteryRequestDTO {
+public class BatteryRequestDTO {
     @NotBlank(message = "Capacity is mandatory")
     @JsonDeserialize(using = StringDeserializer.class)
     @Size(max = 10, message = "Capacity can have a maximum of 10 characters")

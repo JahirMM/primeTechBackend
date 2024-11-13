@@ -1,11 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddBatteryApplication;
-import com.primetech.primetech_store.product.application.DTO.battery.AddBatteryRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.AddBatteryResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.GetBatteryResponseDTO;
+import com.primetech.primetech_store.product.application.DTO.battery.*;
 import com.primetech.primetech_store.product.application.GetBatteryApplication;
+import com.primetech.primetech_store.product.application.UpdateBatteryApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,9 +21,10 @@ import java.util.UUID;
 public class BatteryController {
     private final AddBatteryApplication addBatteryApplication;
     private final GetBatteryApplication getBatteryApplication;
+    private final UpdateBatteryApplication updateBatteryApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddBatteryResponseDTO> addBattery(@Valid @RequestBody AddBatteryRequestDTO request, @PathVariable UUID productId){
+    public ResponseEntity<AddBatteryResponseDTO> addBattery(@Valid @RequestBody BatteryRequestDTO request, @PathVariable UUID productId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -43,5 +42,19 @@ public class BatteryController {
         List<BatteryDTO> batteries = getBatteryApplication.getBatteryApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetBatteryResponseDTO(batteries));
+    }
+
+    @PutMapping("/{batteryId}")
+    public ResponseEntity<UpdateResponseDTO> updateBattery(@Valid @RequestBody BatteryRequestDTO request, @PathVariable UUID batteryId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            BatteryDTO batteryDTO = updateBatteryApplication.updateBatteryApplication(authentication.getName(), batteryId, request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateResponseDTO("Battery successfully updated", batteryDTO));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateResponseDTO("Please log in", null));
+        }
     }
 }

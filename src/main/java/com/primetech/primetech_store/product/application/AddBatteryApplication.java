@@ -3,7 +3,7 @@ package com.primetech.primetech_store.product.application;
 import com.primetech.primetech_store.common.exception.BatteryAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.battery.AddBatteryRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.battery.BatteryRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.Battery;
@@ -27,7 +27,7 @@ public class AddBatteryApplication {
     private final BatteryServiceInterface batteryService;
 
     @Transactional
-    public BatteryDTO addBatteryApplication(AddBatteryRequestDTO request, String email, UUID productId) {
+    public BatteryDTO addBatteryApplication(BatteryRequestDTO request, String email, UUID productId) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -53,7 +53,7 @@ public class AddBatteryApplication {
         return BatteryDTO.from(saveBattery);
     }
 
-    private Battery createBattery(Device device, AddBatteryRequestDTO request) {
+    private Battery createBattery(Device device, BatteryRequestDTO request) {
         return new Battery(
                 device,
                 request.getCapacity(),
