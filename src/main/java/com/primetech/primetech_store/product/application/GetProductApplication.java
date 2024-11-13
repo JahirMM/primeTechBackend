@@ -32,7 +32,7 @@ public class GetProductApplication {
                 product.getName(), product.getDescription(),
                 product.getBrand(), product.getStock(),
                 product.getPrice(), product.getCategory().getCategoryName(),
-                device.getDeviceType().getTypeName(), product.getCreatedAt());
+                device.getDeviceType().getTypeName(), product.getCreatedAt(), product.getUpdatedAt());
 
         return productDTO;
     }

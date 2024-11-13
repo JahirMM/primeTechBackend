@@ -49,4 +49,15 @@ public class ProductService implements ProductServiceInterface {
     public Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         return productRepository.findByCriteria(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable);
     }
+
+    @Override
+    public Product findByProductIdAndSellerId(UUID productId, UUID sellerId) {
+        Optional<Product> productOptional = productRepository.findByProductIdAndUser_UserId(productId, sellerId);
+
+        if (productOptional.isEmpty()) {
+            throw new ProductNotFoundException("Product not found");
+        }
+
+        return productOptional.get();
+    }
 }

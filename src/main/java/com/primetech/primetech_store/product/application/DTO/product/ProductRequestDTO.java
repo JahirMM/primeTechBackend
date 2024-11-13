@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddProductRequestDTO {
+public class ProductRequestDTO {
 
     @NotBlank(message = "Name is mandatory")
     @Size(max = 100, message = "Name can have a maximum of 100 characters")

@@ -32,5 +32,5 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
                                  @Param("minPrice") BigDecimal minPrice,
                                  @Param("maxPrice") BigDecimal maxPrice,
                                  Pageable pageable);
-
+    Optional<Product> findByProductIdAndUser_UserId(UUID productId, UUID userId);
 }

@@ -49,6 +49,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public UpdateProductApplication updateProductApplication() {
+        return new UpdateProductApplication(
+                productService, userService,
+                categoryService, deviceTypeService
+        );
+    }
+
     /*
      * Price
      */

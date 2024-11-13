@@ -19,4 +19,5 @@ public class ProductDTO {
     private String category;
     private String deviceType;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

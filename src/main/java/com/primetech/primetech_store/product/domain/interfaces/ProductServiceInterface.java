@@ -14,4 +14,5 @@ public interface ProductServiceInterface {
     boolean existsProductByProductId(UUID productId);
     PriceRangeDTO findMinimumAndMaximumPrice();
     Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
+    Product findByProductIdAndSellerId(UUID productId, UUID sellerId);
 }

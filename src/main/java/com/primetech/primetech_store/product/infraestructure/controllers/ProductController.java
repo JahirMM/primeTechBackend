@@ -1,10 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
-import com.primetech.primetech_store.product.application.AddProductApplication;
+import com.primetech.primetech_store.product.application.*;
 import com.primetech.primetech_store.product.application.DTO.product.*;
-import com.primetech.primetech_store.product.application.GetMinimumAndMaximumPrice;
-import com.primetech.primetech_store.product.application.GetProductApplication;
-import com.primetech.primetech_store.product.application.GetProductsApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,9 +26,10 @@ public class ProductController {
     private final GetProductApplication getProductApplication;
     private final GetProductsApplication getProductsApplication;
     private final GetMinimumAndMaximumPrice getMinimumAndMaximumPrice;
+    private final UpdateProductApplication updateProductApplication;
 
     @PostMapping("")
-    public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody AddProductRequestDTO request){
+    public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody ProductRequestDTO request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -92,5 +90,19 @@ public class ProductController {
         GetProductsResponseDTO response = new GetProductsResponseDTO(products.getContent(), pageMetadata);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<UpdateProductResponseDTO> updateProduct(@Valid @RequestBody ProductRequestDTO request, @PathVariable UUID productId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            ProductDTO productDTO = updateProductApplication.updateProductApplication(productId, authentication.getName(), request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateProductResponseDTO("Product successfully updated", productDTO));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateProductResponseDTO("Please log in", null));
+        }
     }
 }
