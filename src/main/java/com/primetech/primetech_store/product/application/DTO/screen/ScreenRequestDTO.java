@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddScreenRequestDTO {
+public class ScreenRequestDTO {
     @NotBlank(message = "Resolution is mandatory")
     @JsonDeserialize(using = StringDeserializer.class)
     @Size(max = 15, message = "Resolution can have a maximum of 15 characters")

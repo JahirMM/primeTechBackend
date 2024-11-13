@@ -133,6 +133,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public UpdateScreenApplication updateScreenApplication() {
+        return new UpdateScreenApplication(
+                screenService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Battery
      */

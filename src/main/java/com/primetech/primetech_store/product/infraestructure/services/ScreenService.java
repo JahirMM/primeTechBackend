@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
+import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.ScreenServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Screen;
 import com.primetech.primetech_store.product.infraestructure.repositories.ScreenRepository;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,5 +29,17 @@ public class ScreenService implements ScreenServiceInterface {
     @Override
     public List<Screen> findScreenInformationByDeviceId(UUID deviceId) {
         return screenRepository.findByDevice_DeviceId(deviceId);
+    }
+
+    @Override
+    public Screen findScreenByScreenId(UUID screenId) {
+        Optional<Screen> screenOptional = screenRepository.findByScreenId(screenId);
+
+        if (screenOptional.isEmpty()) {
+            throw new ProductNotFoundException("Screen not found");
+        }
+
+
+        return screenOptional.get();
     }
 }

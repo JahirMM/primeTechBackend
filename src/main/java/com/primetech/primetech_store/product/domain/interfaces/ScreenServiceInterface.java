@@ -9,4 +9,5 @@ public interface ScreenServiceInterface {
     Screen saveScreen(Screen screen);
     boolean screenExistsForDevice(UUID deviceId);
     List<Screen> findScreenInformationByDeviceId(UUID deviceId);
+    Screen findScreenByScreenId(UUID screenId);
 }

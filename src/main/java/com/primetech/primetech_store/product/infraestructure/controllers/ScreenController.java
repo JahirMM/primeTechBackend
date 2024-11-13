@@ -1,11 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddScreenApplication;
-import com.primetech.primetech_store.product.application.DTO.screen.AddScreenRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.screen.AddScreenResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.screen.GetScreenResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.screen.ScreenDTO;
+import com.primetech.primetech_store.product.application.DTO.screen.*;
 import com.primetech.primetech_store.product.application.GetScreenApplication;
+import com.primetech.primetech_store.product.application.UpdateScreenApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,9 +21,10 @@ import java.util.UUID;
 public class ScreenController {
     private final AddScreenApplication addMobileDeviceApplication;
     private final GetScreenApplication getScreenApplication;
+    private final UpdateScreenApplication updateScreenApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddScreenResponseDTO> addScreen(@Valid @RequestBody AddScreenRequestDTO request, @PathVariable UUID productId){
+    public ResponseEntity<AddScreenResponseDTO> addScreen(@Valid @RequestBody ScreenRequestDTO request, @PathVariable UUID productId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -43,5 +42,19 @@ public class ScreenController {
         List<ScreenDTO> screens = getScreenApplication.getCameraApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetScreenResponseDTO(screens));
+    }
+
+    @PutMapping("/{screenId}")
+    public ResponseEntity<UpdateScreenResponseDTO> updateScreen(@Valid @RequestBody ScreenRequestDTO request, @PathVariable UUID screenId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            ScreenDTO screenDTO = updateScreenApplication.updateScreenApplication(authentication.getName(), screenId, request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateScreenResponseDTO("Screen successfully updated", screenDTO));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateScreenResponseDTO("Please log in", null));
+        }
     }
 }

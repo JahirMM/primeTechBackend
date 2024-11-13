@@ -3,7 +3,7 @@ package com.primetech.primetech_store.product.application;
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.ScreenAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.screen.AddScreenRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.screen.ScreenRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.screen.ScreenDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.Device;
@@ -27,7 +27,7 @@ public class AddScreenApplication {
     private final ScreenServiceInterface screenService;
 
     @Transactional
-    public ScreenDTO addScreenApplication(AddScreenRequestDTO request, String email, UUID productId) {
+    public ScreenDTO addScreenApplication(ScreenRequestDTO request, String email, UUID productId) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -53,7 +53,7 @@ public class AddScreenApplication {
         return ScreenDTO.from(saveScreen);
     }
 
-    private Screen createScreen(Device device, AddScreenRequestDTO request) {
+    private Screen createScreen(Device device, ScreenRequestDTO request) {
         return new Screen(
                 device,
                 request.getResolution(),

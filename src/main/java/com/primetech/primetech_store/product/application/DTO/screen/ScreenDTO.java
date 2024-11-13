@@ -5,11 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScreenDTO {
+    private UUID screenId;
     private String resolution;
     private String pixelDensity;
     private String refreshRate;
@@ -18,6 +20,7 @@ public class ScreenDTO {
 
     public static ScreenDTO from(Screen screen) {
         return new ScreenDTO(
+                screen.getScreenId(),
                 screen.getResolution(),
                 screen.getPixelDensity(),
                 screen.getRefreshRate(),
