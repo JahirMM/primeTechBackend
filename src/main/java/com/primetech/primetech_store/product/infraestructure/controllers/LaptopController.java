@@ -1,13 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddLaptopApplication;
-import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.GetBatteryResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.laptop.AddLaptopRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.laptop.AddLaptopResponsiveDTO;
-import com.primetech.primetech_store.product.application.DTO.laptop.GetLaptopResponsiveDTO;
-import com.primetech.primetech_store.product.application.DTO.laptop.LaptopDTO;
+import com.primetech.primetech_store.product.application.DTO.laptop.*;
 import com.primetech.primetech_store.product.application.GetLaptopApplication;
+import com.primetech.primetech_store.product.application.UpdateLaptopApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +21,10 @@ import java.util.UUID;
 public class LaptopController {
     private final AddLaptopApplication addLaptopApplication;
     private final GetLaptopApplication getLaptopApplication;
+    private final UpdateLaptopApplication updateLaptopApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddLaptopResponsiveDTO> addLaptop(@Valid @RequestBody AddLaptopRequestDTO request, @PathVariable UUID productId){
+    public ResponseEntity<AddLaptopResponsiveDTO> addLaptop(@Valid @RequestBody LaptopRequestDTO request, @PathVariable UUID productId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -45,5 +42,19 @@ public class LaptopController {
         List<LaptopDTO> laptop = getLaptopApplication.getLaptopApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetLaptopResponsiveDTO(laptop));
+    }
+
+    @PutMapping("/{laptopId}")
+    public ResponseEntity<UpdateLaptopResponseDTO> updateLaptop(@Valid @RequestBody LaptopRequestDTO request, @PathVariable UUID laptopId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            LaptopDTO laptopDTO = updateLaptopApplication.updateLaptopApplication(authentication.getName(), laptopId, request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateLaptopResponseDTO("Laptop successfully updated", laptopDTO));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateLaptopResponseDTO("Please log in", null));
+        }
     }
 }

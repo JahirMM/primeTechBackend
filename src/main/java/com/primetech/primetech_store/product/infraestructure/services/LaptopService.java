@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
+import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.LaptopServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Laptop;
 import com.primetech.primetech_store.product.infraestructure.repositories.LaptopRepository;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,5 +24,15 @@ public class LaptopService implements LaptopServiceInterface {
     @Override
     public List<Laptop> findLaptopInformationByDeviceId(UUID deviceId) {
         return laptopRepository.findByDevice_DeviceId(deviceId);
+    }
+
+    @Override
+    public Laptop findLaptopByLaptopId(UUID laptopId) {
+        Optional<Laptop> laptopOptional = laptopRepository.findByLaptopId(laptopId);
+        if (laptopOptional.isEmpty()) {
+            throw new ProductNotFoundException("Laptop noy found");
+        }
+
+        return laptopOptional.get();
     }
 }

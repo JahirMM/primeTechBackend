@@ -2,7 +2,7 @@ package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.laptop.AddLaptopRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.laptop.LaptopRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.laptop.LaptopDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.Device;
@@ -26,7 +26,7 @@ public class AddLaptopApplication {
     private final LaptopServiceInterface laptopService;
 
     @Transactional
-    public LaptopDTO addLaptopApplication(AddLaptopRequestDTO request, UUID productId, String email) {
+    public LaptopDTO addLaptopApplication(LaptopRequestDTO request, UUID productId, String email) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -48,7 +48,7 @@ public class AddLaptopApplication {
         return LaptopDTO.from(savedLaptop);
     }
 
-    private Laptop createLaptop(Device device, AddLaptopRequestDTO request) {
+    private Laptop createLaptop(Device device, LaptopRequestDTO request) {
         return new Laptop(
                 device,
                 request.getRam(),

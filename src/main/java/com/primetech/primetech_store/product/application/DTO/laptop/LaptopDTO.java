@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LaptopDTO {
+    private UUID laptopId;
     private int ram;
     private String color;
     private String processor;
@@ -30,6 +33,7 @@ public class LaptopDTO {
 
     public static LaptopDTO from(Laptop laptop) {
         return new LaptopDTO(
+                laptop.getLaptopId(),
                 laptop.getRam(),
                 laptop.getColor(),
                 laptop.getProcessor(),

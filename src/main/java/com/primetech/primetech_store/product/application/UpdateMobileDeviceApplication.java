@@ -1,13 +1,9 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.BatteryRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceRequestDTO;
-import com.primetech.primetech_store.product.domain.interfaces.BatteryServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.MobileDeviceServiceInterface;
-import com.primetech.primetech_store.product.domain.models.Battery;
 import com.primetech.primetech_store.product.domain.models.MobileDevice;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;

@@ -196,6 +196,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public UpdateLaptopApplication updateLaptopApplication() {
+        return new UpdateLaptopApplication(
+                laptopService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * SimCard
      */

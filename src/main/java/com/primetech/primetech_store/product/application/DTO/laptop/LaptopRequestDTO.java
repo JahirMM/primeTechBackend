@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddLaptopRequestDTO {
+public class LaptopRequestDTO {
     @NotNull(message = "RAM is mandatory")
     @Min(value = 1, message = "RAM must be at least 1 GB")
     @Max(value = 128, message = "RAM can have a maximum of 128 GB")
