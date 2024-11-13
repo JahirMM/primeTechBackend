@@ -2,7 +2,7 @@ package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceDTO;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceTypeServiceInterface;
@@ -29,7 +29,7 @@ public class AddMobileDeviceApplication {
     private final MobileDeviceServiceInterface mobileDeviceService;
 
     @Transactional
-    public MobileDeviceDTO addMobileDeviceApplication(AddMobileDeviceRequestDTO request, UUID productId, String email) {
+    public MobileDeviceDTO addMobileDeviceApplication(MobileDeviceRequestDTO request, UUID productId, String email) {
         // validar si el usuario es vendedor
         User user = userService.findUserInformationByEmail(email);
 
@@ -57,7 +57,7 @@ public class AddMobileDeviceApplication {
         return MobileDeviceDTO.from(savedMobileDevice);
     }
 
-    private MobileDevice createMobileDevice(Device device, AddMobileDeviceRequestDTO request) {
+    private MobileDevice createMobileDevice(Device device, MobileDeviceRequestDTO request) {
         return new MobileDevice(
                 device,
                 request.getInternalMemory(),

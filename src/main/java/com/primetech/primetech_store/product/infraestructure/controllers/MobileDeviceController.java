@@ -1,13 +1,9 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddMobileDeviceApplication;
-import com.primetech.primetech_store.product.application.DTO.battery.BatteryDTO;
-import com.primetech.primetech_store.product.application.DTO.battery.GetBatteryResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceRequestDTO;
-import com.primetech.primetech_store.product.application.DTO.mobileDevice.AddMobileDeviceResponseDTO;
-import com.primetech.primetech_store.product.application.DTO.mobileDevice.GetMobileDeviceApplicationDTO;
-import com.primetech.primetech_store.product.application.DTO.mobileDevice.MobileDeviceDTO;
+import com.primetech.primetech_store.product.application.DTO.mobileDevice.*;
 import com.primetech.primetech_store.product.application.GetMobileDeviceApplication;
+import com.primetech.primetech_store.product.application.UpdateMobileDeviceApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,15 +21,16 @@ import java.util.UUID;
 public class MobileDeviceController {
     private final AddMobileDeviceApplication addMobileDeviceApplication;
     private final GetMobileDeviceApplication getMobileDeviceApplication;
+    private final UpdateMobileDeviceApplication updateMobileDeviceApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddMobileDeviceResponseDTO> addMobileDevice(@PathVariable UUID productId, @Valid @RequestBody AddMobileDeviceRequestDTO request){
+    public ResponseEntity<AddMobileDeviceResponseDTO> addMobileDevice(@PathVariable UUID productId, @Valid @RequestBody MobileDeviceRequestDTO request){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
             MobileDeviceDTO mobileDevice = addMobileDeviceApplication.addMobileDeviceApplication(request, productId, authentication.getName());
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new AddMobileDeviceResponseDTO("Product successfully added", mobileDevice));
+                    .body(new AddMobileDeviceResponseDTO("Mobile device successfully added", mobileDevice));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AddMobileDeviceResponseDTO("Please log in", null));
@@ -45,5 +42,19 @@ public class MobileDeviceController {
         List<MobileDeviceDTO> mobileDevices = getMobileDeviceApplication.getMobileDeviceApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetMobileDeviceApplicationDTO(mobileDevices));
+    }
+
+    @PutMapping("/{mobileDeviceId}")
+    public ResponseEntity<UpdateMobileDeviceResponseDTO> updateMobileDevice(@PathVariable UUID mobileDeviceId, @Valid @RequestBody MobileDeviceRequestDTO request){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            MobileDeviceDTO mobileDevice = updateMobileDeviceApplication.updateMobileDeviceApplication(authentication.getName(), mobileDeviceId, request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateMobileDeviceResponseDTO("Mobile device successfully updated ", mobileDevice));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateMobileDeviceResponseDTO("Please log in", null));
+        }
     }
 }

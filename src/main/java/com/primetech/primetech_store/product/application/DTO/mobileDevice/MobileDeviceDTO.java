@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class MobileDeviceDTO {
+    private UUID mobileDeviceid;
     private int internalMemory;
     private String internalMemoryType;
     private int ram;
@@ -22,6 +25,7 @@ public class MobileDeviceDTO {
 
     public static MobileDeviceDTO from(MobileDevice mobileDevice) {
         return new MobileDeviceDTO(
+                mobileDevice.getMobileDeviceId(),
                 mobileDevice.getInternalMemory(),
                 mobileDevice.getInternalMemoryType(),
                 mobileDevice.getRam(),

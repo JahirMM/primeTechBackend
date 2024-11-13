@@ -85,6 +85,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public UpdateMobileDeviceApplication updateMobileDeviceApplication() {
+        return new UpdateMobileDeviceApplication(
+                mobileDeviceService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Camera
      */

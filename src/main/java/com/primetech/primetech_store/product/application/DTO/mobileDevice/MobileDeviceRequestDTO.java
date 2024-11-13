@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddMobileDeviceRequestDTO {
+public class MobileDeviceRequestDTO {
 
     @NotNull(message = "Internal memory is mandatory")
     @Min(value = 1, message = "Internal memory must be at least 1 GB")
