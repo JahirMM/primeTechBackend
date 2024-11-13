@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddSimCardRequestDTO {
+public class SimCardRequestDTO {
     @NotNull(message = "Dual SIM status is mandatory")
     private boolean isDualSim;
 

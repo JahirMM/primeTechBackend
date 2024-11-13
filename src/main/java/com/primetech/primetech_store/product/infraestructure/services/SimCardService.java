@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
+import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.SimCardServiceInterface;
 import com.primetech.primetech_store.product.domain.models.SimCard;
 import com.primetech.primetech_store.product.infraestructure.repositories.SimCardRepository;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,5 +29,17 @@ public class SimCardService implements SimCardServiceInterface {
     @Override
     public List<SimCard> findSimCardInformationByMobileDevice(UUID mobileDevice) {
         return simCardRepository.findByMobileDevice_MobileDeviceId(mobileDevice);
+    }
+
+    @Override
+    public SimCard findSimCardBySimCardId(UUID simCardId) {
+        Optional<SimCard> simCardOptional = simCardRepository.findBySimCardId(simCardId);
+
+        if (simCardOptional.isEmpty()) {
+            throw new ProductNotFoundException("Sim card not found");
+        }
+
+
+        return simCardOptional.get();
     }
 }

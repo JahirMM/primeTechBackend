@@ -2,7 +2,7 @@ package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.MobeliDeviceAlreadyExistsException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.simCard.AddSimCardRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.simCard.SimCardRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.simCard.SimCardDTO;
 import com.primetech.primetech_store.product.domain.interfaces.MobileDeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.SimCardServiceInterface;
@@ -24,7 +24,7 @@ public class AddSimCardApplication {
     private final MobileDeviceServiceInterface mobileDeviceService;
 
     @Transactional
-    public SimCardDTO addSimCardApplication(AddSimCardRequestDTO request, UUID mobileDeviceId, String email) {
+    public SimCardDTO addSimCardApplication(SimCardRequestDTO request, UUID mobileDeviceId, String email) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -43,7 +43,7 @@ public class AddSimCardApplication {
         return SimCardDTO.from(saveSimCard);
     }
 
-    private SimCard createSimCard(MobileDevice mobileDevice, AddSimCardRequestDTO request) {
+    private SimCard createSimCard(MobileDevice mobileDevice, SimCardRequestDTO request) {
         return new SimCard(
                 mobileDevice,
                 request.isDualSim(),

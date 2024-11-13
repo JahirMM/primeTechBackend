@@ -222,4 +222,12 @@ public class ProductConfig {
                 deviceService, mobileDeviceService
         );
     }
+
+    @Bean
+    public UpdateSimCardApplication updateSimCardApplication() {
+        return new UpdateSimCardApplication(
+                simCardService, userService,
+                userRoleAssignmentService
+        );
+    }
 }

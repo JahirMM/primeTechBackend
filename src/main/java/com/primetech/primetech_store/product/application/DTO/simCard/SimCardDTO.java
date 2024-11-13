@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class SimCardDTO {
+    private UUID simCardId;
     private Boolean isDualSim;
     private Integer simSlots;
     private Boolean esim;
@@ -16,6 +19,7 @@ public class SimCardDTO {
 
     public static SimCardDTO from(SimCard simCard) {
         return new SimCardDTO(
+                simCard.getSimCardId(),
                 simCard.isDualSim(),
                 simCard.getSimSlots(),
                 simCard.isEsim(),

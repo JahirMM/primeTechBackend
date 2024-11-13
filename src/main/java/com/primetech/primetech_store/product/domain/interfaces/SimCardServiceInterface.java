@@ -9,4 +9,5 @@ public interface SimCardServiceInterface {
     SimCard saveSimCard(SimCard simCard);
     boolean existsSimCardByMobileDeviceId(UUID mobileDeviceId);
     List<SimCard> findSimCardInformationByMobileDevice(UUID mobileDevice);
+    SimCard findSimCardBySimCardId(UUID simCardId);
 }
