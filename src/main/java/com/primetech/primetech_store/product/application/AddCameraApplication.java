@@ -2,7 +2,7 @@ package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.product.application.DTO.camera.AddCameraRequestDTO;
+import com.primetech.primetech_store.product.application.DTO.camera.CameraRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.camera.CameraDTO;
 import com.primetech.primetech_store.product.domain.interfaces.CameraServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
@@ -29,7 +29,7 @@ public class AddCameraApplication {
     private final CameraServiceInterface cameraService;
 
     @Transactional
-    public CameraDTO addMobileDeviceApplication(AddCameraRequestDTO request, String email, UUID productId) {
+    public CameraDTO addMobileDeviceApplication(CameraRequestDTO request, String email, UUID productId) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {
@@ -51,7 +51,7 @@ public class AddCameraApplication {
         return CameraDTO.from(saveCamera);
     }
 
-    private Camera createCamera(Device device, AddCameraRequestDTO request) {
+    private Camera createCamera(Device device, CameraRequestDTO request) {
         return new Camera(
                 device,
                 request.getType(),

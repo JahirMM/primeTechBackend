@@ -11,6 +11,7 @@ import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class UpdateProductApplication {
     private final CategoryServiceInterface categoryService;
     private final DeviceTypeServiceInterface deviceTypeService;
 
+    @Transactional
     public ProductDTO updateProductApplication(UUID productId, String email, ProductRequestDTO request) {
         User user = userService.findUserInformationByEmail(email);
 

@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CameraDTO {
+    private UUID cameraId;
     private String type;
     private String resolution;
     private String aperture;
@@ -18,6 +21,7 @@ public class CameraDTO {
 
     public static CameraDTO from(Camera camera) {
         return new CameraDTO(
+                camera.getCameraId(),
                 camera.getType(),
                 camera.getResolution(),
                 camera.getAperture(),

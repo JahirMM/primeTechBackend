@@ -105,6 +105,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public UpdateCameraApplication updateCameraApplication() {
+        return new UpdateCameraApplication(
+                cameraService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Screen
      */

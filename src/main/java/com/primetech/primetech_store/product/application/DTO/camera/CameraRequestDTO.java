@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddCameraRequestDTO {
+public class CameraRequestDTO {
     @NotBlank(message = "Type is mandatory")
     @JsonDeserialize(using = StringDeserializer.class)
     @Size(max = 5, message = "Camera type can have a maximum of 5 characters")
