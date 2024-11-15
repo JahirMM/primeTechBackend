@@ -121,6 +121,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public DeleteCameraApplication deleteCameraApplication() {
+        return new DeleteCameraApplication(
+                cameraService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Screen
      */

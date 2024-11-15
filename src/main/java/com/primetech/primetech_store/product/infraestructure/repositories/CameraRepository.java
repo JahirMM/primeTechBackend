@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface CameraRepository extends JpaRepository<Camera, UUID> {
     List<Camera> findByDevice_DeviceId(UUID deviceId);
     Optional<Camera> findByCameraId(UUID cameraId);
+    void deleteByCameraId(UUID cameraId);
 }

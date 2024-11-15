@@ -36,4 +36,15 @@ public class CameraService implements CameraServiceInterface {
 
         return cameraOptional.get();
     }
+
+    @Override
+    public void deleteCameraByCameraId(UUID cameraId) {
+        Optional<Camera> cameraOptional = cameraRepository.findByCameraId(cameraId);
+
+        if (cameraOptional.isEmpty()) {
+            throw new ProductNotFoundException("Camera not found");
+        }
+
+        cameraRepository.deleteByCameraId(cameraId);
+    }
 }
