@@ -192,6 +192,13 @@ public class ProductConfig {
         );
     }
 
+    @Bean DeleteBatteryApplication deleteBatteryApplication() {
+        return new DeleteBatteryApplication(
+                batteryService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Laptop
      */

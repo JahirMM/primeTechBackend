@@ -70,7 +70,7 @@ public class CameraController {
         if (authentication != null && authentication.isAuthenticated()) {
             deleteCameraApplication.deleteCameraApplication(cameraId, authentication.getName());
             response.put("message", "Camera deleted correctly");
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
                     .body(response);
         } else {
             response.put("message", "Please log iny");

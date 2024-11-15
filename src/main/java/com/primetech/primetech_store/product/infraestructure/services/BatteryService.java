@@ -42,4 +42,14 @@ public class BatteryService implements BatteryServiceInterface {
 
         return batteryOptional.get();
     }
+
+    @Override
+    public void deleteBatteryByBatteryId(UUID batteryId) {
+        Optional<Battery> batteryOptional = batteryRepository.findByBatteryId(batteryId);
+
+        if (batteryOptional.isEmpty()) {
+            throw new ProductNotFoundException("Battery not found");
+        }
+        batteryRepository.deleteByBatteryId(batteryId);
+    }
 }

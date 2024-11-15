@@ -11,4 +11,5 @@ public interface BatteryRepository extends JpaRepository<Battery, UUID> {
     boolean existsByDevice_DeviceId(UUID deviceId);
     List<Battery> findByDevice_DeviceId(UUID deviceId);
     Optional<Battery> findByBatteryId(UUID batteryId);
+    void deleteByBatteryId(UUID batteryId);
 }

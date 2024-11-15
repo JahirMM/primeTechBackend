@@ -10,4 +10,5 @@ public interface BatteryServiceInterface {
     boolean batteryExistsForDevice(UUID deviceId);
     List<Battery> findBatteryInformationByDeviceId(UUID deviceId);
     Battery findBatteryByBatteryId(UUID batteryId);
+    void deleteBatteryByBatteryId(UUID batteryId);
 }
