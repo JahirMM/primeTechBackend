@@ -2,6 +2,7 @@ package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.AddSimCardApplication;
 import com.primetech.primetech_store.product.application.DTO.simCard.*;
+import com.primetech.primetech_store.product.application.DeleteSimCardApplication;
 import com.primetech.primetech_store.product.application.GetSimCardApplication;
 import com.primetech.primetech_store.product.application.UpdateSimCardApplication;
 import jakarta.validation.Valid;
@@ -12,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +25,7 @@ public class SimCardController {
     private final AddSimCardApplication simCardApplication;
     private final GetSimCardApplication getSimCardApplication;
     private final UpdateSimCardApplication updateSimCardApplication;
+    private final DeleteSimCardApplication deleteSimCardApplication;
 
     @PostMapping("/{mobileDeviceId}")
     public ResponseEntity<AddSimCardResponseDTO> addSimCard(@PathVariable UUID mobileDeviceId, @Valid @RequestBody SimCardRequestDTO request){
@@ -54,6 +58,23 @@ public class SimCardController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new UpdateSimCardResponseDTO("Please log in", null));
+        }
+    }
+
+    @DeleteMapping("/{simCardId}")
+    public ResponseEntity<Map<String, String>> deleteSimCard(@PathVariable UUID simCardId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Map<String, String> response = new HashMap<>();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            deleteSimCardApplication.deleteSimCardApplication(simCardId, authentication.getName());
+            response.put("message", "Sim Card deleted correctly");
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(response);
+        } else {
+            response.put("message", "Please log iny");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(response);
         }
     }
 }

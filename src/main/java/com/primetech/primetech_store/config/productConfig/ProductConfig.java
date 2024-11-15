@@ -5,6 +5,7 @@ import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
+import org.hibernate.sql.Delete;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -249,6 +250,14 @@ public class ProductConfig {
     @Bean
     public UpdateSimCardApplication updateSimCardApplication() {
         return new UpdateSimCardApplication(
+                simCardService, userService,
+                userRoleAssignmentService
+        );
+    }
+
+    @Bean
+    public DeleteSimCardApplication deleteSimCardApplication() {
+        return new DeleteSimCardApplication(
                 simCardService, userService,
                 userRoleAssignmentService
         );

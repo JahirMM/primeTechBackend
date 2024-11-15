@@ -10,4 +10,5 @@ public interface SimCardServiceInterface {
     boolean existsSimCardByMobileDeviceId(UUID mobileDeviceId);
     List<SimCard> findSimCardInformationByMobileDevice(UUID mobileDevice);
     SimCard findSimCardBySimCardId(UUID simCardId);
+    void deleteSimCardBySimCardId(UUID simCardId);
 }

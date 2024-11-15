@@ -12,12 +12,12 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class DeleteBatteryApplication {
-    public BatteryServiceInterface batteryService;
-    public UserServiceInterface userService;
-    public UserRoleAssignmentServiceInterface userRoleAssignmentService;
+    public final BatteryServiceInterface batteryService;
+    public final UserServiceInterface userService;
+    public final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
     @Transactional
-    public void deleteCameraApplication(UUID batteryId, String email) {
+    public void deleteBatteryApplication(UUID batteryId, String email) {
         User user = userService.findUserInformationByEmail(email);
 
         if (!userRoleAssignmentService.isSeller(user)) {

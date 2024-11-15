@@ -12,9 +12,9 @@ import java.util.UUID;
 
 @AllArgsConstructor
 public class DeleteScreenApplication {
-    public ScreenServiceInterface screenService;
-    public UserServiceInterface userService;
-    public UserRoleAssignmentServiceInterface userRoleAssignmentService;
+    public final ScreenServiceInterface screenService;
+    public final UserServiceInterface userService;
+    public final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
     @Transactional
     public void deleteScreenApplication(UUID screenId, String email) {

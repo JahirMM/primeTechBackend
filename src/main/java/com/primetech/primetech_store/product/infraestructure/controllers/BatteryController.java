@@ -67,7 +67,7 @@ public class BatteryController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Map<String, String> response = new HashMap<>();
         if (authentication != null && authentication.isAuthenticated()) {
-            deleteBatteryApplication.deleteCameraApplication(batteryId, authentication.getName());
+            deleteBatteryApplication.deleteBatteryApplication(batteryId, authentication.getName());
             response.put("message", "Battery deleted correctly");
             return ResponseEntity.status(HttpStatus.ACCEPTED)
                     .body(response);

@@ -11,4 +11,5 @@ public interface SimCardRepository extends JpaRepository<SimCard, UUID> {
     boolean existsByMobileDevice_MobileDeviceId(UUID mobileDeviceId);
     List<SimCard> findByMobileDevice_MobileDeviceId(UUID mobileDevice);
     Optional<SimCard> findBySimCardId(UUID simCardId);
+    void deleteBySimCardId(UUID simCardId);
 }

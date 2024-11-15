@@ -42,4 +42,14 @@ public class SimCardService implements SimCardServiceInterface {
 
         return simCardOptional.get();
     }
+
+    @Override
+    public void deleteSimCardBySimCardId(UUID simCardId) {
+        Optional<SimCard> simCardOptional = simCardRepository.findBySimCardId(simCardId);
+
+        if (simCardOptional.isEmpty()) {
+            throw new ProductNotFoundException("Sim card not found");
+        }
+        simCardRepository.deleteBySimCardId(simCardId);
+    }
 }
