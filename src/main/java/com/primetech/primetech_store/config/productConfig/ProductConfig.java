@@ -157,6 +157,14 @@ public class ProductConfig {
         );
     }
 
+    @Bean
+    public DeleteScreenApplication deleteScreenApplication() {
+        return new DeleteScreenApplication(
+                screenService, userService,
+                userRoleAssignmentService
+        );
+    }
+
     /*
      * Battery
      */

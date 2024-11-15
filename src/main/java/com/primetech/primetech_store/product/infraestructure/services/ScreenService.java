@@ -42,4 +42,14 @@ public class ScreenService implements ScreenServiceInterface {
 
         return screenOptional.get();
     }
+
+    @Override
+    public void deleteScreenByScreenId(UUID screenId) {
+        Optional<Screen> screenOptional = screenRepository.findByScreenId(screenId);
+
+        if (screenOptional.isEmpty()) {
+            throw new ProductNotFoundException("Screen not found");
+        }
+        screenRepository.deleteByScreenId(screenId);
+    }
 }

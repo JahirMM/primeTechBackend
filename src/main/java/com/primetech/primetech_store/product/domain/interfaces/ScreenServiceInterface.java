@@ -10,4 +10,5 @@ public interface ScreenServiceInterface {
     boolean screenExistsForDevice(UUID deviceId);
     List<Screen> findScreenInformationByDeviceId(UUID deviceId);
     Screen findScreenByScreenId(UUID screenId);
+    void deleteScreenByScreenId(UUID screenId);
 }
