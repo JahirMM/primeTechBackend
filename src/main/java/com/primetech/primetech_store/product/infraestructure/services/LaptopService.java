@@ -35,4 +35,14 @@ public class LaptopService implements LaptopServiceInterface {
 
         return laptopOptional.get();
     }
+
+    @Override
+    public void deleteLaptopByLaptopId(UUID laptopId) {
+        Optional<Laptop> laptopOptional = laptopRepository.findByLaptopId(laptopId);
+        if (laptopOptional.isEmpty()) {
+            throw new ProductNotFoundException("Laptop noy found");
+        }
+
+        laptopRepository.deleteByLaptopId(laptopId);
+    }
 }

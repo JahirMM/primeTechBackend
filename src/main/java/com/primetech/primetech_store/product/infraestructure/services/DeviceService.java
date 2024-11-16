@@ -56,4 +56,9 @@ public class DeviceService implements DeviceServiceInterface {
 
         return deviceOptional.get();
     }
+
+    @Override
+    public void deleteDeviceByDeviceId(UUID deviceId) {
+        deviceRepository.deleteByDeviceId(deviceId);
+    }
 }

@@ -9,4 +9,5 @@ public interface MobileDeviceServiceInterface {
     MobileDevice saveMobileDevice(MobileDevice mobileDevice);
     MobileDevice findMobileDeviceByMobileDeviceId(UUID mobileDeviceId);
     List<MobileDevice> findMobileDeviceInformationByDeviceId(UUID deviceId);
+    void deleteMobileDeviceByMobileDeviceId(UUID mobileDeviceId);
 }

@@ -36,4 +36,15 @@ public class MobileDeviceService implements MobileDeviceServiceInterface {
     public List<MobileDevice> findMobileDeviceInformationByDeviceId(UUID deviceId) {
         return mobileDeviceRepository.findByDevice_DeviceId(deviceId);
     }
+
+    @Override
+    public void deleteMobileDeviceByMobileDeviceId(UUID mobileDeviceId) {
+        Optional<MobileDevice> mobileDeviceOptional = mobileDeviceRepository.findByMobileDeviceId(mobileDeviceId);
+
+        if (mobileDeviceOptional.isEmpty()) {
+            throw new MobileDeviceNotFoundException("Mobile device not found");
+        }
+
+        mobileDeviceRepository.deleteByMobileDeviceId(mobileDeviceId);
+    }
 }

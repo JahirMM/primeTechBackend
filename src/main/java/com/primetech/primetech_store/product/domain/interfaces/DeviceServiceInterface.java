@@ -11,4 +11,5 @@ public interface DeviceServiceInterface {
     Device findDevice(UUID productId, UUID deviceTypeID, String deviceTypeName);
     Device findDeviceByMultipleDeviceTypes(UUID productId, UUID deviceMobileTypeId, UUID deviceLaptopTypeId);
     Device findDevicebyProductId(UUID productId);
+    void deleteDeviceByDeviceId(UUID deviceId);
 }

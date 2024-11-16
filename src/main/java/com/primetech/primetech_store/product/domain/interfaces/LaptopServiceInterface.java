@@ -9,4 +9,5 @@ public interface LaptopServiceInterface {
     Laptop saveLaptop(Laptop laptop);
     List<Laptop> findLaptopInformationByDeviceId(UUID deviceId);
     Laptop findLaptopByLaptopId(UUID laptopId);
+    void deleteLaptopByLaptopId(UUID laptopId);
 }

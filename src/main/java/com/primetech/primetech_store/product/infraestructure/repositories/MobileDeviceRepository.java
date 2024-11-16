@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface MobileDeviceRepository extends JpaRepository<MobileDevice, UUID> {
     Optional<MobileDevice> findByMobileDeviceId(UUID mobileDeviceId);
     List<MobileDevice> findByDevice_DeviceId(UUID deviceId);
+    void deleteByMobileDeviceId(UUID mobileDeviceId);
 }

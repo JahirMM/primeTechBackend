@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +29,7 @@ public class ProductController {
     private final GetProductsApplication getProductsApplication;
     private final GetMinimumAndMaximumPrice getMinimumAndMaximumPrice;
     private final UpdateProductApplication updateProductApplication;
+    private final DeleteProductApplication deleteProductApplication;
 
     @PostMapping("")
     public ResponseEntity<AddProductResponseDTO> addProduct(@Valid @RequestBody ProductRequestDTO request){
@@ -103,6 +106,23 @@ public class ProductController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new UpdateProductResponseDTO("Please log in", null));
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Map<String, String>> deleteProduct(@PathVariable UUID productId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Map<String, String> response = new HashMap<>();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            deleteProductApplication.deleteProductApplication(productId, authentication.getName());
+            response.put("message", "Product deleted correctly");
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(response);
+        } else {
+            response.put("message", "Please log iny");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(response);
         }
     }
 }

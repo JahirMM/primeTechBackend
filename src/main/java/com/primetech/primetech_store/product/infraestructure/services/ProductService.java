@@ -60,4 +60,15 @@ public class ProductService implements ProductServiceInterface {
 
         return productOptional.get();
     }
+
+    @Override
+    public void deleteProductByProductId(UUID productId) {
+        Optional<Product> productOptional = productRepository.findProductByProductId(productId);
+
+        if (productOptional.isEmpty()) {
+            throw new ProductNotFoundException("Product not found");
+        }
+
+        productRepository.deleteByProductId(productId);
+    }
 }

@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface LaptopRepository extends JpaRepository<Laptop, UUID> {
     List<Laptop> findByDevice_DeviceId(UUID deviceId);
     Optional<Laptop> findByLaptopId(UUID laptopId);
+    void deleteByLaptopId(UUID laptopId);
 }
