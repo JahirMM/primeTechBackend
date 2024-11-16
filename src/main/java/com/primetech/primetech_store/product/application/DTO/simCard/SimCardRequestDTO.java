@@ -24,6 +24,6 @@ public class SimCardRequestDTO {
 
     @NotBlank(message = "SIM type is mandatory")
     @JsonDeserialize(using = StringDeserializer.class)
-    @Size(max = 15, message = "SIM type can have a maximum of 15 characters")
+    @Size(max = 20, message = "SIM type can have a maximum of 15 characters")
     private String simType;
 }
