@@ -29,7 +29,7 @@ public class DeviceService implements DeviceServiceInterface {
     @Override
     public Device findDevice(UUID productId, UUID deviceTypeID, String deviceTypeName) {
         Optional<Device> deviceOptional = deviceRepository.findByProduct_ProductIdAndDeviceType_DeviceTypeId(productId, deviceTypeID);
-        if (!deviceOptional.isEmpty()) {
+        if (deviceOptional.isEmpty()) {
             throw new DeviceInformationNotAllowedException("Product is not allowed additional information in " + deviceTypeName);
         }
         return deviceOptional.get();
