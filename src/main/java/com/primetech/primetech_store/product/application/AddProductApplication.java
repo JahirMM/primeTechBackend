@@ -17,6 +17,8 @@ import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.RoundingMode;
+
 @AllArgsConstructor
 public class AddProductApplication {
     private final ProductServiceInterface productService;
@@ -34,7 +36,7 @@ public class AddProductApplication {
             throw new UserNotSellerException("The user is not a seller.");
         }
 
-        Product product = new Product(request.getName(), request.getDescription(), request.getBrand(), request.getStock(), request.getPrice());
+        Product product = new Product(request.getName(), request.getDescription(), request.getBrand(), request.getStock(), request.getPrice().setScale(3, RoundingMode.HALF_UP));
         product.setUser(user);
 
         // buscar categoria por category_name para asignar al producto

@@ -36,7 +36,7 @@ public class Product {
     @Column(name = "stock", nullable = false)
     private int stock;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", scale = 3,nullable = false)
     private BigDecimal price;
 
     @Column(name = "created_at", nullable = false)

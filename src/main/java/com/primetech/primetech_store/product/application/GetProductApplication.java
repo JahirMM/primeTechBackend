@@ -9,6 +9,7 @@ import com.primetech.primetech_store.product.domain.models.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.RoundingMode;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -32,7 +33,7 @@ public class GetProductApplication {
                 product.getProductId(),
                 product.getName(), product.getDescription(),
                 product.getBrand(), product.getStock(),
-                product.getPrice(), product.getCategory().getCategoryName(),
+                product.getPrice().setScale(3, RoundingMode.HALF_UP), product.getCategory().getCategoryName(),
                 device.getDeviceType().getTypeName(), product.getCreatedAt(), product.getUpdatedAt());
 
         return productDTO;

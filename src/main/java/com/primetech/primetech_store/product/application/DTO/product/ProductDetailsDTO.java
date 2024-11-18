@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class ProductDetailsDTO {
         this.description = product.getDescription();
         this.brand = product.getBrand();
         this.stock = product.getStock();
-        this.price = product.getPrice();
+        this.price = product.getPrice().setScale(3, RoundingMode.HALF_UP);
         this.createdAt = product.getCreatedAt();
         this.updatedAt = product.getUpdatedAt();
 
