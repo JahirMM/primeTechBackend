@@ -53,6 +53,12 @@ public class CustomExceptionHandler {
                 .body(new ErrorResponseDTO(ex.getMessage()));
     }
 
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponseDTO> handleUnauthorizedException(UnauthorizedException ex){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
+                body(new ErrorResponseDTO(ex.getMessage()));
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponseDTO> handleRuntimeException(RuntimeException ex) {
         ex.printStackTrace();

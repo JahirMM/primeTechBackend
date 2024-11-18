@@ -2,28 +2,31 @@ package com.primetech.primetech_store.auth.application;
 
 import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
+import com.primetech.primetech_store.common.exception.InvalidCredentialsException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
+@AllArgsConstructor
 public class LoginApplication {
     private final AuthenticationManager authenticationManager;
     private final AuthServiceInterface authService;
 
-    public LoginApplication(AuthenticationManager authenticationManager, AuthServiceInterface authService) {
-        this.authenticationManager = authenticationManager;
-        this.authService = authService;
-    }
-
     public UserDetails login(LoginRequestDTO request) {
-        // autenticar al usuario
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
+            );
 
-        // buscar el usuario
-        User user = authService.findUserByEmail(request);
+            User user = authService.findUserByEmail(request);
 
-        return new CustomUserDetails(user);
+            return new CustomUserDetails(user);
+        } catch (BadCredentialsException e) {
+            throw new InvalidCredentialsException("Invalid email or password");
+        }
     }
 }

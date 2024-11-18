@@ -6,17 +6,14 @@ import com.primetech.primetech_store.common.exception.EmailAlreadyExistsExceptio
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@AllArgsConstructor
 public class SignUpApplication {
 
     private final PasswordEncoder passwordEncoder;
     private final AuthServiceInterface authService;
-
-    public SignUpApplication(PasswordEncoder passwordEncoder, AuthServiceInterface authService) {
-        this.passwordEncoder = passwordEncoder;
-        this.authService = authService;
-    }
 
     public User signUp(SignUpRequestDTO request) {
         String email = request.getEmail();
