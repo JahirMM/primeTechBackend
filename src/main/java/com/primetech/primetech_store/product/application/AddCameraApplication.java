@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
+import com.primetech.primetech_store.common.exception.LaptopAlreadyHasCameraException;
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.camera.CameraRequestDTO;
@@ -17,6 +18,7 @@ import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -44,6 +46,13 @@ public class AddCameraApplication {
         DeviceType deviceLaptopType = deviceTypeService.findDeviceTypeByTypeName("laptop");
 
         Device device = deviceService.findDeviceByMultipleDeviceTypes(productId, deviceMobileType.getDeviceTypeId(), deviceLaptopType.getDeviceTypeId());
+
+        if ("laptop".equals(device.getDeviceType().getTypeName())) {
+            List<Camera> cameras = cameraService.findCameraInformationByDeviceId(device.getDeviceId());
+            if (!cameras.isEmpty()) {
+                throw new LaptopAlreadyHasCameraException("The laptop already has a camera registered.");
+            }
+        }
 
         Camera camera = createCamera(device, request);
         Camera saveCamera = cameraService.saveCamera(camera);
