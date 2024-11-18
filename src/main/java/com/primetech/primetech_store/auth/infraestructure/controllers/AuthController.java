@@ -2,10 +2,7 @@ package com.primetech.primetech_store.auth.infraestructure.controllers;
 
 import com.primetech.primetech_store.auth.application.LoginApplication;
 import com.primetech.primetech_store.auth.application.SignUpApplication;
-import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
-import com.primetech.primetech_store.auth.application.dto.LoginResponseDTO;
-import com.primetech.primetech_store.auth.application.dto.SignUpRequestDTO;
-import com.primetech.primetech_store.auth.application.dto.SignUpResponseDTO;
+import com.primetech.primetech_store.auth.application.dto.*;
 import com.primetech.primetech_store.jwt.services.JwtService;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.servlet.http.Cookie;
@@ -58,8 +55,9 @@ public class AuthController {
     @PostMapping(value = "signUp")
     public ResponseEntity<SignUpResponseDTO> register(@Valid @RequestBody SignUpRequestDTO request) {
         User user = signUpApplication.signUp(request);
+        UserAuthDTO userAuthDTO = new UserAuthDTO(user.getEmail(), user.getFirstName(), user.getMiddleName(), user.getPaternalSurname(), user.getMaternalSurname(), user.getCreatedAt());
 
-        SignUpResponseDTO signUpResponse = new SignUpResponseDTO("user successfully created", user);
+        SignUpResponseDTO signUpResponse = new SignUpResponseDTO("user successfully created", userAuthDTO);
         return ResponseEntity.ok(signUpResponse);
     }
 
