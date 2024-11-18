@@ -38,7 +38,7 @@ public class LaptopController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<GetLaptopResponsiveDTO> getLaprop(@PathVariable UUID productId) {
+    public ResponseEntity<GetLaptopResponsiveDTO> getLaptop(@PathVariable UUID productId) {
         List<LaptopDTO> laptop = getLaptopApplication.getLaptopApplication(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetLaptopResponsiveDTO(laptop));

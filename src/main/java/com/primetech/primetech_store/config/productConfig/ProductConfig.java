@@ -55,7 +55,9 @@ public class ProductConfig {
     public UpdateProductApplication updateProductApplication() {
         return new UpdateProductApplication(
                 productService, userService,
-                categoryService, deviceTypeService
+                categoryService, deviceTypeService,
+                deviceService, laptopService,
+                mobileDeviceService
         );
     }
 

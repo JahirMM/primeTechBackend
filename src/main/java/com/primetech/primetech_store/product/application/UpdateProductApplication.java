@@ -2,17 +2,14 @@ package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.product.application.DTO.product.ProductRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
-import com.primetech.primetech_store.product.domain.interfaces.CategoryServiceInterface;
-import com.primetech.primetech_store.product.domain.interfaces.DeviceTypeServiceInterface;
-import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
-import com.primetech.primetech_store.product.domain.models.Category;
-import com.primetech.primetech_store.product.domain.models.DeviceType;
-import com.primetech.primetech_store.product.domain.models.Product;
+import com.primetech.primetech_store.product.domain.interfaces.*;
+import com.primetech.primetech_store.product.domain.models.*;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -21,6 +18,10 @@ public class UpdateProductApplication {
     private final UserServiceInterface userService;
     private final CategoryServiceInterface categoryService;
     private final DeviceTypeServiceInterface deviceTypeService;
+
+    private final DeviceServiceInterface deviceService;
+    private final LaptopServiceInterface laptopService;
+    private final MobileDeviceServiceInterface mobileDeviceService;
 
     @Transactional
     public ProductDTO updateProductApplication(UUID productId, String email, ProductRequestDTO request) {
@@ -37,7 +38,12 @@ public class UpdateProductApplication {
         product.setCategory(category);
 
         Product saveProduct = productService.saveProduct(product);
-        DeviceType deviceType = determineDeviceByCategory(category);
+
+        Device device = deviceService.findDevicebyProductId(product.getProductId());
+        DeviceType deviceType = determineDeviceByCategory(category, device.getDeviceId());
+
+        device.setProduct(product);
+        device.setDeviceType(deviceType);
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setProductId(saveProduct.getProductId());
@@ -54,15 +60,22 @@ public class UpdateProductApplication {
         return productDTO;
     }
 
-    private DeviceType determineDeviceByCategory(Category category) {
+    private DeviceType determineDeviceByCategory(Category category, UUID deviceId) {
         switch (category.getCategoryName().toLowerCase()) {
             case "cellular":
             case "tablet":
+                List<Laptop> laptops = laptopService.findLaptopInformationByDeviceId(deviceId);
+                if (!laptops.isEmpty()) {
+                    laptopService.deleteLaptopByLaptopId(laptops.get(0).getLaptopId());
+                }
                 return deviceTypeService.findDeviceTypeByTypeName("mobile");
-
             case "laptop":
                 return deviceTypeService.findDeviceTypeByTypeName("laptop");
             default:
+                List<MobileDevice> mobileDevices = mobileDeviceService.findMobileDeviceInformationByDeviceId(deviceId);
+                if (!mobileDevices.isEmpty()) {
+                    mobileDeviceService.deleteMobileDeviceByMobileDeviceId(mobileDevices.get(0).getMobileDeviceId());
+                }
                 return  deviceTypeService.findDeviceTypeByTypeName("other");
         }
     }
