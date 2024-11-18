@@ -55,6 +55,7 @@ public class AddProductApplication {
         deviceService.saveDevice(product, deviceType);
 
         ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductId(saveProduct.getProductId());
         productDTO.setName(saveProduct .getName());
         productDTO.setDescription(saveProduct .getDescription());
         productDTO.setBrand(saveProduct .getBrand());

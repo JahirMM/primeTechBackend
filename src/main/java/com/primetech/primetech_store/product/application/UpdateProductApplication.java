@@ -40,6 +40,7 @@ public class UpdateProductApplication {
         DeviceType deviceType = determineDeviceByCategory(category);
 
         ProductDTO productDTO = new ProductDTO();
+        productDTO.setProductId(saveProduct.getProductId());
         productDTO.setName(saveProduct .getName());
         productDTO.setDescription(saveProduct .getDescription());
         productDTO.setBrand(saveProduct .getBrand());

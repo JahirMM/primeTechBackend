@@ -29,6 +29,7 @@ public class GetProductApplication {
 
 
         ProductDTO productDTO = new ProductDTO(
+                product.getProductId(),
                 product.getName(), product.getDescription(),
                 product.getBrand(), product.getStock(),
                 product.getPrice(), product.getCategory().getCategoryName(),

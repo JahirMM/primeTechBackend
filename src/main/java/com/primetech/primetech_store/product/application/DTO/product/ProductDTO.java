@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
+    private UUID productId;
     private String name;
     private String description;
     private String brand;
