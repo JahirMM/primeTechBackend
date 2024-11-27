@@ -29,14 +29,8 @@ public class ProductImageController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<GetProductImagesResponseDTO> getProductImages(@PathVariable("productId") UUID productId) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            List<ProductImageDTO> productImages = getProductImagesApplication.GetProductImages(productId);
-            return ResponseEntity.ok(new GetProductImagesResponseDTO("Product images found", productImages));
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GetProductImagesResponseDTO("Product images not found", null));
-        }
+        List<ProductImageDTO> productImages = getProductImagesApplication.GetProductImages(productId);
+        return ResponseEntity.ok(new GetProductImagesResponseDTO(productImages));
     }
 
     @PostMapping("/{productId}")

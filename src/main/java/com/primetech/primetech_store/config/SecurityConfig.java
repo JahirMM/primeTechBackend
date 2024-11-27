@@ -39,7 +39,9 @@ public class SecurityConfig {
             "/prime-tech/api/v1/screen/**",
             "/prime-tech/api/v1/mobile-device/**",
             "/prime-tech/api/v1/laptop/**",
-            "/prime-tech/api/v1/sim-card/**"
+            "/prime-tech/api/v1/sim-card/**",
+            "/prime-tech/api/v1/product-image/**"
+
     );
 
     @Bean
