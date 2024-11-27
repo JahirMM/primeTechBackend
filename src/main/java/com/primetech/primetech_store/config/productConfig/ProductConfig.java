@@ -1,7 +1,9 @@
 package com.primetech.primetech_store.config.productConfig;
 
+import com.primetech.primetech_store.common.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.application.*;
 import com.primetech.primetech_store.product.domain.interfaces.*;
+import com.primetech.primetech_store.product.infraestructure.services.ProductImageService;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,8 @@ public class ProductConfig {
     private final SimCardServiceInterface simCardService;
 
     private final ProductRelationshipServiceInterface productRelationshipService;
+    private final ProductImageService productImageService;
+    private final FileStorageService fileStorageService;
 
     /*
     * Product
@@ -272,6 +276,17 @@ public class ProductConfig {
         return new DeleteSimCardApplication(
                 simCardService, userService,
                 userRoleAssignmentService
+        );
+    }
+
+    /*
+    Product image
+    */
+
+    @Bean UploadProductImageApplication uploadProductImageApplication() {
+        return new UploadProductImageApplication(
+                productImageService,
+                fileStorageService
         );
     }
 }

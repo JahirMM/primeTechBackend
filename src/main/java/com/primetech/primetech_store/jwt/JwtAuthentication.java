@@ -30,7 +30,8 @@ public class JwtAuthentication extends OncePerRequestFilter {
 
     private static final List<String> ALWAYS_PUBLIC_URLS = List.of(
             "/prime-tech/api/v1/auth/**",
-            "/userImage/**"
+            "/userImage/**",
+            "/productImage/**"
     );
 
     private static final List<String> GET_ONLY_PUBLIC_URLS = List.of(

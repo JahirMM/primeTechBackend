@@ -27,7 +27,8 @@ public class SecurityConfig {
 
     private static final List<String> ALWAYS_PUBLIC_URLS = List.of(
             "/prime-tech/api/v1/auth/**",
-            "/userImage/**"
+            "/userImage/**",
+            "/productImage/**"
     );
 
     // Rutas públicas solo para solicitudes GET
