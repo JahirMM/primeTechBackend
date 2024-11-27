@@ -9,4 +9,6 @@ public interface ProductImageServiceInterface {
     void uploadProductImage(UUID productId, String url, boolean isMain);
     List<ProductImage> findProductImage(UUID productId);
     void deleteProductImage(UUID productImageId);
+    int countProductImageByProductId(UUID productId);
+    boolean existsProductByProductIdAndMainTrue(UUID productId);
 }

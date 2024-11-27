@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface ProductImageRepository extends JpaRepository<ProductImage, UUID> {
     List<ProductImage> findByProduct_ProductId(UUID productId);
     Optional<ProductImage> findByProductImageId(UUID productImageId);
+    int countByProduct_ProductId(UUID productId);
+    boolean existsByProduct_ProductIdAndMainTrue(UUID productId);
 }

@@ -285,8 +285,8 @@ public class ProductConfig {
 
     @Bean UploadProductImageApplication uploadProductImageApplication() {
         return new UploadProductImageApplication(
-                productImageService,
-                fileStorageService
+                productImageService, fileStorageService,
+                userService, userRoleAssignmentService
         );
     }
 }

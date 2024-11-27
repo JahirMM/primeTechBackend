@@ -2,7 +2,6 @@ package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;
 import com.primetech.primetech_store.product.application.UploadProductImageApplication;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +23,17 @@ public class ProductImageController {
     @PostMapping("/{productId}")
     public ResponseEntity<Map<String, String>> uploadImage(
             @RequestParam("image") MultipartFile file,
-            @PathVariable("productId") UUID productId,
-            @Valid @ModelAttribute UploadImageRequestDTO request){
+            @RequestParam("isMain") Boolean isMain,
+            @PathVariable("productId") UUID productId) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
+            UploadImageRequestDTO request = new UploadImageRequestDTO();
+            request.setMain(isMain);
+
             uploadProductImageApplication.uploadProductImage(file, email, productId, request);
+
             Map<String, String> response = new HashMap<>();
             response.put("message", "Image successfully uploaded");
             return ResponseEntity.ok(response);

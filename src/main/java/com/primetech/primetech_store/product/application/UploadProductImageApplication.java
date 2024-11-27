@@ -1,10 +1,12 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.FileStorageException;
-import com.primetech.primetech_store.common.exception.InvalidFileFormatException;
+import com.primetech.primetech_store.common.exception.*;
 import com.primetech.primetech_store.common.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
+import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
+import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
+import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +18,25 @@ import java.util.UUID;
 public class UploadProductImageApplication {
     private final ProductImageServiceInterface productImageService;
     private final FileStorageService fileStorageService;
+    private final UserServiceInterface userService;
+    private final UserRoleAssignmentServiceInterface userRoleAssignmentService;
 
     @Transactional
     public void uploadProductImage(MultipartFile file, String email, UUID productId, UploadImageRequestDTO request){
+        User user = userService.findUserInformationByEmail(email);
+
+        if (!userRoleAssignmentService.isSeller(user)) {
+            throw new UserNotSellerException("The user is not a seller.");
+        }
+
+        if (productImageService.countProductImageByProductId(productId) >= 5) {
+            throw new MaxProductImagesException("The product already has 5 images.");
+        }
+
+        if (productImageService.existsProductByProductIdAndMainTrue(productId)) {
+            throw new MainProductImageAlreadyExistsException("A main product image already exists for this product");
+        }
+
         String originalName = file.getOriginalFilename();
 
         if (!fileStorageService.isValidFile(file, originalName)) {

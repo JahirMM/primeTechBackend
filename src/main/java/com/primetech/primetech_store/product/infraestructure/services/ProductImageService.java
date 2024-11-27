@@ -43,4 +43,16 @@ public class ProductImageService implements ProductImageServiceInterface {
         ProductImage productImage = productImageOptional.get();
         productImageRepository.delete(productImage);
     }
+
+    @Override
+    public int countProductImageByProductId(UUID productId) {
+        Product product = productService.findProductByProductId(productId);
+        return productImageRepository.countByProduct_ProductId(product.getProductId());
+    }
+
+    @Override
+    public boolean existsProductByProductIdAndMainTrue(UUID productId) {
+        Product product = productService.findProductByProductId(productId);
+        return productImageRepository.existsByProduct_ProductIdAndMainTrue(product.getProductId());
+    }
 }
