@@ -297,4 +297,11 @@ public class ProductConfig {
                 productImageService, fileStorageService
         );
     }
+
+    @Bean
+    public GetProductImagesApplication getProductImagesApplication() {
+        return new GetProductImagesApplication(
+                productImageService
+        );
+    }
 }
