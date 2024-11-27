@@ -11,4 +11,5 @@ public interface ProductImageServiceInterface {
     void deleteProductImage(UUID productImageId);
     int countProductImageByProductId(UUID productId);
     boolean existsProductByProductIdAndMainTrue(UUID productId);
+    ProductImage findProductImageByProductImageId(UUID productImageId);
 }

@@ -55,4 +55,13 @@ public class ProductImageService implements ProductImageServiceInterface {
         Product product = productService.findProductByProductId(productId);
         return productImageRepository.existsByProduct_ProductIdAndMainTrue(product.getProductId());
     }
+
+    @Override
+    public ProductImage findProductImageByProductImageId(UUID productImageId) {
+        Optional<ProductImage> productImageOptional = productImageRepository.findByProductImageId(productImageId);
+        if (productImageOptional.isEmpty()) {
+            throw new ProductImagesNotFoundException("Product image not found");
+        }
+        return productImageOptional.get();
+    }
 }

@@ -283,10 +283,18 @@ public class ProductConfig {
     Product image
     */
 
-    @Bean UploadProductImageApplication uploadProductImageApplication() {
+    @Bean
+    public UploadProductImageApplication uploadProductImageApplication() {
         return new UploadProductImageApplication(
                 productImageService, fileStorageService,
                 userService, userRoleAssignmentService
+        );
+    }
+
+    @Bean
+    public DeleteProductImageApplication deleteProductImageApplication() {
+        return new DeleteProductImageApplication(
+                productImageService, fileStorageService
         );
     }
 }

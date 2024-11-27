@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;
+import com.primetech.primetech_store.product.application.DeleteProductImageApplication;
 import com.primetech.primetech_store.product.application.UploadProductImageApplication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductImageController {
     private final UploadProductImageApplication uploadProductImageApplication;
+    private final DeleteProductImageApplication deleteProductImageApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<Map<String, String>> uploadImage(
@@ -36,6 +38,21 @@ public class ProductImageController {
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "Image successfully uploaded");
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Please log in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
+
+    @DeleteMapping("/{productImageId}")
+    public ResponseEntity<Map<String, String>> deleteProductImage(@PathVariable("productImageId") UUID productImageId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            deleteProductImageApplication.DeleteProductImage(productImageId);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Image deleted correctly");
             return ResponseEntity.ok(response);
         } else {
             Map<String, String> response = new HashMap<>();

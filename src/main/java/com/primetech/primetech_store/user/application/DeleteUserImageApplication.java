@@ -5,6 +5,7 @@ import com.primetech.primetech_store.common.filesystem.FileStorageService;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.UserImage;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +16,7 @@ public class DeleteUserImageApplication {
     private final UserImageServiceInterface userImageService;
     private final FileStorageService fileStorageService;
 
+    @Transactional
     public void deleteUserImage(String email, UUID userImageId) {
         List<UserImage> userImages = userImageService.findUserImage(email);
         String imageUrl = "";
