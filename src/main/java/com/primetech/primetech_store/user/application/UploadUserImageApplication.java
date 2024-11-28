@@ -6,6 +6,7 @@ import com.primetech.primetech_store.common.filesystem.FileStorageService;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.UserImage;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class UploadUserImageApplication {
     private final UserImageServiceInterface uploadUserImageService;
     private final FileStorageService fileStorageService;
 
+    @Transactional
     public void uploadUserProfile(MultipartFile file, String email) {
         String originalName = file.getOriginalFilename();
 
@@ -28,7 +30,6 @@ public class UploadUserImageApplication {
         String fileName = UUID.randomUUID().toString();
         String newFileName = fileName + originalName.substring(originalName.lastIndexOf("."));
 
-        // Eliminar imágenes anteriores
         List<UserImage> userImages = uploadUserImageService.findUserImage(email);
         userImages.forEach(image -> {
             try {
@@ -38,7 +39,6 @@ public class UploadUserImageApplication {
             }
         });
 
-        // Guardar el nuevo archivo
         try {
             String relativePath = fileStorageService.saveFile(file, "userImage" ,newFileName);
             uploadUserImageService.uploadUserProfile(email, relativePath);

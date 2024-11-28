@@ -39,7 +39,8 @@ public class ProductConfig {
                 productService, userService,
                 categoryService, userRoleAssignmentService,
                 deviceService, deviceTypeService
-        );}
+        );
+    }
 
     @Bean
     public GetProductApplication getProductApplication() {

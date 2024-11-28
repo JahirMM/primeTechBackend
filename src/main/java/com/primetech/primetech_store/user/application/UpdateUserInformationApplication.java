@@ -8,6 +8,7 @@ import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface
 import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class UpdateUserInformationApplication {
         }
     }
 
+    @Transactional
     public UserDTO updateUserInformation(UpdateUserInformationRequestDTO updateUserInformationRequest, Authentication authentication) {
         validateRequestFields(updateUserInformationRequest);
 

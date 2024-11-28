@@ -20,15 +20,13 @@ public class DeleteUserImageApplication {
     public void deleteUserImage(String email, UUID userImageId) {
         List<UserImage> userImages = userImageService.findUserImage(email);
         String imageUrl = "";
-        // elimnar la imagen del sistema de archivos
+
         for (UserImage userImage:userImages) {
             imageUrl = userImage.getImgURL();
         }
 
-        // eliminar la imgen en la base de datos
         userImageService.deleteUserImage(email, userImageId);
 
-        // elimnar la imagen del sistema de archivos
         try {
             fileStorageService.deleteFile(imageUrl);
         } catch (IOException e) {
