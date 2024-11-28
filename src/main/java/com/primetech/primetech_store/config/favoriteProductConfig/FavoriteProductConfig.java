@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.favoriteProductConfig;
 
 import com.primetech.primetech_store.favoriteProduct.application.AddFavoriteProductApplication;
+import com.primetech.primetech_store.favoriteProduct.application.GetFavoriteProductsApplication;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
@@ -20,6 +21,13 @@ public class FavoriteProductConfig {
         return new AddFavoriteProductApplication(
                 favoriteProductService, userService,
                 productService
+        );
+    }
+
+    @Bean
+    public GetFavoriteProductsApplication getFavoriteProductsApplication(){
+        return new GetFavoriteProductsApplication(
+                favoriteProductService, userService
         );
     }
 }
