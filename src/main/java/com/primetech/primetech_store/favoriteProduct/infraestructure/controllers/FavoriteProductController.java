@@ -4,6 +4,7 @@ import com.primetech.primetech_store.favoriteProduct.application.AddFavoriteProd
 import com.primetech.primetech_store.favoriteProduct.application.DTO.FavoriteProductDetailsDTO;
 import com.primetech.primetech_store.favoriteProduct.application.DTO.FavoriteProductResponseDTO;
 import com.primetech.primetech_store.favoriteProduct.application.DTO.GetFavoriteProductsResponseDTO;
+import com.primetech.primetech_store.favoriteProduct.application.DeleteFavoriteProductApplication;
 import com.primetech.primetech_store.favoriteProduct.application.GetFavoriteProductsApplication;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsDTO;
@@ -14,7 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +26,7 @@ import java.util.UUID;
 public class FavoriteProductController {
     private final AddFavoriteProductApplication addFavoriteProductApplication;
     private final GetFavoriteProductsApplication getFavoriteProductsApplication;
+    private final DeleteFavoriteProductApplication deleteFavoriteProductApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<FavoriteProductResponseDTO> addFavoriteProduct(@PathVariable UUID productId) {
@@ -48,6 +52,22 @@ public class FavoriteProductController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new GetFavoriteProductsResponseDTO("Please log in", null));
+        }
+    }
+
+    @DeleteMapping("/{favoriteProductId}")
+    public ResponseEntity<Map<String, String>> deleteFavoriteProducts(@PathVariable UUID favoriteProductId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Map<String, String> response = new HashMap<>();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            deleteFavoriteProductApplication.deleteFavoriteProduct(email, favoriteProductId);
+            response.put("message", "Favorite product successfully deleted");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Please log in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(response);
         }
     }
 }

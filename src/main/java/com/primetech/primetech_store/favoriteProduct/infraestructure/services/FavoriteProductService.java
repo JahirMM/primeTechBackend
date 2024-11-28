@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,5 +28,19 @@ public class FavoriteProductService implements FavoriteProductServiceInterface {
             throw new ProductNotFoundException("Favorite products not found");
         }
         return favoriteProducts;
+    }
+
+    @Override
+    public void deleteFavoriteProduct(FavoriteProduct favoriteProduct) {
+        favoriteProductRepository.delete(favoriteProduct);
+    }
+
+    @Override
+    public FavoriteProduct findByFavoriteProductIdAndUserId(UUID favoriteProductId, UUID userId) {
+        Optional<FavoriteProduct> favoriteProductOptional = favoriteProductRepository.findByFavoriteProductIdAndUser_UserId(favoriteProductId, userId);
+        if (favoriteProductOptional.isEmpty()) {
+            throw new ProductNotFoundException("Favorite product associated with the user not found");
+        }
+        return favoriteProductOptional.get();
     }
 }

@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface FavoriteProductServiceInterface {
     FavoriteProduct addFavoriteProduct(FavoriteProduct favoriteProduct);
     List<FavoriteProduct> getFavoriteProductByUserId(UUID userId);
+    void deleteFavoriteProduct(FavoriteProduct favoriteProduct);
+    FavoriteProduct findByFavoriteProductIdAndUserId(UUID favoriteProductId, UUID userId);
 }
