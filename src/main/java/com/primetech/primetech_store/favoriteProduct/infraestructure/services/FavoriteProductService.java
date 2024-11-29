@@ -48,4 +48,13 @@ public class FavoriteProductService implements FavoriteProductServiceInterface {
     public boolean existsByProductIdAndUserId(UUID productId, UUID userId) {
         return favoriteProductRepository.existsByProduct_ProductIdAndUser_userId(productId, userId);
     }
+
+    @Override
+    public FavoriteProduct findByProductId(UUID productId) {
+        Optional<FavoriteProduct> favoriteProductOptional = favoriteProductRepository.findByProduct_ProductId(productId);
+        if (favoriteProductOptional.isEmpty()) {
+            throw new ProductNotFoundException("Favorite products not found");
+        }
+        return favoriteProductOptional.get();
+    }
 }

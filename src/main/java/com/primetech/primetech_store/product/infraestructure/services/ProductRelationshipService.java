@@ -1,5 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
+import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
+import com.primetech.primetech_store.favoriteProduct.infraestructure.services.FavoriteProductService;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.*;
 import lombok.AllArgsConstructor;
@@ -17,9 +19,11 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
     private final MobileDeviceServiceInterface mobileDeviceService;
     private final SimCardServiceInterface simCardService;
     private final LaptopServiceInterface laptopService;
+    private final FavoriteProductService favoriteProductService;
+    private final ProductImageService productImageService;
 
     @Override
-    public void deleteProductRelationships(UUID deviceId) {
+    public void deleteProductRelationships(UUID deviceId, UUID productId) {
         // Eliminar la cámara asociada al deviceId
         List<Camera> cameras = cameraService.findCameraInformationByDeviceId(deviceId);
         if (!cameras.isEmpty()) {
@@ -55,5 +59,13 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
         if (!laptops.isEmpty()) {
             laptopService.deleteLaptopByLaptopId(laptops.get(0).getLaptopId());
         }
+
+        // Eliminar el producto de la lista de productos favoritos
+        FavoriteProduct favoriteProduct = favoriteProductService.findByProductId(productId);
+        favoriteProductService.deleteFavoriteProduct(favoriteProduct);
+
+        List<ProductImage> productImages = productImageService.findProductImage(productId);
+        productImageService.findProductImage(productId)
+                .forEach(productImage -> productImageService.deleteProductImage(productImage.getProductImageId()));
     }
 }
