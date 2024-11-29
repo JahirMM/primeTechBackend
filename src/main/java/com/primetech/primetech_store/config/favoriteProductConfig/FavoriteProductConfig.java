@@ -4,6 +4,7 @@ import com.primetech.primetech_store.favoriteProduct.application.AddFavoriteProd
 import com.primetech.primetech_store.favoriteProduct.application.DeleteFavoriteProductApplication;
 import com.primetech.primetech_store.favoriteProduct.application.GetFavoriteProductsApplication;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
+import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -16,19 +17,21 @@ public class FavoriteProductConfig {
     private final FavoriteProductServiceInterface favoriteProductService;
     private final UserServiceInterface userService;
     private final ProductServiceInterface productService;
+    private final ProductImageServiceInterface productImageService;
 
     @Bean
     public AddFavoriteProductApplication addFavoriteProductApplication(){
         return new AddFavoriteProductApplication(
                 favoriteProductService, userService,
-                productService
+                productService, productImageService
         );
     }
 
     @Bean
     public GetFavoriteProductsApplication getFavoriteProductsApplication(){
         return new GetFavoriteProductsApplication(
-                favoriteProductService, userService
+                favoriteProductService, userService,
+                productImageService
         );
     }
 

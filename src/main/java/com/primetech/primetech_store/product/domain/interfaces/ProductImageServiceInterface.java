@@ -12,4 +12,5 @@ public interface ProductImageServiceInterface {
     int countProductImageByProductId(UUID productId);
     boolean existsProductByProductIdAndMainTrue(UUID productId);
     ProductImage findProductImageByProductImageId(UUID productImageId);
+    ProductImage findProductImagByProductIdAndMainTrue(UUID productId);
 }

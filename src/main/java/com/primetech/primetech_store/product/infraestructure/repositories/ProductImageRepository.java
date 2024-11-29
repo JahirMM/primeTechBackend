@@ -12,4 +12,5 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, UUID
     Optional<ProductImage> findByProductImageId(UUID productImageId);
     int countByProduct_ProductId(UUID productId);
     boolean existsByProduct_ProductIdAndMainTrue(UUID productId);
+    Optional<ProductImage> findByProduct_ProductIdAndMainTrue(UUID productId);
 }

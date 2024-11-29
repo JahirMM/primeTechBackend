@@ -64,4 +64,9 @@ public class ProductImageService implements ProductImageServiceInterface {
         }
         return productImageOptional.get();
     }
+
+    @Override
+    public ProductImage findProductImagByProductIdAndMainTrue(UUID productId) {
+        return productImageRepository.findByProduct_ProductIdAndMainTrue(productId).orElse(null);
+    }
 }
