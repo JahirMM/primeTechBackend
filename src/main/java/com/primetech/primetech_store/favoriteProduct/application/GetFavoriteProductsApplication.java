@@ -22,7 +22,7 @@ public class GetFavoriteProductsApplication {
         List<FavoriteProduct> favoriteProducts = favoriteProductService.getFavoriteProductByUserId(user.getUserId());
 
         return favoriteProducts.stream()
-                .map(product -> new FavoriteProductDetailsDTO(product.getProduct()))
+                .map(product -> new FavoriteProductDetailsDTO(product.getProduct(), product.getFavoriteProductId()))
                 .collect(Collectors.toList());
     }
 }

@@ -12,14 +12,16 @@ import java.util.UUID;
 @NoArgsConstructor
 public class FavoriteProductDetailsDTO {
     private UUID productId;
+    private UUID favoriteProductId;
     private String name;
     private String description;
     private String brand;
     private int stock;
     private BigDecimal price;
 
-    public FavoriteProductDetailsDTO(Product product) {
+    public FavoriteProductDetailsDTO(Product product, UUID favoriteProductId) {
         this.productId = product.getProductId();
+        this.favoriteProductId = favoriteProductId;
         this.name = product.getName();
         this.description = product.getDescription();
         this.brand = product.getBrand();

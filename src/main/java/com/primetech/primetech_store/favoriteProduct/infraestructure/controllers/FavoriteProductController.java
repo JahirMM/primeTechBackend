@@ -7,7 +7,6 @@ import com.primetech.primetech_store.favoriteProduct.application.DTO.GetFavorite
 import com.primetech.primetech_store.favoriteProduct.application.DeleteFavoriteProductApplication;
 import com.primetech.primetech_store.favoriteProduct.application.GetFavoriteProductsApplication;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
-import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +33,8 @@ public class FavoriteProductController {
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
             FavoriteProduct favoriteProduct = addFavoriteProductApplication.AddFavoriteProduct(email, productId);
-            ProductDetailsDTO productDetailsDTO = new ProductDetailsDTO(favoriteProduct.getProduct());
-            return ResponseEntity.ok(new FavoriteProductResponseDTO("Favorite product added", productDetailsDTO));
+            FavoriteProductDetailsDTO favoriteProductDetailsDTO = new FavoriteProductDetailsDTO(favoriteProduct.getProduct(), favoriteProduct.getFavoriteProductId());
+            return ResponseEntity.ok(new FavoriteProductResponseDTO("Favorite product added",favoriteProductDetailsDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new FavoriteProductResponseDTO("Please log in", null));
