@@ -43,4 +43,9 @@ public class FavoriteProductService implements FavoriteProductServiceInterface {
         }
         return favoriteProductOptional.get();
     }
+
+    @Override
+    public boolean existsByProductIdAndUserId(UUID productId, UUID userId) {
+        return favoriteProductRepository.existsByProduct_ProductIdAndUser_userId(productId, userId);
+    }
 }

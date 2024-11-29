@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface FavoriteProductRepository extends JpaRepository<FavoriteProduct, UUID> {
     List<FavoriteProduct> findByUser_UserId(UUID userId);
-    Optional<FavoriteProduct> findByFavoriteProductId(UUID favoriteProductId);
     Optional<FavoriteProduct> findByFavoriteProductIdAndUser_UserId(UUID favoriteProductId, UUID userId);
+    boolean existsByProduct_ProductIdAndUser_userId(UUID productId, UUID userId);
 }

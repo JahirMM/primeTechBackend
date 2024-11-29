@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.favoriteProduct.application;
 
+import com.primetech.primetech_store.common.exception.ProductAlreadyFavoritedException;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
@@ -21,6 +22,10 @@ public class AddFavoriteProductApplication {
     public FavoriteProduct AddFavoriteProduct(String email, UUID productId) {
         User user = getUser(email);
         Product product = productService.findProductByProductId(productId);
+
+        if (favoriteProductService.existsByProductIdAndUserId(product.getProductId(), user.getUserId())) {
+            throw new ProductAlreadyFavoritedException("The product is already added as a favorite");
+        }
 
         FavoriteProduct favoriteProduct = new FavoriteProduct(product, user);
 

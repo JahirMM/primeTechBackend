@@ -10,4 +10,5 @@ public interface FavoriteProductServiceInterface {
     List<FavoriteProduct> getFavoriteProductByUserId(UUID userId);
     void deleteFavoriteProduct(FavoriteProduct favoriteProduct);
     FavoriteProduct findByFavoriteProductIdAndUserId(UUID favoriteProductId, UUID userId);
+    boolean existsByProductIdAndUserId(UUID productId, UUID userId);
 }
