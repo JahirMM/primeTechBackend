@@ -67,4 +67,9 @@ public class ShoppingCartService implements ShoppingCartServiceInterface {
     public boolean exitsByShoppingCartId(UUID shoppingCartId) {
         return shoppingCartRepository.existsByShoppingCartId(shoppingCartId);
     }
+
+    @Override
+    public void deleteProductInShoppingCart(ShoppingCartItems shoppingCartItem) {
+        shoppingCartItemsRepository.delete(shoppingCartItem);
+    }
 }

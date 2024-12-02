@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.ShoppingCart.infraestructure.controllers;
 
 import com.primetech.primetech_store.ShoppingCart.application.AddProductToShoppingCartApplication;
+import com.primetech.primetech_store.ShoppingCart.application.DeleteProductFromShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.GetShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.UpdateShoppingCartItemApplication;
 import com.primetech.primetech_store.ShoppingCart.application.dto.*;
@@ -11,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -20,6 +23,7 @@ public class ShoppingCartController {
     private final AddProductToShoppingCartApplication addProductToShoppingCartApplication;
     private final GetShoppingCartApplication getShoppingCartApplication;
     private final UpdateShoppingCartItemApplication updateShoppingCartItemApplication;
+    private final DeleteProductFromShoppingCartApplication deleteProductFromShoppingCartApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddProductToShoppingCartResponse> createShoppingCart(@PathVariable UUID productId) {
@@ -65,6 +69,24 @@ public class ShoppingCartController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new UpdateShoppingCartItemResponse("Please log in", null));
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Map<String, String>> deleteShoppingCartItem(
+            @PathVariable UUID productId
+    ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Product successfully deleted from the shopping cart");
+            deleteProductFromShoppingCartApplication.deleteProduct(authentication.getName(), productId);
+
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Please log in");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 }

@@ -14,4 +14,5 @@ public interface ShoppingCartServiceInterface {
     ShoppingCart findByUserId(UUID userId);
     List<ShoppingCartItems> findItemsByShoppingCartId(UUID shoppingCartId);
     boolean exitsByShoppingCartId(UUID shoppingCartId);
+    void deleteProductInShoppingCart(ShoppingCartItems shoppingCartItem);
 }

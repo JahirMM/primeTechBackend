@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.shoppingCartConfig;
 
 import com.primetech.primetech_store.ShoppingCart.application.AddProductToShoppingCartApplication;
+import com.primetech.primetech_store.ShoppingCart.application.DeleteProductFromShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.GetShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.UpdateShoppingCartItemApplication;
 import com.primetech.primetech_store.ShoppingCart.domain.interfaces.ShoppingCartServiceInterface;
@@ -38,5 +39,10 @@ public class ShoppingCartConfig {
     @Bean
     public UpdateShoppingCartItemApplication updateShoppingCartItemApplication() {
         return new UpdateShoppingCartItemApplication(shoppingCartService);
+    }
+
+    @Bean
+    public DeleteProductFromShoppingCartApplication deleteProductFromShoppingCartApplication() {
+        return new DeleteProductFromShoppingCartApplication(userService, shoppingCartService);
     }
 }
