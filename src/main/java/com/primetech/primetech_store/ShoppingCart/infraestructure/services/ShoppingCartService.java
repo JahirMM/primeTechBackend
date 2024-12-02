@@ -62,4 +62,9 @@ public class ShoppingCartService implements ShoppingCartServiceInterface {
     public List<ShoppingCartItems> findItemsByShoppingCartId(UUID shoppingCartId) {
         return shoppingCartItemsRepository.findByShoppingCart_ShoppingCartId(shoppingCartId);
     }
+
+    @Override
+    public boolean exitsByShoppingCartId(UUID shoppingCartId) {
+        return shoppingCartRepository.existsByShoppingCartId(shoppingCartId);
+    }
 }

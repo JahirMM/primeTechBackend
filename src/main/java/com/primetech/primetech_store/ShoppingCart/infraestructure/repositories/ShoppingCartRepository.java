@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, UUID> {
     Optional<ShoppingCart> findByUser_UserId(UUID userId);
+    boolean existsByShoppingCartId(UUID shoppingCartId);
 }

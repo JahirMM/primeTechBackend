@@ -2,10 +2,8 @@ package com.primetech.primetech_store.ShoppingCart.infraestructure.controllers;
 
 import com.primetech.primetech_store.ShoppingCart.application.AddProductToShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.GetShoppingCartApplication;
-import com.primetech.primetech_store.ShoppingCart.application.dto.AddProductToShoppingCartResponse;
-import com.primetech.primetech_store.ShoppingCart.application.dto.GetShoppingCartResponseDTO;
-import com.primetech.primetech_store.ShoppingCart.application.dto.ProductToShoppingCartAdderDTO;
-import com.primetech.primetech_store.ShoppingCart.application.dto.ShoppingCartDetailsDTO;
+import com.primetech.primetech_store.ShoppingCart.application.UpdateShoppingCartItemApplication;
+import com.primetech.primetech_store.ShoppingCart.application.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +19,7 @@ import java.util.UUID;
 public class ShoppingCartController {
     private final AddProductToShoppingCartApplication addProductToShoppingCartApplication;
     private final GetShoppingCartApplication getShoppingCartApplication;
+    private final UpdateShoppingCartItemApplication updateShoppingCartItemApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddProductToShoppingCartResponse> createShoppingCart(@PathVariable UUID productId) {
@@ -46,6 +45,26 @@ public class ShoppingCartController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new GetShoppingCartResponseDTO("Please log in", null));
+        }
+    }
+
+    @PutMapping("/{productId}")
+    public ResponseEntity<UpdateShoppingCartItemResponse> updateShoppingCartItem(
+            @PathVariable UUID productId,
+            @RequestBody UpdateShoppingCartItemRequest request
+    ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            ShoppingCartItemUpdaterDTO updatedItem = updateShoppingCartItemApplication.updateShoppingCartItem(
+                    request.getShoppingCartId(),
+                    productId,
+                    request.getQuantity()
+            );
+
+            return ResponseEntity.ok(new UpdateShoppingCartItemResponse("Product quantity updated", updatedItem));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateShoppingCartItemResponse("Please log in", null));
         }
     }
 }

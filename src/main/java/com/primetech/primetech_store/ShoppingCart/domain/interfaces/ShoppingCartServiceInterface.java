@@ -13,4 +13,5 @@ public interface ShoppingCartServiceInterface {
     ShoppingCartItems findItemInShoppingCart(UUID shoppingCartId, UUID productId);
     ShoppingCart findByUserId(UUID userId);
     List<ShoppingCartItems> findItemsByShoppingCartId(UUID shoppingCartId);
+    boolean exitsByShoppingCartId(UUID shoppingCartId);
 }

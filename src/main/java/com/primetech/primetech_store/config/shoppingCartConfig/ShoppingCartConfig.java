@@ -2,6 +2,7 @@ package com.primetech.primetech_store.config.shoppingCartConfig;
 
 import com.primetech.primetech_store.ShoppingCart.application.AddProductToShoppingCartApplication;
 import com.primetech.primetech_store.ShoppingCart.application.GetShoppingCartApplication;
+import com.primetech.primetech_store.ShoppingCart.application.UpdateShoppingCartItemApplication;
 import com.primetech.primetech_store.ShoppingCart.domain.interfaces.ShoppingCartServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
@@ -32,5 +33,10 @@ public class ShoppingCartConfig {
                 shoppingCartService, userService,
                 productImageService
         );
+    }
+
+    @Bean
+    public UpdateShoppingCartItemApplication updateShoppingCartItemApplication() {
+        return new UpdateShoppingCartItemApplication(shoppingCartService);
     }
 }
