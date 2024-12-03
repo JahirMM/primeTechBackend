@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsDTO;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
@@ -9,7 +9,6 @@ import com.primetech.primetech_store.product.domain.models.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.RoundingMode;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -18,7 +17,7 @@ public class GetProductApplication {
     private final DeviceServiceInterface deviceService;
 
     @Transactional
-    public ProductDTO getProductApplication(UUID productId) {
+    public ProductDetailsDTO getProductApplication(UUID productId) {
 
         if (!productService.existsProductByProductId(productId)) {
             throw new ProductNotFoundException("Product not found");
@@ -29,13 +28,6 @@ public class GetProductApplication {
         Device device = deviceService.findDevicebyProductId(product.getProductId());
 
 
-        ProductDTO productDTO = new ProductDTO(
-                product.getProductId(),
-                product.getName(), product.getDescription(),
-                product.getBrand(), product.getStock(),
-                product.getPrice().setScale(3, RoundingMode.HALF_UP), product.getCategory().getCategoryName(),
-                device.getDeviceType().getTypeName(), product.getCreatedAt(), product.getUpdatedAt());
-
-        return productDTO;
+        return new ProductDetailsDTO(product, device.getDeviceType().getTypeName());
     }
 }

@@ -52,7 +52,7 @@ public class ProductConfig {
     @Bean
     public  GetProductsApplication getProductsApplication() {
         return new GetProductsApplication(
-                productService
+                productService, deviceService
         );
     }
 

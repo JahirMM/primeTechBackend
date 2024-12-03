@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetProductResponseDTO {
-    private ProductDTO product;
+    private ProductDetailsDTO product;
 }
