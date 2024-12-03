@@ -1,8 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.exception.UserNotSellerException;
-import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
-import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.*;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;

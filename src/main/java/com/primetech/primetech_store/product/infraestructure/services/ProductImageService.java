@@ -27,11 +27,7 @@ public class ProductImageService implements ProductImageServiceInterface {
     @Override
     public List<ProductImage> findProductImage(UUID productId) {
         Product product = productService.findProductByProductId(productId);
-        List<ProductImage> productImages = productImageRepository.findByProduct_ProductId(product.getProductId());
-        if (productImages.isEmpty()) {
-            throw new ProductImagesNotFoundException("Product images not found");
-        }
-        return productImages;
+        return productImageRepository.findByProduct_ProductId(product.getProductId());
     }
 
     @Override

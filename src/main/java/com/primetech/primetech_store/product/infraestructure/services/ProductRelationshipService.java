@@ -61,11 +61,15 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
         }
 
         // Eliminar el producto de la lista de productos favoritos
-        FavoriteProduct favoriteProduct = favoriteProductService.findByProductId(productId);
-        favoriteProductService.deleteFavoriteProduct(favoriteProduct);
+        List<FavoriteProduct> favoriteProducts = favoriteProductService.findByProductId(productId);
+        if (!favoriteProducts.isEmpty()) {
+            favoriteProducts.forEach(product -> favoriteProductService.deleteFavoriteProduct(product));
+        }
 
         List<ProductImage> productImages = productImageService.findProductImage(productId);
-        productImageService.findProductImage(productId)
-                .forEach(productImage -> productImageService.deleteProductImage(productImage.getProductImageId()));
+        if (!productImages.isEmpty()) {
+            productImageService.findProductImage(productId)
+                    .forEach(productImage -> productImageService.deleteProductImage(productImage.getProductImageId()));
+        }
     }
 }
