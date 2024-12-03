@@ -6,6 +6,9 @@ import com.primetech.primetech_store.purchasedProduct.infraestructure.repositori
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PurchasedProductService implements PurchasedProductServiceInterface {
@@ -14,5 +17,10 @@ public class PurchasedProductService implements PurchasedProductServiceInterface
     @Override
     public PurchasedProduct savePurchasedProduct(PurchasedProduct purchasedProduct) {
         return purchaseHistoryRepository.save(purchasedProduct);
+    }
+
+    @Override
+    public List<PurchasedProduct> findByUserId(UUID userId) {
+        return purchaseHistoryRepository.findByUser_UserId(userId);
     }
 }

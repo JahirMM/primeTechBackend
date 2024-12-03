@@ -9,8 +9,8 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-public class PurchasedProductDetails {
-    private UUID purchaseHistoryId;
+public class PurchasedProductDetailsDTO {
+    private UUID purchaseId;
     private UUID productId;
     private String productName;
     private String productDescription;
@@ -18,8 +18,8 @@ public class PurchasedProductDetails {
     private String productImg;
     private int purchaseQuantity;
 
-    public PurchasedProductDetails(PurchasedProduct purchasedProduct) {
-        this.purchaseHistoryId = purchasedProduct.getPurchaseId();
+    public PurchasedProductDetailsDTO(PurchasedProduct purchasedProduct) {
+        this.purchaseId = purchasedProduct.getPurchaseId();
         this.productId = purchasedProduct.getProductId();
         this.productName = purchasedProduct.getProductName();
         this.productDescription = purchasedProduct.getProductDescription();

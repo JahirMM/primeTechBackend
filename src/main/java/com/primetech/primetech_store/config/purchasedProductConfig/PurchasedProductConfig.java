@@ -3,6 +3,7 @@ package com.primetech.primetech_store.config.purchasedProductConfig;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.purchasedProduct.application.AddPurchasedProductApplication;
+import com.primetech.primetech_store.purchasedProduct.application.GetPurchasedProductsApplication;
 import com.primetech.primetech_store.purchasedProduct.domain.interfaces.PurchasedProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,13 @@ public class PurchasedProductConfig {
         return new AddPurchasedProductApplication(
                 purchasedProductService, userService,
                 productService, productImageService
+        );
+    }
+
+    @Bean
+    public GetPurchasedProductsApplication getPurchasedProductsApplication() {
+        return new GetPurchasedProductsApplication(
+                purchasedProductService, userService
         );
     }
 }
