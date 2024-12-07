@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.application.DTO.laptop.LaptopDTO;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.LaptopServiceInterface;

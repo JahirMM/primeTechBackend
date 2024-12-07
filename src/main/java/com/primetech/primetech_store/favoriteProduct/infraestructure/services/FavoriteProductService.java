@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.favoriteProduct.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
 import com.primetech.primetech_store.favoriteProduct.infraestructure.repositories.FavoriteProductRepository;

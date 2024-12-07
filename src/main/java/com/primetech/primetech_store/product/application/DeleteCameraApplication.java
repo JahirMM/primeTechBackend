@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.UserNotSellerException;
+import com.primetech.primetech_store.common.application.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.domain.interfaces.CameraServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;

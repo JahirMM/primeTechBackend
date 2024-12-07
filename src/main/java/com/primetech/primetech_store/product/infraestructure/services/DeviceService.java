@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.DeviceInformationNotAllowedException;
-import com.primetech.primetech_store.common.exception.DeviceNotFoundException;
+import com.primetech.primetech_store.common.application.exception.DeviceInformationNotAllowedException;
+import com.primetech.primetech_store.common.application.exception.DeviceNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
 import com.primetech.primetech_store.product.domain.models.DeviceType;

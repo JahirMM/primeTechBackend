@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.common.exception.UserNotSellerException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.laptop.LaptopRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.laptop.LaptopDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;

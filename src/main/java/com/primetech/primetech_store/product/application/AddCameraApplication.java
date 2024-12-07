@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.LaptopAlreadyHasCameraException;
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.common.exception.UserNotSellerException;
+import com.primetech.primetech_store.common.application.exception.LaptopAlreadyHasCameraException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.camera.CameraRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.camera.CameraDTO;
 import com.primetech.primetech_store.product.domain.interfaces.CameraServiceInterface;

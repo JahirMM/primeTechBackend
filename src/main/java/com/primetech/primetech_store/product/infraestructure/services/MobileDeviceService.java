@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.MobileDeviceNotFoundException;
+import com.primetech.primetech_store.common.application.exception.MobileDeviceNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.MobileDeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.models.MobileDevice;
 import com.primetech.primetech_store.product.infraestructure.repositories.MobileDeviceRepository;

@@ -2,8 +2,8 @@ package com.primetech.primetech_store.auth.infraestructure.services;
 
 import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
-import com.primetech.primetech_store.common.exception.RoleNotFoundException;
-import com.primetech.primetech_store.common.exception.UserNotFoundException;
+import com.primetech.primetech_store.common.application.exception.RoleNotFoundException;
+import com.primetech.primetech_store.common.application.exception.UserNotFoundException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;

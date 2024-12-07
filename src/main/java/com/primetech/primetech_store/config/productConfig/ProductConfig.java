@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.config.productConfig;
 
-import com.primetech.primetech_store.common.filesystem.FileStorageService;
+import com.primetech.primetech_store.common.infraestructure.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.application.*;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.infraestructure.services.ProductImageService;

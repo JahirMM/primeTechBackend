@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.SimCardServiceInterface;
 import com.primetech.primetech_store.product.domain.models.SimCard;
 import com.primetech.primetech_store.product.infraestructure.repositories.SimCardRepository;

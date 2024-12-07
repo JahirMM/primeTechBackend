@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.ProductImagesNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ProductImagesNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.product.domain.models.ProductImage;

@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.common.exception.ScreenAlreadyExistsException;
-import com.primetech.primetech_store.common.exception.UserNotSellerException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ScreenAlreadyExistsException;
+import com.primetech.primetech_store.common.application.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.screen.ScreenRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.screen.ScreenDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;

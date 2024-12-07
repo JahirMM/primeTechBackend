@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.user.application;
 
-import com.primetech.primetech_store.common.exception.FileStorageException;
-import com.primetech.primetech_store.common.exception.InvalidFileFormatException;
-import com.primetech.primetech_store.common.filesystem.FileStorageService;
+import com.primetech.primetech_store.common.application.exception.FileStorageException;
+import com.primetech.primetech_store.common.application.exception.InvalidFileFormatException;
+import com.primetech.primetech_store.common.infraestructure.filesystem.FileStorageService;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.UserImage;
 import lombok.AllArgsConstructor;

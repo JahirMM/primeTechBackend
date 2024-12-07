@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.MobeliDeviceAlreadyExistsException;
-import com.primetech.primetech_store.common.exception.UserNotSellerException;
+import com.primetech.primetech_store.common.application.exception.MobeliDeviceAlreadyExistsException;
+import com.primetech.primetech_store.common.application.exception.UserNotSellerException;
 import com.primetech.primetech_store.product.application.DTO.simCard.SimCardRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.simCard.SimCardDTO;
 import com.primetech.primetech_store.product.domain.interfaces.MobileDeviceServiceInterface;

@@ -2,7 +2,7 @@ package com.primetech.primetech_store.auth.application;
 
 import com.primetech.primetech_store.auth.application.dto.SignUpRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
-import com.primetech.primetech_store.common.exception.EmailAlreadyExistsException;
+import com.primetech.primetech_store.common.application.exception.EmailAlreadyExistsException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;
 import com.primetech.primetech_store.user.domain.models.UserRoleAssignment;

@@ -3,9 +3,9 @@ package com.primetech.primetech_store.shoppingCart.application;
 import com.primetech.primetech_store.shoppingCart.application.dto.ShoppingCartItemUpdaterDTO;
 import com.primetech.primetech_store.shoppingCart.domain.interfaces.ShoppingCartServiceInterface;
 import com.primetech.primetech_store.shoppingCart.domain.models.ShoppingCartItems;
-import com.primetech.primetech_store.common.exception.ProductNotFoundException;
-import com.primetech.primetech_store.common.exception.QuantityMustBeGreaterThanZeroException;
-import com.primetech.primetech_store.common.exception.ShoppingCartNotFoundException;
+import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
+import com.primetech.primetech_store.common.application.exception.QuantityMustBeGreaterThanZeroException;
+import com.primetech.primetech_store.common.application.exception.ShoppingCartNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

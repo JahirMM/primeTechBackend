@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.user.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.UserImageDeletionException;
-import com.primetech.primetech_store.common.exception.UserImageNotFoundException;
+import com.primetech.primetech_store.common.application.exception.UserImageDeletionException;
+import com.primetech.primetech_store.common.application.exception.UserImageNotFoundException;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserImage;

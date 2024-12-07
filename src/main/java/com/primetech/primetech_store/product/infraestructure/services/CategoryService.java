@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.CategoryNotFoundException;
+import com.primetech.primetech_store.common.application.exception.CategoryNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.CategoryServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Category;
 import com.primetech.primetech_store.product.infraestructure.repositories.CategoryRepository;

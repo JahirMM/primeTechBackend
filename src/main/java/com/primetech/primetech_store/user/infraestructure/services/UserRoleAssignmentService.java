@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.user.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.RoleNotFoundException;
-import com.primetech.primetech_store.common.exception.UserAlreadyHasRoleException;
-import com.primetech.primetech_store.common.exception.UserRoleAssignmentNotFoundException;
+import com.primetech.primetech_store.common.application.exception.RoleNotFoundException;
+import com.primetech.primetech_store.common.application.exception.UserAlreadyHasRoleException;
+import com.primetech.primetech_store.common.application.exception.UserRoleAssignmentNotFoundException;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserRole;

@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.favoriteProduct.application;
 
-import com.primetech.primetech_store.common.exception.ProductAlreadyFavoritedException;
+import com.primetech.primetech_store.common.application.exception.ProductAlreadyFavoritedException;
 import com.primetech.primetech_store.favoriteProduct.application.DTO.FavoriteProductDetailsDTO;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;

@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
-import com.primetech.primetech_store.common.exception.DeviceTypeNotFoundException;
+import com.primetech.primetech_store.common.application.exception.DeviceTypeNotFoundException;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceTypeServiceInterface;
 import com.primetech.primetech_store.product.domain.models.DeviceType;
 import com.primetech.primetech_store.product.infraestructure.repositories.DeviceTypeRepository;

@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.user.application;
 
-import com.primetech.primetech_store.common.exception.InvalidFieldFormatException;
+import com.primetech.primetech_store.common.application.exception.InvalidFieldFormatException;
 import com.primetech.primetech_store.user.application.dto.UpdateUserInformationRequestDTO;
 import com.primetech.primetech_store.user.application.dto.UserDTO;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;

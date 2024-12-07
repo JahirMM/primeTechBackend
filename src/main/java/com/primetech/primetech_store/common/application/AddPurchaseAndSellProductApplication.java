@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.common.application;
 
-import com.primetech.primetech_store.common.exception.InsufficientStockException;
+import com.primetech.primetech_store.common.application.exception.InsufficientStockException;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;

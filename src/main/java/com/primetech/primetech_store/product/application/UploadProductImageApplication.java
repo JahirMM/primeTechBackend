@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
-import com.primetech.primetech_store.common.exception.*;
-import com.primetech.primetech_store.common.filesystem.FileStorageService;
+import com.primetech.primetech_store.common.application.exception.*;
+import com.primetech.primetech_store.common.infraestructure.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;

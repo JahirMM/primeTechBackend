@@ -2,7 +2,7 @@ package com.primetech.primetech_store.auth.application;
 
 import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
-import com.primetech.primetech_store.common.exception.InvalidCredentialsException;
+import com.primetech.primetech_store.common.application.exception.InvalidCredentialsException;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
 import lombok.AllArgsConstructor;
