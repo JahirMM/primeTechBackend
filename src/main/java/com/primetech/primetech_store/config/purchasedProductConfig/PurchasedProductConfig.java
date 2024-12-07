@@ -1,7 +1,5 @@
 package com.primetech.primetech_store.config.purchasedProductConfig;
 
-import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
-import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.purchasedProduct.application.AddPurchasedProductApplication;
 import com.primetech.primetech_store.purchasedProduct.application.GetPurchasedProductsApplication;
 import com.primetech.primetech_store.purchasedProduct.domain.interfaces.PurchasedProductServiceInterface;
@@ -15,14 +13,11 @@ import org.springframework.context.annotation.Configuration;
 public class PurchasedProductConfig {
     private final PurchasedProductServiceInterface purchasedProductService;
     private final UserServiceInterface userService;
-    private final ProductServiceInterface productService;
-    private final ProductImageServiceInterface productImageService;
 
     @Bean
     public AddPurchasedProductApplication addPurchasedProductApplication() {
         return new AddPurchasedProductApplication(
-                purchasedProductService, userService,
-                productService, productImageService
+                purchasedProductService
         );
     }
 

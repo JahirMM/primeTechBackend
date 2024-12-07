@@ -1,10 +1,10 @@
 package com.primetech.primetech_store.config.shoppingCartConfig;
 
-import com.primetech.primetech_store.ShoppingCart.application.AddProductToShoppingCartApplication;
-import com.primetech.primetech_store.ShoppingCart.application.DeleteProductFromShoppingCartApplication;
-import com.primetech.primetech_store.ShoppingCart.application.GetShoppingCartApplication;
-import com.primetech.primetech_store.ShoppingCart.application.UpdateShoppingCartItemApplication;
-import com.primetech.primetech_store.ShoppingCart.domain.interfaces.ShoppingCartServiceInterface;
+import com.primetech.primetech_store.shoppingCart.application.AddProductToShoppingCartApplication;
+import com.primetech.primetech_store.shoppingCart.application.DeleteProductFromShoppingCartApplication;
+import com.primetech.primetech_store.shoppingCart.application.GetShoppingCartApplication;
+import com.primetech.primetech_store.shoppingCart.application.UpdateShoppingCartItemApplication;
+import com.primetech.primetech_store.shoppingCart.domain.interfaces.ShoppingCartServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
