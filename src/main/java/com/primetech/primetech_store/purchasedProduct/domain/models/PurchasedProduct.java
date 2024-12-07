@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.purchasedProduct.domain.models;
 
+import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -35,6 +36,15 @@ public class PurchasedProduct {
     @Column(name = "product_img")
     private String productImg;
 
+    @Column(name = "seller_id")
+    private UUID sellerId;
+
+    @Column(name = "seller_name", nullable = false)
+    private String sellerName;
+
+    @Column(name = "seller_email", nullable = false)
+    private String sellerEmail;
+
     @Column(name = "purchase_date", nullable = false)
     private LocalDateTime purchaseDate;
 
@@ -45,14 +55,19 @@ public class PurchasedProduct {
         this.purchaseId = UUID.randomUUID();
     }
 
-    public PurchasedProduct(User user, UUID productId, String productName, String productDescription, BigDecimal productPrice, String productImg, int purchaseQuantity) {
+    public PurchasedProduct(
+            User user, Product product,
+            String productImg, int purchaseQuantity) {
         this();
         this.user = user;
-        this.productId = productId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
+        this.productId = product.getProductId();
+        this.productName = product.getName();
+        this.productDescription = product.getDescription();
+        this.productPrice = product.getPrice();
         this.productImg = productImg;
+        this.sellerId = product.getUser().getUserId();
+        this.sellerName = product.getUser().getFirstName() + " "  + product.getUser().getMaternalSurname() + " " + product.getUser().getPaternalSurname();
+        this.sellerEmail = product.getUser().getEmail();
         this.purchaseQuantity = purchaseQuantity;
     }
 

@@ -16,6 +16,9 @@ public class PurchasedProductDetailsDTO {
     private String productDescription;
     private BigDecimal productPrice;
     private String productImg;
+    private UUID sellerId;
+    private String sellerName;
+    private String sellerEmail;
     private int purchaseQuantity;
 
     public PurchasedProductDetailsDTO(PurchasedProduct purchasedProduct) {
@@ -25,6 +28,9 @@ public class PurchasedProductDetailsDTO {
         this.productDescription = purchasedProduct.getProductDescription();
         this.productPrice = purchasedProduct.getProductPrice();
         this.productImg = purchasedProduct.getProductImg();
+        this.sellerId = purchasedProduct.getSellerId();
+        this.sellerName = purchasedProduct.getSellerName();
+        this.sellerEmail = purchasedProduct.getSellerEmail();
         this.purchaseQuantity = purchasedProduct.getPurchaseQuantity();
     }
 }

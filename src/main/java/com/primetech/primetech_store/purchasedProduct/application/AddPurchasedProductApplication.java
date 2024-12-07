@@ -36,7 +36,7 @@ public class AddPurchasedProductApplication {
         ProductImage productImage = productImageService.findProductImagByProductIdAndMainTrue(product.getProductId());
         String imgUrl = productImage != null ?  productImage.getImgURL() : null;
 
-        PurchasedProduct purchasedProduct = new PurchasedProduct(user, product.getProductId(), product.getName(), product.getDescription(), product.getPrice(), imgUrl, quantity);
+        PurchasedProduct purchasedProduct = new PurchasedProduct(user, product, imgUrl, quantity);
 
         return purchasedProductService.savePurchasedProduct(purchasedProduct);
     }
