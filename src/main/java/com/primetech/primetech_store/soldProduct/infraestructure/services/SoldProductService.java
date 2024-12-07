@@ -6,6 +6,9 @@ import com.primetech.primetech_store.soldProduct.infraestructure.repositories.So
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class SoldProductService implements SoldProductServiceInterface {
@@ -15,5 +18,10 @@ public class SoldProductService implements SoldProductServiceInterface {
     @Override
     public SoldProduct saveSoldProduct(SoldProduct soldProduct) {
         return soldProductRepository.save(soldProduct);
+    }
+
+    @Override
+    public List<SoldProduct> findByUserId(UUID userId) {
+        return soldProductRepository.findByUser_UserId(userId);
     }
 }
