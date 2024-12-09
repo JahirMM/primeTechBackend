@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface PurchasedProductServiceInterface {
     PurchasedProduct savePurchasedProduct(PurchasedProduct purchasedProduct);
     List<PurchasedProduct> findByUserId(UUID userId);
+    List<PurchasedProduct> findByOrderIdAndUserId(UUID orderId, UUID userId);
 }

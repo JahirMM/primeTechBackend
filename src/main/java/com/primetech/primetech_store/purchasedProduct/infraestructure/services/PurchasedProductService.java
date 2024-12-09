@@ -23,4 +23,9 @@ public class PurchasedProductService implements PurchasedProductServiceInterface
     public List<PurchasedProduct> findByUserId(UUID userId) {
         return purchaseHistoryRepository.findByUser_UserId(userId);
     }
+
+    @Override
+    public List<PurchasedProduct> findByOrderIdAndUserId(UUID orderId, UUID userId) {
+        return purchaseHistoryRepository.findByOrder_OrderIdAndUser_UserId(orderId, userId);
+    }
 }

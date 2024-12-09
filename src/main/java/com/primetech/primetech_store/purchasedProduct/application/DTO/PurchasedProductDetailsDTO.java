@@ -11,7 +11,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PurchasedProductDetailsDTO {
     private UUID purchaseId;
-    private UUID orderId;
     private UUID productId;
     private String productName;
     private String productDescription;
@@ -24,7 +23,6 @@ public class PurchasedProductDetailsDTO {
 
     public PurchasedProductDetailsDTO(PurchasedProduct purchasedProduct) {
         this.purchaseId = purchasedProduct.getPurchaseId();
-        this.orderId = purchasedProduct.getOrder().getOrderId();
         this.productId = purchasedProduct.getProductId();
         this.productName = purchasedProduct.getProductName();
         this.productDescription = purchasedProduct.getProductDescription();
