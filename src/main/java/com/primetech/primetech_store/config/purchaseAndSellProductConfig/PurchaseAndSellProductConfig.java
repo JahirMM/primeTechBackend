@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.purchaseAndSellProductConfig;
 
 import com.primetech.primetech_store.common.application.AddPurchaseAndSellProductApplication;
+import com.primetech.primetech_store.order.application.AddOrderApplication;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.purchasedProduct.application.AddPurchasedProductApplication;
@@ -19,12 +20,14 @@ public class PurchaseAndSellProductConfig {
 
     private final AddPurchasedProductApplication addPurchasedProductApplication;
     private final AddSoldProductApplication addSoldProductApplication;
+    private final AddOrderApplication orderApplication;
 
     @Bean
     public AddPurchaseAndSellProductApplication addPurchaseAndSellProductApplication() {
         return new AddPurchaseAndSellProductApplication(
                 userService, productService, productImageService,
-                addPurchasedProductApplication, addSoldProductApplication
+                addPurchasedProductApplication, addSoldProductApplication,
+                orderApplication
         );
     }
 }

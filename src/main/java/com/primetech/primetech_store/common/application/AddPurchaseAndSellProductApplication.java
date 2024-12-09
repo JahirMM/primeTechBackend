@@ -2,6 +2,8 @@ package com.primetech.primetech_store.common.application;
 
 import com.primetech.primetech_store.common.application.DTO.AddPurchaseAndSellProductRequestDTO;
 import com.primetech.primetech_store.common.application.exception.InsufficientStockException;
+import com.primetech.primetech_store.order.application.AddOrderApplication;
+import com.primetech.primetech_store.order.domain.models.Order;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
@@ -27,12 +29,15 @@ public class AddPurchaseAndSellProductApplication {
 
     private final AddPurchasedProductApplication addPurchasedProductApplication;
     private final AddSoldProductApplication addSoldProductApplication;
+    private final AddOrderApplication orderApplication;
 
     @Transactional
     public List<PurchasedProductDetailsDTO> addPurchaseAndSellProduct(String email, List<AddPurchaseAndSellProductRequestDTO> request) {
 
         List<AddPurchaseAndSellProductRequestDTO> uniqueRequests = new ArrayList<>();
         User user = userService.findUserInformationByEmail(email);
+
+        Order order = orderApplication.addOrder(user);
 
         request.forEach(product -> {
             AddPurchaseAndSellProductRequestDTO searchProduct = findProductInList(uniqueRequests, product.getProductId());
@@ -43,7 +48,7 @@ public class AddPurchaseAndSellProductApplication {
             }
         });
 
-        List<PurchasedProductDetailsDTO> purchasedProductDetailsDTOList = uniqueRequests.stream().map(
+        List<PurchasedProductDetailsDTO> purchasedProducts  = uniqueRequests.stream().map(
                 item -> {
                     Product product = productService.findProductByProductId(item.getProductId());
 
@@ -57,13 +62,13 @@ public class AddPurchaseAndSellProductApplication {
                     ProductImage productImage = productImageService.findProductImagByProductIdAndMainTrue(product.getProductId());
                     String imgUrl = productImage != null ?  productImage.getImgURL() : null;
 
-                    PurchasedProduct purchasedProduct = addPurchasedProductApplication.addPurchasedProduct(user, product, imgUrl, item.getPurchaseQuantity());
+                    PurchasedProduct purchasedProduct = addPurchasedProductApplication.addPurchasedProduct(user, order, product, imgUrl, item.getPurchaseQuantity());
                     addSoldProductApplication.addSoldProduct(product, imgUrl, item.getPurchaseQuantity());
                     return new PurchasedProductDetailsDTO(purchasedProduct);
                 }
         ).toList();
 
-        return purchasedProductDetailsDTOList;
+        return purchasedProducts ;
     }
 
     private AddPurchaseAndSellProductRequestDTO findProductInList(List<AddPurchaseAndSellProductRequestDTO> requestList, UUID productId) {

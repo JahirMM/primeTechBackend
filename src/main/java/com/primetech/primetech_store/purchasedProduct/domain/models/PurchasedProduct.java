@@ -1,12 +1,12 @@
 package com.primetech.primetech_store.purchasedProduct.domain.models;
 
+import com.primetech.primetech_store.order.domain.models.Order;
 import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +16,10 @@ public class PurchasedProduct {
     @Id
     @Column(name = "purchase_id", nullable = false)
     private UUID purchaseId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -45,9 +49,6 @@ public class PurchasedProduct {
     @Column(name = "seller_email", nullable = false)
     private String sellerEmail;
 
-    @Column(name = "purchase_date", nullable = false)
-    private LocalDateTime purchaseDate;
-
     @Column(name = "purchase_quantity", nullable = false)
     private int purchaseQuantity;
 
@@ -56,10 +57,11 @@ public class PurchasedProduct {
     }
 
     public PurchasedProduct(
-            User user, Product product,
+            User user, Order order, Product product,
             String productImg, int purchaseQuantity) {
         this();
         this.user = user;
+        this.order = order;
         this.productId = product.getProductId();
         this.productName = product.getName();
         this.productDescription = product.getDescription();
@@ -69,10 +71,5 @@ public class PurchasedProduct {
         this.sellerName = product.getUser().getFirstName() + " "  + product.getUser().getMaternalSurname() + " " + product.getUser().getPaternalSurname();
         this.sellerEmail = product.getUser().getEmail();
         this.purchaseQuantity = purchaseQuantity;
-    }
-
-    @PrePersist
-    protected void onCreate() {
-        this.purchaseDate = LocalDateTime.now();
     }
 }
