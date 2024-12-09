@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.common.application;
 
+import com.primetech.primetech_store.common.application.DTO.AddPurchaseAndSellProductRequestDTO;
 import com.primetech.primetech_store.common.application.exception.InsufficientStockException;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
@@ -14,6 +15,8 @@ import com.primetech.primetech_store.user.domain.models.User;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -25,25 +28,50 @@ public class AddPurchaseAndSellProductApplication {
     private final AddPurchasedProductApplication addPurchasedProductApplication;
     private final AddSoldProductApplication addSoldProductApplication;
 
-
     @Transactional
-    public PurchasedProductDetailsDTO addPurchaseAndSellProduct(String email, int quantity, UUID productId) {
+    public List<PurchasedProductDetailsDTO> addPurchaseAndSellProduct(String email, List<AddPurchaseAndSellProductRequestDTO> request) {
+
+        List<AddPurchaseAndSellProductRequestDTO> uniqueRequests = new ArrayList<>();
         User user = userService.findUserInformationByEmail(email);
-        Product product = productService.findProductByProductId(productId);
 
-        if (product.getStock() < quantity) {
-            throw new InsufficientStockException("Not enough stock for the product");
-        }
+        request.forEach(product -> {
+            AddPurchaseAndSellProductRequestDTO searchProduct = findProductInList(uniqueRequests, product.getProductId());
+            if (searchProduct != null) {
+                searchProduct.setPurchaseQuantity(searchProduct.getPurchaseQuantity() + product.getPurchaseQuantity());
+            } else {
+                uniqueRequests.add(product);
+            }
+        });
 
-        product.setStock(product.getStock() - quantity);
-        productService.saveProduct(product);
+        List<PurchasedProductDetailsDTO> purchasedProductDetailsDTOList = uniqueRequests.stream().map(
+                item -> {
+                    Product product = productService.findProductByProductId(item.getProductId());
 
-        ProductImage productImage = productImageService.findProductImagByProductIdAndMainTrue(product.getProductId());
-        String imgUrl = productImage != null ?  productImage.getImgURL() : null;
+                    if (product.getStock() < item.getPurchaseQuantity()) {
+                        throw new InsufficientStockException("Not enough stock for the product");
+                    }
 
-        PurchasedProduct purchasedProduct = addPurchasedProductApplication.addPurchasedProduct(user, product, imgUrl, quantity);
-        addSoldProductApplication.addSoldProduct(product, imgUrl, quantity);
+                    product.setStock(product.getStock() - item.getPurchaseQuantity());
+                    productService.saveProduct(product);
 
-        return new PurchasedProductDetailsDTO(purchasedProduct);
+                    ProductImage productImage = productImageService.findProductImagByProductIdAndMainTrue(product.getProductId());
+                    String imgUrl = productImage != null ?  productImage.getImgURL() : null;
+
+                    PurchasedProduct purchasedProduct = addPurchasedProductApplication.addPurchasedProduct(user, product, imgUrl, item.getPurchaseQuantity());
+                    addSoldProductApplication.addSoldProduct(product, imgUrl, item.getPurchaseQuantity());
+                    return new PurchasedProductDetailsDTO(purchasedProduct);
+                }
+        ).toList();
+
+        return purchasedProductDetailsDTOList;
+    }
+
+    private AddPurchaseAndSellProductRequestDTO findProductInList(List<AddPurchaseAndSellProductRequestDTO> requestList, UUID productId) {
+        return requestList.stream()
+                .filter(
+                        product -> product.getProductId().equals(productId)
+                )
+                .findFirst()
+                .orElse(null);
     }
 }

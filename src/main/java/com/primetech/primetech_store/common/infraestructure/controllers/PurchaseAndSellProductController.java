@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/prime-tech/api/v1/purchases")
@@ -19,11 +19,11 @@ import java.util.UUID;
 public class PurchaseAndSellProductController {
     private final AddPurchaseAndSellProductApplication addPurchaseAndSellProductApplication;
 
-    @PostMapping("/{productId}")
-    public ResponseEntity<AddPurchaseAndSellProductResponseDTO> addPurchaseAndSellProduct(@PathVariable UUID productId, @RequestBody AddPurchaseAndSellProductRequestDTO request) {
+    @PostMapping("")
+    public ResponseEntity<AddPurchaseAndSellProductResponseDTO> addPurchaseAndSellProduct(@RequestBody List<AddPurchaseAndSellProductRequestDTO> request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            PurchasedProductDetailsDTO purchasedProduct = addPurchaseAndSellProductApplication.addPurchaseAndSellProduct(authentication.getName(), request.getPurchaseQuantity(), productId);
+            List<PurchasedProductDetailsDTO> purchasedProduct = addPurchaseAndSellProductApplication.addPurchaseAndSellProduct(authentication.getName(), request);
             return ResponseEntity.status(HttpStatus.CREATED).body(new AddPurchaseAndSellProductResponseDTO("Purchased product successfully added", purchasedProduct));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
