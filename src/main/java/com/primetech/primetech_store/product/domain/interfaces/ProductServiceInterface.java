@@ -13,7 +13,7 @@ public interface ProductServiceInterface {
     Product findProductByProductId(UUID productId);
     boolean existsProductByProductId(UUID productId);
     PriceRangeDTO findMinimumAndMaximumPrice();
-    Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
+    Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double raiting);
     Product findByProductIdAndSellerId(UUID productId, UUID sellerId);
     void deleteProductByProductId(UUID productId);
 }

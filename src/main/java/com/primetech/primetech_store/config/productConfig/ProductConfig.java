@@ -4,6 +4,7 @@ import com.primetech.primetech_store.common.infraestructure.filesystem.FileStora
 import com.primetech.primetech_store.product.application.*;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.infraestructure.services.ProductImageService;
+import com.primetech.primetech_store.review.application.GetAverageRatingByProductIdApplication;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,8 @@ public class ProductConfig {
     private final ProductImageService productImageService;
     private final FileStorageService fileStorageService;
 
+    private final GetAverageRatingByProductIdApplication getAverageRatingByProductId;
+
     /*
     * Product
     */
@@ -45,14 +48,16 @@ public class ProductConfig {
     @Bean
     public GetProductApplication getProductApplication() {
         return new GetProductApplication(
-                productService, deviceService
+                productService, deviceService,
+                getAverageRatingByProductId
         );
     }
 
     @Bean
     public  GetProductsApplication getProductsApplication() {
         return new GetProductsApplication(
-                productService, deviceService
+                productService, deviceService,
+                getAverageRatingByProductId
         );
     }
 

@@ -60,6 +60,7 @@ public class ProductController {
             @RequestParam(required = false) String sellerId,
             @RequestParam(required = false) BigDecimal minPrice,
             @RequestParam(required = false) BigDecimal maxPrice,
+            @RequestParam(required = false) Double minRating,
             @PageableDefault(page = 0, size = 20) Pageable pageable) {
 
         name = (name == null) ? "" : name;
@@ -85,7 +86,7 @@ public class ProductController {
 
         Page<ProductDetailsDTO> products = getProductsApplication.getProductsApplication(name, brand,
                 categoryUUID, sellerUUID,
-                minPrice, maxPrice, pageable);
+                minPrice, maxPrice, pageable, minRating);
         PagedModel.PageMetadata pageMetadata = new PagedModel.PageMetadata(products.getSize(),
                 products.getNumber(),
                 products.getTotalElements());

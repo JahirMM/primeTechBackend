@@ -6,6 +6,7 @@ import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInte
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
 import com.primetech.primetech_store.product.domain.models.Product;
+import com.primetech.primetech_store.review.application.GetAverageRatingByProductIdApplication;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import java.util.UUID;
 public class GetProductApplication {
     private final ProductServiceInterface productService;
     private final DeviceServiceInterface deviceService;
+
+    private final GetAverageRatingByProductIdApplication getAverageRatingByProductId;
 
     @Transactional
     public ProductDetailsDTO getProductApplication(UUID productId) {
@@ -27,7 +30,9 @@ public class GetProductApplication {
 
         Device device = deviceService.findDevicebyProductId(product.getProductId());
 
+        Double averageRaiting = getAverageRatingByProductId.getAverageRatingByProductId(productId);
 
-        return new ProductDetailsDTO(product, device.getDeviceType().getTypeName());
+
+        return new ProductDetailsDTO(product, averageRaiting,device.getDeviceType().getTypeName());
     }
 }
