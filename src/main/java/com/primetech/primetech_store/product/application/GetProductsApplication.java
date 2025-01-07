@@ -25,9 +25,13 @@ public class GetProductsApplication {
 
     @Transactional
     public Page<ProductDetailsDTO> getProductsApplication(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double raiting) {
-        if (raiting > 5 || raiting < 0) {
-            throw new InvalidRatingException("The raiting provided is invalid.");
+
+        if (raiting != null) {
+            if (raiting > 5 || raiting < 0) {
+                throw new InvalidRatingException("The raiting provided is invalid.");
+            }
         }
+
 
         Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable, raiting);
         return products.map(product -> {
