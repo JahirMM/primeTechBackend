@@ -34,4 +34,9 @@ public class ReviewServices implements ReviewServicesInterface {
         return reviewRepository.findByUserUserIdAndReviewId(userId, reviewId)
                 .orElseThrow(() -> new ReviewNotFoundException("Review not found for the given product and user."));
     }
+
+    @Override
+    public void deleteByReviewId(Review review) {
+        reviewRepository.delete(review);
+    }
 }
