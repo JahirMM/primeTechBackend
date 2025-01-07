@@ -12,20 +12,25 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class PurchasedProductService implements PurchasedProductServiceInterface {
-    private final PurchasedProductRepository purchaseHistoryRepository;
+    private final PurchasedProductRepository purchasedProductRepository;
 
     @Override
     public PurchasedProduct savePurchasedProduct(PurchasedProduct purchasedProduct) {
-        return purchaseHistoryRepository.save(purchasedProduct);
+        return purchasedProductRepository.save(purchasedProduct);
     }
 
     @Override
     public List<PurchasedProduct> findByUserId(UUID userId) {
-        return purchaseHistoryRepository.findByUser_UserId(userId);
+        return purchasedProductRepository.findByUser_UserId(userId);
     }
 
     @Override
     public List<PurchasedProduct> findByOrderIdAndUserId(UUID orderId, UUID userId) {
-        return purchaseHistoryRepository.findByOrder_OrderIdAndUser_UserId(orderId, userId);
+        return purchasedProductRepository.findByOrder_OrderIdAndUser_UserId(orderId, userId);
+    }
+
+    @Override
+    public boolean existsByProductIdAndUserId(UUID productId, UUID userId) {
+        return purchasedProductRepository.existsByProductIdAndUser_UserId(productId, userId);
     }
 }

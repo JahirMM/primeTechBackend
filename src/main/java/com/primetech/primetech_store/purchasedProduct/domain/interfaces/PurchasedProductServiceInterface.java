@@ -9,4 +9,5 @@ public interface PurchasedProductServiceInterface {
     PurchasedProduct savePurchasedProduct(PurchasedProduct purchasedProduct);
     List<PurchasedProduct> findByUserId(UUID userId);
     List<PurchasedProduct> findByOrderIdAndUserId(UUID orderId, UUID userId);
+    boolean existsByProductIdAndUserId(UUID productId, UUID userId);
 }
