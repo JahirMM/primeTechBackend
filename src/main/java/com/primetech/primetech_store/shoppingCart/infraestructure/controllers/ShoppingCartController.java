@@ -32,7 +32,7 @@ public class ShoppingCartController {
             String email = authentication.getName();
             ProductToShoppingCartAdderDTO shoppingCart = addProductToShoppingCartApplication.addProductToShoppingCart(email, productId);
 
-            return ResponseEntity.ok(new AddProductToShoppingCartResponse("Product added to the shopping cart", shoppingCart));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new AddProductToShoppingCartResponse("Product added to the shopping cart", shoppingCart));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AddProductToShoppingCartResponse("Please log in", null));

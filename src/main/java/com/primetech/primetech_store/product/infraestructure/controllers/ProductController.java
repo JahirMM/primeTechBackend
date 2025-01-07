@@ -37,7 +37,7 @@ public class ProductController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             ProductDTO productDTO = addProductApplication.addProduct(request, authentication.getName());
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddProductResponseDTO("Product successfully added", productDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

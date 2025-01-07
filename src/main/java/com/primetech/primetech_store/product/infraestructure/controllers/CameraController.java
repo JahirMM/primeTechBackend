@@ -33,7 +33,7 @@ public class CameraController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             CameraDTO cameraDTO = addCameraApplication.addMobileDeviceApplication(request, authentication.getName(), productId);
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddCameraResponseDTO("Camera successfully added", cameraDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

@@ -1,7 +1,5 @@
 package com.primetech.primetech_store.soldProduct.infraestructure.controllers;
 
-import com.primetech.primetech_store.purchasedProduct.application.DTO.GetPurchasedProductsResponseDTO;
-import com.primetech.primetech_store.purchasedProduct.application.DTO.PurchasedProductDetailsDTO;
 import com.primetech.primetech_store.soldProduct.application.DTO.GetSoldProductsResponseDTO;
 import com.primetech.primetech_store.soldProduct.application.DTO.SoldProductDetailsDTO;
 import com.primetech.primetech_store.soldProduct.application.GetSoldProductsApplication;
@@ -27,7 +25,7 @@ public class SoldProductController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             List<SoldProductDetailsDTO> soldProductDetails = getPurchasedProducts.getSoldProducts(authentication.getName());
-            return ResponseEntity.ok(new GetSoldProductsResponseDTO("Products found", soldProductDetails));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new GetSoldProductsResponseDTO("Products found", soldProductDetails));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new GetSoldProductsResponseDTO("Please log in", null));

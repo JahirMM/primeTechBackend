@@ -33,7 +33,7 @@ public class BatteryController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             BatteryDTO batteryDTO = addBatteryApplication.addBatteryApplication(request, authentication.getName(), productId);
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddBatteryResponseDTO("Battery successfully added", batteryDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

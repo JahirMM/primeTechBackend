@@ -29,7 +29,7 @@ public class LaptopController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             LaptopDTO laptopDTO = addLaptopApplication.addLaptopApplication(request, productId, authentication.getName());
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddLaptopResponsiveDTO("Laptop successfully added", laptopDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

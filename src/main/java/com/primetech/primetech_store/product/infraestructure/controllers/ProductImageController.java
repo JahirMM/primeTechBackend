@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
+import com.primetech.primetech_store.product.application.DTO.product.AddProductResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.GetProductImagesResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.ProductImageDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;
@@ -49,7 +50,8 @@ public class ProductImageController {
 
             Map<String, String> response = new HashMap<>();
             response.put("message", "Image successfully uploaded");
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(response);
         } else {
             Map<String, String> response = new HashMap<>();
             response.put("message", "Please log in");

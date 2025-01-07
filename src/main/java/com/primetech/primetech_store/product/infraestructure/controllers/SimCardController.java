@@ -33,7 +33,7 @@ public class SimCardController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             SimCardDTO simCardDTO = simCardApplication.addSimCardApplication(request, mobileDeviceId, authentication.getName());
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddSimCardResponseDTO("Sim card successfully added", simCardDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

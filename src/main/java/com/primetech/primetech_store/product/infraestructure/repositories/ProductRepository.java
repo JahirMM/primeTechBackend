@@ -22,12 +22,13 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     @Query("SELECT p FROM Product p " +
             "LEFT JOIN Review r ON p.productId = r.product.productId " +
             "WHERE " +
+            "(p.stock > 0) AND " +
             "(:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
             "(:brand IS NULL OR LOWER(p.brand) LIKE LOWER(CONCAT('%', :brand, '%'))) AND " +
             "(:categoryId IS NULL OR p.category.categoryId = :categoryId) AND " +
             "(:sellerId IS NULL OR p.user.userId = :sellerId) AND " +
             "(p.price BETWEEN :minPrice AND :maxPrice) " +
-            "GROUP BY p.productId, p.name, p.brand, p.category, p.user, p.price " +
+            "GROUP BY p.productId, p.name, p.brand, p.category, p.user, p.price, p.stock " +
             "HAVING (:minRating IS NULL OR COALESCE(AVG(r.rating), 0) >= :minRating)")
     Page<Product> findByCriteria(@Param("name") String name,
                                  @Param("brand") String brand,
@@ -37,6 +38,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
                                  @Param("maxPrice") BigDecimal maxPrice,
                                  @Param("minRating") Double minRating,
                                  Pageable pageable);
+
     Optional<Product> findByProductIdAndUser_UserId(UUID productId, UUID userId);
     void deleteByProductId(UUID productId);
 }

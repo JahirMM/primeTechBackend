@@ -29,7 +29,7 @@ public class MobileDeviceController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             MobileDeviceDTO mobileDevice = addMobileDeviceApplication.addMobileDeviceApplication(request, productId, authentication.getName());
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddMobileDeviceResponseDTO("Mobile device successfully added", mobileDevice));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

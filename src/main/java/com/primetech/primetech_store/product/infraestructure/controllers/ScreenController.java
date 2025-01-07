@@ -33,7 +33,7 @@ public class ScreenController {
 
         if (authentication != null && authentication.isAuthenticated()) {
             ScreenDTO screenDTO = addMobileDeviceApplication.addScreenApplication(request, authentication.getName(), productId);
-            return ResponseEntity.status(HttpStatus.OK)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new AddScreenResponseDTO("Screen successfully added", screenDTO));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
