@@ -29,25 +29,19 @@ public class AddReviewApplication {
             throw new InvalidRatingException("The rating provided is invalid.");
         }
 
-        // Verificar que el usuario exista
         User user = userService.findUserInformationByEmail(email);
-
-        // Verificar que el producto exista
         Product product = productService.findProductByProductId(productId);
 
-        // Validar que el usuario haya comprado el producto
         boolean hasPurchased = purchasedProductService.existsByProductIdAndUserId(productId, user.getUserId());
         if (!hasPurchased) {
             throw new ProductNotPurchasedException("You cannot review a product you have not purchased.");
         }
 
-        // Validar que no exista ya una review para este producto
         boolean hasReview = reviewServices.findByProductIdAndUserId(productId, user.getUserId());
         if (hasReview) {
             throw new ReviewAlreadyExistsException("You have already submitted a review for this product.");
         }
 
-        // Crear y guardar la nueva reseña
         Review review = reviewServices.saveReview(new Review(product, user, rating, comment));
         return new AddReviewDTO(review);
     }

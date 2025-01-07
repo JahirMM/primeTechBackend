@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
     @Query("SELECT COALESCE(AVG(r.rating), 0) FROM Review r WHERE r.product.productId = :productId")
     Double findAverageRatingByProductId(@Param("productId") UUID productId);
-
     Optional<Review> findByProductProductIdAndUserUserId(UUID productId, UUID userId);
+    Optional<Review> findByUserUserIdAndReviewId(UUID userId, UUID reviewId);
 }

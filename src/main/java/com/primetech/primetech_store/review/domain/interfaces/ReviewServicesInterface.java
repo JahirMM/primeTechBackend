@@ -8,4 +8,5 @@ public interface ReviewServicesInterface {
     Double findAverageRatingByProductId(UUID productId);
     boolean findByProductIdAndUserId(UUID productId, UUID userId);
     Review saveReview(Review review);
+    Review findByUserIdAndReviewId(UUID userId, UUID reviewId);
 }

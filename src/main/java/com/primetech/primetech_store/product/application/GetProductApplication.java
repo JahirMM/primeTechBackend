@@ -30,9 +30,9 @@ public class GetProductApplication {
 
         Device device = deviceService.findDevicebyProductId(product.getProductId());
 
-        Double averageRaiting = getAverageRatingByProductId.getAverageRatingByProductId(productId);
+        Double averageRating = getAverageRatingByProductId.getAverageRatingByProductId(productId);
 
 
-        return new ProductDetailsDTO(product, averageRaiting,device.getDeviceType().getTypeName());
+        return new ProductDetailsDTO(product, averageRating,device.getDeviceType().getTypeName());
     }
 }

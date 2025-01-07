@@ -1,9 +1,8 @@
 package com.primetech.primetech_store.review.infraestructure.controllers;
 
 import com.primetech.primetech_store.review.application.AddReviewApplication;
-import com.primetech.primetech_store.review.application.DTO.AddReviewDTO;
-import com.primetech.primetech_store.review.application.DTO.AddReviewResponseDTO;
-import com.primetech.primetech_store.review.application.DTO.ReviewRequestDTO;
+import com.primetech.primetech_store.review.application.DTO.*;
+import com.primetech.primetech_store.review.application.UpdateReviewApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ReviewController {
     private final AddReviewApplication addReviewApplication;
+    private final UpdateReviewApplication updateReviewApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddReviewResponseDTO> addReview(@Valid @RequestBody ReviewRequestDTO request, @PathVariable UUID productId) {
@@ -31,6 +31,20 @@ public class ReviewController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AddReviewResponseDTO("Please log in", null));
+        }
+    }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<UpdateReviewResponseDTO> updateReview(@Valid @RequestBody ReviewRequestDTO request, @PathVariable UUID reviewId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            ReviewDTO reviewDTO = updateReviewApplication.updateReview(authentication.getName(), reviewId, request.getRating(), request.getComment());
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateReviewResponseDTO("Review successfully updated", reviewDTO));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateReviewResponseDTO("Please log in", null));
         }
     }
 }

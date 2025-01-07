@@ -24,20 +24,20 @@ public class GetProductsApplication {
 
 
     @Transactional
-    public Page<ProductDetailsDTO> getProductsApplication(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double raiting) {
+    public Page<ProductDetailsDTO> getProductsApplication(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double rating) {
 
-        if (raiting != null) {
-            if (raiting > 5 || raiting < 0) {
+        if (rating != null) {
+            if (rating > 5 || rating < 0) {
                 throw new InvalidRatingException("The raiting provided is invalid.");
             }
         }
 
 
-        Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable, raiting);
+        Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable, rating);
         return products.map(product -> {
             Device device = deviceService.findDevicebyProductId(product.getProductId());
-            Double averageRaiting = getAverageRatingByProductId.getAverageRatingByProductId(product.getProductId());
-            return new ProductDetailsDTO(product, averageRaiting, device.getDeviceType().getTypeName());
+            Double averageRating = getAverageRatingByProductId.getAverageRatingByProductId(product.getProductId());
+            return new ProductDetailsDTO(product, averageRating, device.getDeviceType().getTypeName());
         });
     }
 }

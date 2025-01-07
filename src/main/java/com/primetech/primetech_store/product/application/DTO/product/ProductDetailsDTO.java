@@ -23,11 +23,11 @@ public class ProductDetailsDTO {
     private BigDecimal price;
     private String categoryName;
     private String deviceType;
-    private Double averageRaiting;
+    private Double averageRating;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public ProductDetailsDTO(Product product, Double averageRaiting, String deviceType) {
+    public ProductDetailsDTO(Product product, Double averageRating, String deviceType) {
         this.productId = product.getProductId();
         this.sellerId = product.getUser() != null ? product.getUser().getUserId() : null;
         this.name = product.getName();
@@ -39,6 +39,6 @@ public class ProductDetailsDTO {
         this.deviceType = deviceType;
         this.createdAt = product.getCreatedAt();
         this.updatedAt = product.getUpdatedAt();
-        this.averageRaiting = averageRaiting;
+        this.averageRating = averageRating;
     }
 }
