@@ -3,6 +3,7 @@ package com.primetech.primetech_store.review.infraestructure.controllers;
 import com.primetech.primetech_store.review.application.AddReviewApplication;
 import com.primetech.primetech_store.review.application.DTO.*;
 import com.primetech.primetech_store.review.application.DeleteReviewApplication;
+import com.primetech.primetech_store.review.application.GetReviewsApplication;
 import com.primetech.primetech_store.review.application.UpdateReviewApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,6 +25,14 @@ public class ReviewController {
     private final AddReviewApplication addReviewApplication;
     private final UpdateReviewApplication updateReviewApplication;
     private final DeleteReviewApplication deleteReviewApplication;
+    private final GetReviewsApplication getReviewsApplication;
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<GetReviewsResponseDTO> getReviews(@PathVariable UUID productId){
+         List<ReviewDetailsDTO> getReviewDetailsList = getReviewsApplication.getReviews(productId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new GetReviewsResponseDTO(getReviewDetailsList));
+    }
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddReviewResponseDTO> addReview(@Valid @RequestBody ReviewRequestDTO request, @PathVariable UUID productId) {

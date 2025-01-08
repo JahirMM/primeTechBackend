@@ -1,7 +1,10 @@
 package com.primetech.primetech_store.review.domain.interfaces;
 
+import com.primetech.primetech_store.review.application.DTO.ReviewSummaryDTO;
 import com.primetech.primetech_store.review.domain.models.Review;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ReviewServicesInterface {
@@ -10,4 +13,5 @@ public interface ReviewServicesInterface {
     Review saveReview(Review review);
     Review findByUserIdAndReviewId(UUID userId, UUID reviewId);
     void deleteByReviewId(Review review);
+    List<ReviewSummaryDTO> findReviewsSummaryByProductId(UUID productId);
 }

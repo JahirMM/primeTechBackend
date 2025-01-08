@@ -2,10 +2,7 @@ package com.primetech.primetech_store.config.reviewConfig;
 
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.purchasedProduct.domain.interfaces.PurchasedProductServiceInterface;
-import com.primetech.primetech_store.review.application.AddReviewApplication;
-import com.primetech.primetech_store.review.application.DeleteReviewApplication;
-import com.primetech.primetech_store.review.application.GetAverageRatingByProductIdApplication;
-import com.primetech.primetech_store.review.application.UpdateReviewApplication;
+import com.primetech.primetech_store.review.application.*;
 import com.primetech.primetech_store.review.domain.interfaces.ReviewServicesInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;
@@ -44,6 +41,13 @@ public class ReviewConfig {
     public DeleteReviewApplication delteDeleteReviewApplication() {
         return new DeleteReviewApplication(
                 userService, reviewServices
+        );
+    }
+
+    @Bean
+    public GetReviewsApplication getReviewsApplication() {
+        return new GetReviewsApplication(
+                reviewServices
         );
     }
 }

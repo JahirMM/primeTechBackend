@@ -1,12 +1,14 @@
 package com.primetech.primetech_store.review.infraestructure.services;
 
 import com.primetech.primetech_store.common.application.exception.ReviewNotFoundException;
+import com.primetech.primetech_store.review.application.DTO.ReviewSummaryDTO;
 import com.primetech.primetech_store.review.domain.interfaces.ReviewServicesInterface;
 import com.primetech.primetech_store.review.domain.models.Review;
 import com.primetech.primetech_store.review.infraestructure.repositories.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -38,5 +40,10 @@ public class ReviewServices implements ReviewServicesInterface {
     @Override
     public void deleteByReviewId(Review review) {
         reviewRepository.delete(review);
+    }
+
+    @Override
+    public List<ReviewSummaryDTO> findReviewsSummaryByProductId(UUID productId) {
+        return reviewRepository.findReviewsSummaryByProductProductId(productId);
     }
 }
