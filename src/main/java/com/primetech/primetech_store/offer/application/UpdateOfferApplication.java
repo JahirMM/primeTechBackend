@@ -1,9 +1,9 @@
-package com.primetech.primetech_store.Offer.application;
+package com.primetech.primetech_store.offer.application;
 
-import com.primetech.primetech_store.Offer.application.DTO.OfferDTO;
-import com.primetech.primetech_store.Offer.application.DTO.OfferRequestDTO;
-import com.primetech.primetech_store.Offer.domain.interfaces.OfferServiceInterface;
-import com.primetech.primetech_store.Offer.domain.models.Offer;
+import com.primetech.primetech_store.offer.application.DTO.OfferDTO;
+import com.primetech.primetech_store.offer.application.DTO.OfferRequestDTO;
+import com.primetech.primetech_store.offer.domain.interfaces.OfferServiceInterface;
+import com.primetech.primetech_store.offer.domain.models.Offer;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

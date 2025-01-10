@@ -1,8 +1,8 @@
-package com.primetech.primetech_store.Offer.infraestructure.services;
+package com.primetech.primetech_store.offer.infraestructure.services;
 
-import com.primetech.primetech_store.Offer.domain.interfaces.OfferServiceInterface;
-import com.primetech.primetech_store.Offer.domain.models.Offer;
-import com.primetech.primetech_store.Offer.infraestructure.repositories.OfferRepository;
+import com.primetech.primetech_store.offer.domain.interfaces.OfferServiceInterface;
+import com.primetech.primetech_store.offer.domain.models.Offer;
+import com.primetech.primetech_store.offer.infraestructure.repositories.OfferRepository;
 import com.primetech.primetech_store.common.application.exception.OfferNotFoundException;
 import com.primetech.primetech_store.product.domain.models.Product;
 import lombok.AllArgsConstructor;

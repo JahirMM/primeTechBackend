@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.Offer.domain.models;
+package com.primetech.primetech_store.offer.domain.models;
 
 import com.primetech.primetech_store.product.domain.models.Product;
 import jakarta.persistence.*;

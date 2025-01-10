@@ -1,8 +1,8 @@
 package com.primetech.primetech_store.config.offer;
-import com.primetech.primetech_store.Offer.application.AddOfferApplication;
-import com.primetech.primetech_store.Offer.application.GetOfferApplication;
-import com.primetech.primetech_store.Offer.application.UpdateOfferApplication;
-import com.primetech.primetech_store.Offer.domain.interfaces.OfferServiceInterface;
+import com.primetech.primetech_store.offer.application.AddOfferApplication;
+import com.primetech.primetech_store.offer.application.GetOfferApplication;
+import com.primetech.primetech_store.offer.application.UpdateOfferApplication;
+import com.primetech.primetech_store.offer.domain.interfaces.OfferServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import lombok.AllArgsConstructor;

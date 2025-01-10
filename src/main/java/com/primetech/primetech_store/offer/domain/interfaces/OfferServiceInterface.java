@@ -1,6 +1,6 @@
-package com.primetech.primetech_store.Offer.domain.interfaces;
+package com.primetech.primetech_store.offer.domain.interfaces;
 
-import com.primetech.primetech_store.Offer.domain.models.Offer;
+import com.primetech.primetech_store.offer.domain.models.Offer;
 import com.primetech.primetech_store.product.domain.models.Product;
 
 import java.util.UUID;
