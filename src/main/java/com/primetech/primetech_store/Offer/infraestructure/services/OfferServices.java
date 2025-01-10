@@ -29,4 +29,9 @@ public class OfferServices implements OfferServiceInterface {
     public Offer findByProductId(UUID productId) {
         return offerRepository.findByProductProductId(productId).orElseThrow(() -> new OfferNotFoundException("Offer not found"));
     }
+
+    @Override
+    public Offer findByOfferId(UUID offerId) {
+        return offerRepository.findByOfferId(offerId).orElseThrow(() -> new OfferNotFoundException("Offer not found"));
+    }
 }

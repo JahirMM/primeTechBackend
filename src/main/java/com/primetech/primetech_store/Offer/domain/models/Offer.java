@@ -17,8 +17,8 @@ public class Offer {
     @Column(name = "offer_id", nullable = false)
     private UUID offerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, unique = true) // Asegura la unicidad
     private Product product;
 
     @Column(name = "discount_percentage", nullable = false)

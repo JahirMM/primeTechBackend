@@ -29,7 +29,7 @@ public class AddOfferApplication {
             throw new OfferAlreadyExistsException("he product already has an offer. Please use the PUT API to update it");
         }
 
-        Offer offer = new Offer(product, request.getDiscountPercentage(), request.getStartData(), request.getEndDate(), true);
+        Offer offer = new Offer(product, request.getDiscountPercentage(), request.getStartDate(), request.getEndDate(), true);
 
         return new OfferDTO(offerService.addOffer(offer));
     }

@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface OfferRepository extends JpaRepository<Offer, UUID> {
     boolean existsByProduct(Product product);
     Optional<Offer> findByProductProductId(UUID productId);
+    Optional<Offer> findByOfferId(UUID offerId);
 }

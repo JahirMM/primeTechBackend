@@ -1,11 +1,9 @@
 package com.primetech.primetech_store.Offer.infraestructure.controllers;
 
 import com.primetech.primetech_store.Offer.application.AddOfferApplication;
-import com.primetech.primetech_store.Offer.application.DTO.AddOfferResponseDTO;
-import com.primetech.primetech_store.Offer.application.DTO.GetOfferResponseDTO;
-import com.primetech.primetech_store.Offer.application.DTO.OfferDTO;
-import com.primetech.primetech_store.Offer.application.DTO.OfferRequestDTO;
+import com.primetech.primetech_store.Offer.application.DTO.*;
 import com.primetech.primetech_store.Offer.application.GetOfferApplication;
+import com.primetech.primetech_store.Offer.application.UpdateOfferApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +20,7 @@ import java.util.UUID;
 public class OfferController {
     private final AddOfferApplication addOfferApplication;
     private final GetOfferApplication getOfferApplication;
+    private final UpdateOfferApplication updateOfferApplication;
 
     @PostMapping("/{productId}")
     public ResponseEntity<AddOfferResponseDTO> addOffer(@Valid @RequestBody OfferRequestDTO request, @PathVariable UUID productId){
@@ -42,5 +41,19 @@ public class OfferController {
         OfferDTO offer = getOfferApplication.getOffer(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetOfferResponseDTO(offer));
+    }
+
+    @PutMapping("/{offerId}")
+    public ResponseEntity<UpdateOfferResponseDTO> updateOffer(@Valid @RequestBody OfferRequestDTO request, @PathVariable UUID offerId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            OfferDTO offer = updateOfferApplication.updateOffer(offerId, request);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new UpdateOfferResponseDTO("Offer correctly updated and active", offer));
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new UpdateOfferResponseDTO("Please log in", null));
+        }
     }
 }

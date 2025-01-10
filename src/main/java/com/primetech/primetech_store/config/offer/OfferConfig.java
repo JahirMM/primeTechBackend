@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.config.offer;
 import com.primetech.primetech_store.Offer.application.AddOfferApplication;
 import com.primetech.primetech_store.Offer.application.GetOfferApplication;
+import com.primetech.primetech_store.Offer.application.UpdateOfferApplication;
 import com.primetech.primetech_store.Offer.domain.interfaces.OfferServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
@@ -25,5 +26,10 @@ public class OfferConfig {
     @Bean
     public GetOfferApplication getOfferApplication() {
         return new GetOfferApplication(offerService);
+    }
+
+    @Bean
+    public UpdateOfferApplication updateOfferApplication() {
+        return new UpdateOfferApplication(offerService);
     }
 }

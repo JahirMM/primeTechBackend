@@ -18,7 +18,7 @@ public class OfferRequestDTO {
     private BigDecimal discountPercentage;
 
     @NotNull(message = "The start date cannot be null and void")
-    private LocalDateTime startData;
+    private LocalDateTime startDate;
 
     @NotNull(message = "The termination date cannot be null and void")
     private LocalDateTime endDate;

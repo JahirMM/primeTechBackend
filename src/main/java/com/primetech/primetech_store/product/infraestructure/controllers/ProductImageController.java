@@ -1,6 +1,5 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
-import com.primetech.primetech_store.product.application.DTO.product.AddProductResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.GetProductImagesResponseDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.ProductImageDTO;
 import com.primetech.primetech_store.product.application.DTO.productImage.UploadImageRequestDTO;

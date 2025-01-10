@@ -9,4 +9,5 @@ public interface OfferServiceInterface {
     Offer addOffer(Offer offer);
     boolean existsByProduct(Product product);
     Offer findByProductId(UUID productId);
+    Offer findByOfferId(UUID offerId);
 }
