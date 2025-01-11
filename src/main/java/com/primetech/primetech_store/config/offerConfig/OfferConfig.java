@@ -1,5 +1,6 @@
-package com.primetech.primetech_store.config.offer;
+package com.primetech.primetech_store.config.offerConfig;
 import com.primetech.primetech_store.offer.application.AddOfferApplication;
+import com.primetech.primetech_store.offer.application.ChangeOfferStatusApplication;
 import com.primetech.primetech_store.offer.application.GetOfferApplication;
 import com.primetech.primetech_store.offer.application.UpdateOfferApplication;
 import com.primetech.primetech_store.offer.domain.interfaces.OfferServiceInterface;
@@ -32,4 +33,7 @@ public class OfferConfig {
     public UpdateOfferApplication updateOfferApplication() {
         return new UpdateOfferApplication(offerService);
     }
+
+    @Bean
+    public ChangeOfferStatusApplication changeOfferStatusApplication() {return new ChangeOfferStatusApplication(offerService);}
 }
