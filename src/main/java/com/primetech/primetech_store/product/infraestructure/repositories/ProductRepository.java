@@ -21,13 +21,15 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query("SELECT p FROM Product p " +
             "LEFT JOIN Review r ON p.productId = r.product.productId " +
+            "LEFT JOIN Offer o ON p.productId = o.product.productId " +
             "WHERE " +
             "(p.stock > 0) AND " +
             "(:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))) AND " +
             "(:brand IS NULL OR LOWER(p.brand) LIKE LOWER(CONCAT('%', :brand, '%'))) AND " +
             "(:categoryId IS NULL OR p.category.categoryId = :categoryId) AND " +
             "(:sellerId IS NULL OR p.user.userId = :sellerId) AND " +
-            "(p.price BETWEEN :minPrice AND :maxPrice) " +
+            "(p.price BETWEEN :minPrice AND :maxPrice) AND " +
+            "(:onSale IS NULL OR (:onSale = TRUE AND o.isActive = TRUE)) " +
             "GROUP BY p.productId, p.name, p.brand, p.category, p.user, p.price, p.stock " +
             "HAVING (:minRating IS NULL OR COALESCE(AVG(r.rating), 0) >= :minRating)")
     Page<Product> findByCriteria(@Param("name") String name,
@@ -37,6 +39,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
                                  @Param("minPrice") BigDecimal minPrice,
                                  @Param("maxPrice") BigDecimal maxPrice,
                                  @Param("minRating") Double minRating,
+                                 @Param("onSale") Boolean onSale,
                                  Pageable pageable);
 
     Optional<Product> findByProductIdAndUser_UserId(UUID productId, UUID userId);

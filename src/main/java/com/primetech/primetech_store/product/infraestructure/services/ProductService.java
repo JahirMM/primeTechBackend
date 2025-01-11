@@ -46,8 +46,10 @@ public class ProductService implements ProductServiceInterface {
     }
 
     @Override
-    public Page<Product> findAllProducts(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double raiting) {
-        return productRepository.findByCriteria(name, brand, categoryId, sellerId, minPrice, maxPrice, raiting, pageable);
+    public Page<Product> findAllProducts(String name, String brand, UUID categoryId,
+                                         UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice,
+                                         Double rating, Boolean onSale, Pageable pageable) {
+        return productRepository.findByCriteria(name, brand, categoryId, sellerId, minPrice, maxPrice, rating, onSale, pageable);
     }
 
     @Override

@@ -24,7 +24,9 @@ public class GetProductsApplication {
 
 
     @Transactional
-    public Page<ProductDetailsDTO> getProductsApplication(String name, String brand, UUID categoryId, UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable, Double rating) {
+    public Page<ProductDetailsDTO> getProductsApplication(String name, String brand, UUID categoryId,
+                                                          UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice,
+                                                          Double rating, Boolean onSale, Pageable pageable) {
 
         if (rating != null) {
             if (rating > 5 || rating < 0) {
@@ -33,7 +35,7 @@ public class GetProductsApplication {
         }
 
 
-        Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, pageable, rating);
+        Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, rating, onSale, pageable);
         return products.map(product -> {
             Device device = deviceService.findDevicebyProductId(product.getProductId());
             Double averageRating = getAverageRatingByProductId.getAverageRatingByProductId(product.getProductId());
