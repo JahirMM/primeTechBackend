@@ -30,7 +30,7 @@ public class UploadProductImageApplication {
         }
 
         if (productImageService.countProductImageByProductId(productId) >= 4) {
-            throw new MaxProductImagesException("The product already has 5 images.");
+            throw new MaxProductImagesException("The product already has 4 images.");
         }
 
         if (productImageService.existsProductByProductIdAndMainTrue(productId)) {

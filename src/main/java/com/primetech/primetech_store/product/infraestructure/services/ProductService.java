@@ -2,6 +2,7 @@ package com.primetech.primetech_store.product.infraestructure.services;
 
 import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
 import com.primetech.primetech_store.product.infraestructure.repositories.ProductRepository;
@@ -72,5 +73,11 @@ public class ProductService implements ProductServiceInterface {
         }
 
         productRepository.deleteByProductId(productId);
+    }
+
+    @Override
+    public ProductDetailsProjectionDTO findProductDetailsByProductId(UUID productId) {
+        return productRepository.findProductDetailsByProductId(productId)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
     }
 }

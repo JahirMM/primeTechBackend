@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
-import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
 import com.primetech.primetech_store.product.domain.interfaces.DeviceServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Device;
@@ -20,7 +20,7 @@ public class GetProductApplication {
     private final GetAverageRatingByProductIdApplication getAverageRatingByProductId;
 
     @Transactional
-    public ProductDetailsDTO getProductApplication(UUID productId) {
+    public ProductDTO getProductApplication(UUID productId) {
 
         if (!productService.existsProductByProductId(productId)) {
             throw new ProductNotFoundException("Product not found");
@@ -30,9 +30,9 @@ public class GetProductApplication {
 
         Device device = deviceService.findDevicebyProductId(product.getProductId());
 
-        Double averageRating = getAverageRatingByProductId.getAverageRatingByProductId(productId);
-
-
-        return new ProductDetailsDTO(product, averageRating,device.getDeviceType().getTypeName());
+        return new ProductDTO(product.getProductId(), product.getName(), product.getDescription(),
+                product.getBrand(), product.getStock(), product.getPrice(),
+                product.getCategory().getCategoryName(), device.getDeviceType().getTypeName(),
+                product.getCreatedAt(),product.getUpdatedAt());
     }
 }

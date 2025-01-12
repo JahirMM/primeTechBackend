@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.repositories;
 
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,4 +45,22 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     Optional<Product> findByProductIdAndUser_UserId(UUID productId, UUID userId);
     void deleteByProductId(UUID productId);
+
+    @Query("""
+    SELECT new com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO(
+           p,
+           COALESCE(i.imgURL, '') AS image,
+           d.deviceType.typeName AS deviceType,
+           COALESCE(AVG(r.rating), 0) AS averageRating,
+           COALESCE(o.discountPercentage, 0) AS discountPercentage,
+           CASE WHEN o.isActive = TRUE THEN TRUE ELSE FALSE END AS activeOffer)
+    FROM Product p
+    LEFT JOIN Device d ON d.product.productId = p.productId
+    LEFT JOIN Review r ON r.product.productId = p.productId
+    LEFT JOIN Offer o ON o.product.productId = p.productId
+    LEFT JOIN ProductImage i ON i.product.productId = p.productId AND i.main = TRUE
+    WHERE p.productId = :productId
+    GROUP BY p, i.imgURL, d.deviceType.typeName, o.discountPercentage, o.isActive
+""")
+    Optional<ProductDetailsProjectionDTO> findProductDetailsByProductId(@Param("productId") UUID productId);
 }

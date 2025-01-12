@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.product.domain.interfaces;
 
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,5 @@ public interface ProductServiceInterface {
                                   Double raiting, Boolean onSale, Pageable pageable);
     Product findByProductIdAndSellerId(UUID productId, UUID sellerId);
     void deleteProductByProductId(UUID productId);
+    ProductDetailsProjectionDTO findProductDetailsByProductId(UUID productId);
 }
