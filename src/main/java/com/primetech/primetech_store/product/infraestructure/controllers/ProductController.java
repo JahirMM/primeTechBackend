@@ -1,6 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.controllers;
 
 import com.primetech.primetech_store.product.application.*;
+import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
 import com.primetech.primetech_store.product.application.DTO.product.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -66,8 +67,11 @@ public class ProductController {
 
         name = (name == null) ? "" : name;
         brand = (brand == null) ? "" : brand;
-        minPrice = (minPrice == null) ? getMinimumAndMaximumPrice.getMinimumAndMaximumPrice().getMinPrice() : minPrice;
-        maxPrice = (maxPrice == null) ? getMinimumAndMaximumPrice.getMinimumAndMaximumPrice().getMaxPrice() : maxPrice;
+
+        PriceRangeDTO priceRange = getMinimumAndMaximumPrice.getMinimumAndMaximumPrice();
+        minPrice = (minPrice == null) ? priceRange.getMinPrice() : minPrice;
+        maxPrice = (maxPrice == null) ? priceRange.getMaxPrice() : maxPrice;
+
 
         UUID sellerUUID = null;
         UUID categoryUUID = null;

@@ -21,3 +21,6 @@ spring:
 
 jwt:
   secret: your_jwt_secret
+
+cors:
+  allowed-origin: your_domain

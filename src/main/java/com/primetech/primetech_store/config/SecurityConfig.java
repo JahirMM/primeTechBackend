@@ -2,6 +2,7 @@ package com.primetech.primetech_store.config;
 
 import com.primetech.primetech_store.jwt.JwtAuthentication;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class SecurityConfig {
     private final JwtAuthentication jwtAuthentication;
     private final AuthenticationProvider authProvider;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    @Value("${cors.allowed-origin}")
+    private String allowedOrigin;
 
     private static final List<String> ALWAYS_PUBLIC_URLS = List.of(
             "/prime-tech/api/v1/auth/**",
@@ -50,6 +56,7 @@ public class SecurityConfig {
     {
         return http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authRequest -> {
                     ALWAYS_PUBLIC_URLS.forEach(url -> authRequest.requestMatchers(url).permitAll());
                     GET_ONLY_PUBLIC_URLS.forEach(url -> authRequest.requestMatchers(HttpMethod.GET, url).permitAll());
@@ -62,5 +69,19 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider)
                 .addFilterBefore(jwtAuthentication, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin(allowedOrigin);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        // Registrar la configuración CORS para todas las rutas
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }

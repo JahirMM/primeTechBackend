@@ -29,10 +29,8 @@ public class GetProductsApplication {
                                                           UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice,
                                                           Double rating, Boolean onSale, Pageable pageable) {
 
-        if (rating != null) {
-            if (rating > 5 || rating < 0) {
-                throw new InvalidRatingException("The rating provided is invalid.");
-            }
+        if (rating != null && (rating < 0 || rating > 5)) {
+            throw new InvalidRatingException("The rating provided is invalid.");
         }
 
         Page<Product> products = productService.findAllProducts(name, brand, categoryId, sellerId, minPrice, maxPrice, rating, onSale, pageable);
