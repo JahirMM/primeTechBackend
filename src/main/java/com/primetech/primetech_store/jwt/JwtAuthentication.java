@@ -44,7 +44,8 @@ public class JwtAuthentication extends OncePerRequestFilter {
             "/prime-tech/api/v1/products/**",
             "/prime-tech/api/v1/product-image/**",
             "/prime-tech/api/v1/review/**",
-            "/prime-tech/api/v1/offers/**"
+            "/prime-tech/api/v1/offers/**",
+            "/prime-tech/api/v1/categories/**"
     );
 
     @Override

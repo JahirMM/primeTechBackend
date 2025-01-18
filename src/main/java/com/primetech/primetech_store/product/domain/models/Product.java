@@ -1,5 +1,6 @@
 package com.primetech.primetech_store.product.domain.models;
 
+import com.primetech.primetech_store.category.domain.models.Category;
 import com.primetech.primetech_store.user.domain.models.User;
 import jakarta.persistence.*;
 import lombok.Data;

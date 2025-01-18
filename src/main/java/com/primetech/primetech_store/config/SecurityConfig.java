@@ -48,7 +48,8 @@ public class SecurityConfig {
             "/prime-tech/api/v1/sim-card/**",
             "/prime-tech/api/v1/product-image/**",
             "/prime-tech/api/v1/review/**",
-            "/prime-tech/api/v1/offers/**"
+            "/prime-tech/api/v1/offers/**",
+            "/prime-tech/api/v1/categories/**"
     );
 
     @Bean

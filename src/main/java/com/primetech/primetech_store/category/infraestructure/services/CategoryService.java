@@ -1,12 +1,13 @@
-package com.primetech.primetech_store.product.infraestructure.services;
+package com.primetech.primetech_store.category.infraestructure.services;
 
 import com.primetech.primetech_store.common.application.exception.CategoryNotFoundException;
-import com.primetech.primetech_store.product.domain.interfaces.CategoryServiceInterface;
-import com.primetech.primetech_store.product.domain.models.Category;
-import com.primetech.primetech_store.product.infraestructure.repositories.CategoryRepository;
+import com.primetech.primetech_store.category.domain.interfaces.CategoryServiceInterface;
+import com.primetech.primetech_store.category.domain.models.Category;
+import com.primetech.primetech_store.category.infraestructure.repositories.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,5 +21,10 @@ public class CategoryService implements CategoryServiceInterface {
             throw new CategoryNotFoundException("Category not found");
         }
         return categoryOptional.get();
+    }
+
+    @Override
+    public List<Category> findCategories() {
+        return categoryRepository.findAll();
     }
 }

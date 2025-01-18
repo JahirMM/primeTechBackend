@@ -1,5 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
+import com.primetech.primetech_store.category.domain.interfaces.CategoryServiceInterface;
+import com.primetech.primetech_store.category.domain.models.Category;
 import com.primetech.primetech_store.product.application.DTO.product.ProductRequestDTO;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDTO;
 import com.primetech.primetech_store.product.domain.interfaces.*;

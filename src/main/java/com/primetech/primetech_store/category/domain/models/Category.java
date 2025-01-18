@@ -1,4 +1,4 @@
-package com.primetech.primetech_store.product.domain.models;
+package com.primetech.primetech_store.category.domain.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

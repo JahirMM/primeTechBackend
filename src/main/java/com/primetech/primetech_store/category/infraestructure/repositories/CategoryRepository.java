@@ -1,6 +1,6 @@
-package com.primetech.primetech_store.product.infraestructure.repositories;
+package com.primetech.primetech_store.category.infraestructure.repositories;
 
-import com.primetech.primetech_store.product.domain.models.Category;
+import com.primetech.primetech_store.category.domain.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
