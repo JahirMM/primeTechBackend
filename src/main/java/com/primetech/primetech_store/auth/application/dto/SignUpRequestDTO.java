@@ -32,8 +32,6 @@ public class SignUpRequestDTO {
     @Size(max = 50, message = "First name can have a maximum of 50 characters")
     private String firstName;
 
-    @JsonDeserialize(using = StringDeserializer.class)
-    @Pattern(regexp = "^[a-zA-Z\\s]*$", message = "Middle name must contain only letters and spaces")
     @Size(max = 50, message = "Middle name can have a maximum of 50 characters")
     private String middleName;
 
