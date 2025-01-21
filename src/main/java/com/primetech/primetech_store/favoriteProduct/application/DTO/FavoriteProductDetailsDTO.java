@@ -19,8 +19,13 @@ public class FavoriteProductDetailsDTO {
     private String brand;
     private int stock;
     private BigDecimal price;
+    private Double averageRating;
+    private boolean activeOffer;
+    private BigDecimal discountPercentage;
 
-    public FavoriteProductDetailsDTO(Product product, UUID favoriteProductId, String imgUrl) {
+    public FavoriteProductDetailsDTO(Product product, UUID favoriteProductId,
+                                     String imgUrl, Double averageRating,
+                                     boolean activeOffer, BigDecimal discountPercentage) {
         this.productId = product.getProductId();
         this.favoriteProductId = favoriteProductId;
         this.imgUrl = imgUrl;
@@ -29,5 +34,8 @@ public class FavoriteProductDetailsDTO {
         this.brand = product.getBrand();
         this.stock = product.getStock();
         this.price = product.getPrice().setScale(3, RoundingMode.HALF_UP);
+        this.averageRating = averageRating;
+        this.activeOffer = activeOffer;
+        this.discountPercentage = discountPercentage;
     }
 }

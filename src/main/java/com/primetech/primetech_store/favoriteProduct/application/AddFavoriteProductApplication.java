@@ -4,6 +4,7 @@ import com.primetech.primetech_store.common.application.exception.ProductAlready
 import com.primetech.primetech_store.favoriteProduct.application.DTO.FavoriteProductDetailsDTO;
 import com.primetech.primetech_store.favoriteProduct.domain.interfaces.FavoriteProductServiceInterface;
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
+import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
 import com.primetech.primetech_store.product.domain.models.Product;
@@ -20,7 +21,6 @@ public class AddFavoriteProductApplication {
     private final FavoriteProductServiceInterface favoriteProductService;
     private final UserServiceInterface userService;
     private final ProductServiceInterface productService;
-    private final ProductImageServiceInterface productImageService;
 
     @Transactional
     public FavoriteProductDetailsDTO AddFavoriteProduct(String email, UUID productId) {
@@ -35,10 +35,13 @@ public class AddFavoriteProductApplication {
 
         favoriteProductService.addFavoriteProduct(favoriteProduct);
 
-        ProductImage productImage = productImageService.findProductImagByProductIdAndMainTrue(product.getProductId());
-        String imgURL = (productImage != null) ? productImage.getImgURL() : null;
+        ProductDetailsProjectionDTO productDetailsProjectionDTO = productService.findProductDetailsByProductId(favoriteProduct.getProduct().getProductId());
 
-        return new FavoriteProductDetailsDTO(favoriteProduct.getProduct(), favoriteProduct.getFavoriteProductId(), imgURL);
+
+        return new FavoriteProductDetailsDTO(productDetailsProjectionDTO.getProduct(), favoriteProduct.getFavoriteProductId(),
+                productDetailsProjectionDTO.getImage(), productDetailsProjectionDTO.getAverageRating()
+                , productDetailsProjectionDTO.isActiveOffer(), productDetailsProjectionDTO.getDiscountPercentage()
+        );
     }
 
 

@@ -17,21 +17,19 @@ public class FavoriteProductConfig {
     private final FavoriteProductServiceInterface favoriteProductService;
     private final UserServiceInterface userService;
     private final ProductServiceInterface productService;
-    private final ProductImageServiceInterface productImageService;
 
     @Bean
     public AddFavoriteProductApplication addFavoriteProductApplication(){
         return new AddFavoriteProductApplication(
                 favoriteProductService, userService,
-                productService, productImageService
+                productService
         );
     }
 
     @Bean
     public GetFavoriteProductsApplication getFavoriteProductsApplication(){
         return new GetFavoriteProductsApplication(
-                favoriteProductService, userService,
-                productImageService
+                favoriteProductService, userService, productService
         );
     }
 
