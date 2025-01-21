@@ -45,7 +45,7 @@ public class FavoriteProductController {
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
             List<FavoriteProductDetailsDTO> favoriteProductDetailsDTOS = getFavoriteProductsApplication.getFavoriteProducts(email);
-            return ResponseEntity.ok(new GetFavoriteProductsResponseDTO("Favorite products found", favoriteProductDetailsDTOS));
+            return ResponseEntity.ok(new GetFavoriteProductsResponseDTO(favoriteProductDetailsDTOS.size() > 0 ? "Favorite product found" : "Favorite products not found", favoriteProductDetailsDTOS));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new GetFavoriteProductsResponseDTO("Please log in", null));

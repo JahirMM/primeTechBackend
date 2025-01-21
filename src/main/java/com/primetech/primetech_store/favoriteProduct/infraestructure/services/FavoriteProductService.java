@@ -23,11 +23,7 @@ public class FavoriteProductService implements FavoriteProductServiceInterface {
 
     @Override
     public List<FavoriteProduct> getFavoriteProductByUserId(UUID userId) {
-        List<FavoriteProduct> favoriteProducts = favoriteProductRepository.findByUser_UserId(userId);
-        if (favoriteProducts.isEmpty()) {
-            throw new ProductNotFoundException("Favorite products not found");
-        }
-        return favoriteProducts;
+        return favoriteProductRepository.findByUser_UserId(userId);
     }
 
     @Override
