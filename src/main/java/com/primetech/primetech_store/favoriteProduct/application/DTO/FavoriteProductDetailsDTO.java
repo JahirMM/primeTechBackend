@@ -13,7 +13,7 @@ import java.util.UUID;
 public class FavoriteProductDetailsDTO {
     private UUID productId;
     private UUID favoriteProductId;
-    private String imgUrl;
+    private String image;
     private String name;
     private String description;
     private String brand;
@@ -28,7 +28,7 @@ public class FavoriteProductDetailsDTO {
                                      boolean activeOffer, BigDecimal discountPercentage) {
         this.productId = product.getProductId();
         this.favoriteProductId = favoriteProductId;
-        this.imgUrl = imgUrl;
+        this.image = imgUrl;
         this.name = product.getName();
         this.description = product.getDescription();
         this.brand = product.getBrand();
