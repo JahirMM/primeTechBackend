@@ -1,6 +1,6 @@
 package com.primetech.primetech_store.user.application;
 
-import com.primetech.primetech_store.common.application.exception.UserImageNotFoundException;
+import com.primetech.primetech_store.user.application.dto.UserImageDTO;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.models.UserImage;
 import lombok.AllArgsConstructor;
@@ -13,11 +13,14 @@ public class GetUserImageApplication {
     private final UserImageServiceInterface userImageService;
 
     @Transactional
-    public UserImage getUserImage(String email) {
-        List<UserImage> userImages =  userImageService.findUserImage(email);
+    public UserImageDTO getUserImage(String email) {
+        List<UserImage> userImages = userImageService.findUserImage(email);
+
         if (userImages.isEmpty()) {
-            throw new UserImageNotFoundException("User image not found");
+            return null;
         }
-        return userImages.get(0);
+
+        UserImage userImage = userImages.get(0);
+        return new UserImageDTO(userImage.getUserImageId(), userImage.getImgURL());
     }
 }
