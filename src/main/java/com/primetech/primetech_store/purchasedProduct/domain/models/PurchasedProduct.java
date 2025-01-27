@@ -68,7 +68,7 @@ public class PurchasedProduct {
         this.productPrice = product.getPrice();
         this.productImg = productImg;
         this.sellerId = product.getUser().getUserId();
-        this.sellerName = product.getUser().getFirstName() + " "  + product.getUser().getMaternalSurname() + " " + product.getUser().getPaternalSurname();
+        this.sellerName = product.getUser().getFirstName() + " "  + product.getUser().getPaternalSurname();
         this.sellerEmail = product.getUser().getEmail();
         this.purchaseQuantity = purchaseQuantity;
     }
