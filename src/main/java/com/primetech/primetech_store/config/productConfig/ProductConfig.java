@@ -55,9 +55,18 @@ public class ProductConfig {
     }
 
     @Bean
-    public  GetProductsApplication getProductsApplication() {
+    public GetProductsApplication getProductsApplication() {
         return new GetProductsApplication(
                 productService
+        );
+    }
+
+    @Bean
+    public GetUserProductsApplication getUserProductsApplication() {
+        return new GetUserProductsApplication(
+                userRoleAssignmentService, productImageService,
+                productService, deviceService,
+                userService
         );
     }
 

@@ -39,13 +39,13 @@ public class SecurityConfig {
 
     // Rutas públicas solo para solicitudes GET
     private static final List<String> GET_ONLY_PUBLIC_URLS = List.of(
-            "/prime-tech/api/v1/products/**",
             "/prime-tech/api/v1/camera/**",
             "/prime-tech/api/v1/battery/**",
             "/prime-tech/api/v1/screen/**",
             "/prime-tech/api/v1/mobile-device/**",
             "/prime-tech/api/v1/laptop/**",
             "/prime-tech/api/v1/sim-card/**",
+            "/prime-tech/api/v1/products/**",
             "/prime-tech/api/v1/product-image/**",
             "/prime-tech/api/v1/review/**",
             "/prime-tech/api/v1/offers/**",

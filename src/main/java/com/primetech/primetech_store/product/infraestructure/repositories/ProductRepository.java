@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -63,4 +64,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     GROUP BY p, i.imgURL, d.deviceType.typeName, o.discountPercentage, o.isActive
 """)
     Optional<ProductDetailsProjectionDTO> findProductDetailsByProductId(@Param("productId") UUID productId);
+
+    List<Product> findByUser_UserId(UUID userId);
 }

@@ -7,17 +7,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 public interface ProductServiceInterface {
     Product saveProduct(Product product);
     Product findProductByProductId(UUID productId);
-    boolean existsProductByProductId(UUID productId);
-    PriceRangeDTO findMinimumAndMaximumPrice();
+    Product findByProductIdAndSellerId(UUID productId, UUID sellerId);
+    List<Product> findByUserId(UUID userId);
     Page<Product> findAllProducts(String name, String brand, UUID categoryId,
                                   UUID sellerId, BigDecimal minPrice, BigDecimal maxPrice,
                                   Double raiting, Boolean onSale, Pageable pageable);
-    Product findByProductIdAndSellerId(UUID productId, UUID sellerId);
-    void deleteProductByProductId(UUID productId);
     ProductDetailsProjectionDTO findProductDetailsByProductId(UUID productId);
+    PriceRangeDTO findMinimumAndMaximumPrice();
+    boolean existsProductByProductId(UUID productId);
+    void deleteProductByProductId(UUID productId);
 }

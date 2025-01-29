@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -62,6 +63,11 @@ public class ProductService implements ProductServiceInterface {
         }
 
         return productOptional.get();
+    }
+
+    @Override
+    public List<Product> findByUserId(UUID userId) {
+        return productRepository.findByUser_UserId(userId);
     }
 
     @Override
