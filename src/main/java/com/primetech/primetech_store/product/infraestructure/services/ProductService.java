@@ -1,6 +1,8 @@
 package com.primetech.primetech_store.product.infraestructure.services;
 
 import com.primetech.primetech_store.common.application.exception.ProductNotFoundException;
+import com.primetech.primetech_store.filter.application.DTO.MinMaxPriceDTO;
+import com.primetech.primetech_store.filter.application.DTO.ProductFilterDataDTO;
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInterface;
@@ -79,6 +81,16 @@ public class ProductService implements ProductServiceInterface {
         }
 
         productRepository.deleteByProductId(productId);
+    }
+
+    @Override
+    public Optional<MinMaxPriceDTO> findMinMaxPrice(UUID categoryId, String brand, BigDecimal minPrice, BigDecimal maxPrice, Double minRating) {
+        return productRepository.findMinMaxPrice(categoryId, brand, minPrice, maxPrice, minRating);
+    }
+
+    @Override
+    public List<String> findBrands(UUID categoryId, String brand, BigDecimal minPrice, BigDecimal maxPrice, Double minRating) {
+        return productRepository.findDistinctBrands(categoryId, brand, minPrice, maxPrice, minRating);
     }
 
     @Override

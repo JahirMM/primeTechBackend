@@ -1,5 +1,7 @@
 package com.primetech.primetech_store.product.infraestructure.repositories;
 
+import com.primetech.primetech_store.filter.application.DTO.MinMaxPriceDTO;
+import com.primetech.primetech_store.filter.application.DTO.ProductFilterDataDTO;
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.models.Product;
@@ -66,4 +68,49 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     Optional<ProductDetailsProjectionDTO> findProductDetailsByProductId(@Param("productId") UUID productId);
 
     List<Product> findByUser_UserId(UUID userId);
+
+    @Query("""
+    SELECT new com.primetech.primetech_store.filter.application.DTO.MinMaxPriceDTO(
+        COALESCE(MIN(p.price), 0),
+        COALESCE(MAX(p.price), 0)
+    )
+    FROM Product p
+    WHERE (:categoryId IS NULL OR p.category.categoryId = :categoryId)
+    AND (:brand IS NULL OR LOWER(p.brand) LIKE LOWER(CONCAT('%', :brand, '%')))
+    AND (:minPrice IS NULL OR p.price >= :minPrice)
+    AND (:maxPrice IS NULL OR p.price <= :maxPrice)
+    AND (p.stock > 0)
+    AND (
+        :minRating IS NULL OR
+        (SELECT AVG(r.rating) FROM Review r WHERE r.product = p) >= :minRating
+    )
+    """)
+    Optional<MinMaxPriceDTO> findMinMaxPrice(
+            @Param("categoryId") UUID categoryId,
+            @Param("brand") String brand,
+            @Param("minPrice") BigDecimal minPrice,
+            @Param("maxPrice") BigDecimal maxPrice,
+            @Param("minRating") Double minRating
+    );
+
+    @Query("""
+    SELECT DISTINCT p.brand
+    FROM Product p
+    WHERE (:categoryId IS NULL OR p.category.categoryId = :categoryId)
+    AND (:brand IS NULL OR LOWER(p.brand) LIKE LOWER(CONCAT('%', :brand, '%')))
+    AND (:minPrice IS NULL OR p.price >= :minPrice)
+    AND (:maxPrice IS NULL OR p.price <= :maxPrice)
+    AND (p.stock > 0)
+    AND (
+        :minRating IS NULL OR
+        (SELECT AVG(r.rating) FROM Review r WHERE r.product = p) >= :minRating
+    )
+    """)
+    List<String> findDistinctBrands(
+            @Param("categoryId") UUID categoryId,
+            @Param("brand") String brand,
+            @Param("minPrice") BigDecimal minPrice,
+            @Param("maxPrice") BigDecimal maxPrice,
+            @Param("minRating") Double minRating
+    );
 }
