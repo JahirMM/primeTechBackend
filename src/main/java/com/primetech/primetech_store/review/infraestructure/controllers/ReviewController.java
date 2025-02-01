@@ -1,10 +1,7 @@
 package com.primetech.primetech_store.review.infraestructure.controllers;
 
-import com.primetech.primetech_store.review.application.AddReviewApplication;
+import com.primetech.primetech_store.review.application.*;
 import com.primetech.primetech_store.review.application.DTO.*;
-import com.primetech.primetech_store.review.application.DeleteReviewApplication;
-import com.primetech.primetech_store.review.application.GetReviewsApplication;
-import com.primetech.primetech_store.review.application.UpdateReviewApplication;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,12 +23,22 @@ public class ReviewController {
     private final UpdateReviewApplication updateReviewApplication;
     private final DeleteReviewApplication deleteReviewApplication;
     private final GetReviewsApplication getReviewsApplication;
+    private final GetAverageRatingByProductIdApplication getAverageRatingByProductIdApplication;
 
     @GetMapping("/{productId}")
     public ResponseEntity<GetReviewsResponseDTO> getReviews(@PathVariable UUID productId){
          List<ReviewDetailsDTO> getReviewDetailsList = getReviewsApplication.getReviews(productId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new GetReviewsResponseDTO(getReviewDetailsList));
+    }
+
+    @GetMapping("/average-rating/{productId}")
+    public ResponseEntity<Map<String, Double>> getAverageRating(@PathVariable UUID productId){
+        Double averageRating = getAverageRatingByProductIdApplication.getAverageRatingByProductId(productId);
+        Map<String, Double> responseMap = new HashMap<>();
+        responseMap.put("averageRating", averageRating);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(responseMap);
     }
 
     @PostMapping("/{productId}")
