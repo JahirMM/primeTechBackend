@@ -30,7 +30,7 @@ public class GetProductApplication {
 
         Device device = deviceService.findDevicebyProductId(product.getProductId());
 
-        return new ProductDTO(product.getProductId(), product.getName(), product.getDescription(),
+        return new ProductDTO(product.getProductId(), product.getUser().getUserId(),product.getName(), product.getDescription(),
                 product.getBrand(), product.getStock(), product.getPrice(),
                 product.getCategory().getCategoryName(), device.getDeviceType().getTypeName(),
                 product.getCreatedAt(),product.getUpdatedAt());
