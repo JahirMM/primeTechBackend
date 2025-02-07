@@ -26,18 +26,26 @@ public class ShoppingCartController {
     private final DeleteProductFromShoppingCartApplication deleteProductFromShoppingCartApplication;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<AddProductToShoppingCartResponse> createShoppingCart(@PathVariable UUID productId) {
+    public ResponseEntity<AddProductToShoppingCartResponse> createShoppingCart(
+            @PathVariable UUID productId,
+            @RequestBody Map<String, Integer> requestBody
+    ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
-            ProductToShoppingCartAdderDTO shoppingCart = addProductToShoppingCartApplication.addProductToShoppingCart(email, productId);
+            int quantity = requestBody.getOrDefault("quantity", 1);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(new AddProductToShoppingCartResponse("Product added to the shopping cart", shoppingCart));
+            ProductToShoppingCartAdderDTO shoppingCart = addProductToShoppingCartApplication.addProductToShoppingCart(email, productId, quantity);
+
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new AddProductToShoppingCartResponse("Product added to the shopping cart", shoppingCart));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AddProductToShoppingCartResponse("Please log in", null));
         }
     }
+
 
     @GetMapping("")
     public ResponseEntity<GetShoppingCartResponseDTO> getShoppingCart() {
