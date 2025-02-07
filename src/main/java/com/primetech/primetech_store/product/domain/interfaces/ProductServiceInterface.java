@@ -40,4 +40,5 @@ public interface ProductServiceInterface {
             BigDecimal maxPrice,
             Double minRating
     );
+    long countProductByUserId(UUID userId);
 }

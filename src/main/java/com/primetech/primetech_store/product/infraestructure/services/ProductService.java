@@ -94,6 +94,11 @@ public class ProductService implements ProductServiceInterface {
     }
 
     @Override
+    public long countProductByUserId(UUID userId) {
+        return productRepository.countByUser_UserId(userId);
+    }
+
+    @Override
     public ProductDetailsProjectionDTO findProductDetailsByProductId(UUID productId) {
         return productRepository.findProductDetailsByProductId(productId)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));

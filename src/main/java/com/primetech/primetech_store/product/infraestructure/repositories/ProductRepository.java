@@ -1,7 +1,6 @@
 package com.primetech.primetech_store.product.infraestructure.repositories;
 
 import com.primetech.primetech_store.filter.application.DTO.MinMaxPriceDTO;
-import com.primetech.primetech_store.filter.application.DTO.ProductFilterDataDTO;
 import com.primetech.primetech_store.product.application.DTO.PriceRangeDTO;
 import com.primetech.primetech_store.product.application.DTO.product.ProductDetailsProjectionDTO;
 import com.primetech.primetech_store.product.domain.models.Product;
@@ -113,4 +112,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             @Param("maxPrice") BigDecimal maxPrice,
             @Param("minRating") Double minRating
     );
+
+    long countByUser_UserId(UUID userId);
 }

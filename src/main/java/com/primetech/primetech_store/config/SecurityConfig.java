@@ -35,7 +35,8 @@ public class SecurityConfig {
             "/prime-tech/api/v1/auth/**",
             "/userImage/**",
             "/productImage/**",
-            "/prime-tech/api/v1/filter-data/**"
+            "/prime-tech/api/v1/filter-data/**",
+            "/prime-tech/api/v1/seller-information/**"
     );
 
     // Rutas públicas solo para solicitudes GET

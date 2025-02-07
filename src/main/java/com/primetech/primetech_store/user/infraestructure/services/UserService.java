@@ -7,6 +7,8 @@ import com.primetech.primetech_store.user.infraestructure.repositories.UserRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserServiceInterface {
@@ -16,6 +18,12 @@ public class UserService implements UserServiceInterface {
     public User findUserInformationByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
+    }
+
+    @Override
+    public User findUserInformationByUserId(UUID userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: "));
     }
 
     @Override
