@@ -38,7 +38,7 @@ public class ShoppingCartConfig {
 
     @Bean
     public UpdateShoppingCartItemApplication updateShoppingCartItemApplication() {
-        return new UpdateShoppingCartItemApplication(shoppingCartService);
+        return new UpdateShoppingCartItemApplication(shoppingCartService, productService);
     }
 
     @Bean

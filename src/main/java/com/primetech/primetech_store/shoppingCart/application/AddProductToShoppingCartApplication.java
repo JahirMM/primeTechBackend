@@ -33,12 +33,10 @@ public class AddProductToShoppingCartApplication {
         int currentQuantity = existingItem != null ? existingItem.getQuantity() : 0;
         int newQuantity = currentQuantity + quantityToAdd;
 
-        // Validar si la cantidad solicitada supera el stock disponible
         if (quantityToAdd > product.getStock()) {
             throw new InsufficientStockException("You cannot add more than the quantity available in stock.");
         }
 
-        // Validar si la suma de la cantidad actual y la nueva cantidad supera el stock
         if (newQuantity > product.getStock()) {
             throw new InsufficientStockException("You cannot add more than the quantity available in stock..");
         }
