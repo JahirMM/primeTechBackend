@@ -18,7 +18,7 @@ public class Offer {
     private UUID offerId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, unique = true) // Asegura la unicidad
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, unique = true)
     private Product product;
 
     @Column(name = "discount_percentage", nullable = false)

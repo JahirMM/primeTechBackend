@@ -32,7 +32,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
             "(:categoryId IS NULL OR p.category.categoryId = :categoryId) AND " +
             "(:sellerId IS NULL OR p.user.userId = :sellerId) AND " +
             "(p.price BETWEEN :minPrice AND :maxPrice) AND " +
-            "(:onSale IS NULL OR (:onSale = TRUE AND o.isActive = TRUE)) " +
+            "(:onSale IS NULL OR (:onSale = TRUE AND o.isActive = TRUE) OR (:onSale = FALSE AND (o.isActive IS NULL OR o.isActive = FALSE))) " +
             "GROUP BY p.productId, p.name, p.brand, p.category, p.user, p.price, p.stock " +
             "HAVING (:minRating IS NULL OR COALESCE(AVG(r.rating), 0) >= :minRating)")
     Page<Product> findByCriteria(@Param("name") String name,
