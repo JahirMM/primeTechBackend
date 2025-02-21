@@ -22,7 +22,7 @@ public class ProductRequestDTO {
     @JsonDeserialize(using = StringDeserializer.class)
     private String name;
 
-    @Size(max = 700, message = "Description can have a maximum of 500 characters")
+    @Size(max = 700, message = "Description can have a maximum of 700 characters")
     @JsonDeserialize(using = StringDeserializer.class)
     private String description;
 
