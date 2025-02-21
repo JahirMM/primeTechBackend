@@ -29,11 +29,11 @@ public class UploadProductImageApplication {
             throw new UserNotSellerException("The user is not a seller.");
         }
 
-        if (productImageService.countProductImageByProductId(productId) >= 4) {
-            throw new MaxProductImagesException("The product already has 4 images.");
+        if (productImageService.countProductImageByProductId(productId) >= 5) {
+            throw new MaxProductImagesException("The product already has 5 images.");
         }
 
-        if (productImageService.existsProductByProductIdAndMainTrue(productId)) {
+        if (request.isMain() && productImageService.existsProductByProductIdAndMainTrue(productId)) {
             throw new MainProductImageAlreadyExistsException("A main product image already exists for this product");
         }
 
