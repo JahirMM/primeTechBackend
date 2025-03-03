@@ -1,10 +1,10 @@
 package com.primetech.primetech_store.config.productConfig;
 
 import com.primetech.primetech_store.category.domain.interfaces.CategoryServiceInterface;
-import com.primetech.primetech_store.common.infraestructure.filesystem.FileStorageService;
+import com.primetech.primetech_store.common.infrastructure.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.application.*;
 import com.primetech.primetech_store.product.domain.interfaces.*;
-import com.primetech.primetech_store.product.infraestructure.services.ProductImageService;
+import com.primetech.primetech_store.product.infrastructure.services.ProductImageService;
 import com.primetech.primetech_store.review.application.GetAverageRatingByProductIdApplication;
 import com.primetech.primetech_store.user.domain.interfaces.UserRoleAssignmentServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;

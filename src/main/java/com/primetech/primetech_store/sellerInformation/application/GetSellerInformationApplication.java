@@ -7,7 +7,7 @@ import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInte
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
 import com.primetech.primetech_store.user.domain.models.User;
 import com.primetech.primetech_store.user.domain.models.UserImage;
-import com.primetech.primetech_store.user.infraestructure.services.UserRoleAssignmentService;
+import com.primetech.primetech_store.user.infrastructure.services.UserRoleAssignmentService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;

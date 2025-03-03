@@ -12,6 +12,7 @@ public interface ReviewServicesInterface {
     boolean findByProductIdAndUserId(UUID productId, UUID userId);
     Review saveReview(Review review);
     Review findByUserIdAndReviewId(UUID userId, UUID reviewId);
+    List<Review> findByProductId(UUID productId);
     void deleteByReviewId(Review review);
     List<ReviewSummaryDTO> findReviewsSummaryByProductId(UUID productId);
 }

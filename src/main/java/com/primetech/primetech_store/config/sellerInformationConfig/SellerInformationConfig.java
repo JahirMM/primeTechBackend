@@ -4,7 +4,7 @@ import com.primetech.primetech_store.product.domain.interfaces.ProductServiceInt
 import com.primetech.primetech_store.sellerInformation.application.GetSellerInformationApplication;
 import com.primetech.primetech_store.user.domain.interfaces.UserImageServiceInterface;
 import com.primetech.primetech_store.user.domain.interfaces.UserServiceInterface;
-import com.primetech.primetech_store.user.infraestructure.services.UserRoleAssignmentService;
+import com.primetech.primetech_store.user.infrastructure.services.UserRoleAssignmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

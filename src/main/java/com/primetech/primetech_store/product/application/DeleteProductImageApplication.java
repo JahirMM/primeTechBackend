@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.product.application;
 
 import com.primetech.primetech_store.common.application.exception.FileStorageException;
-import com.primetech.primetech_store.common.infraestructure.filesystem.FileStorageService;
+import com.primetech.primetech_store.common.infrastructure.filesystem.FileStorageService;
 import com.primetech.primetech_store.product.domain.interfaces.ProductImageServiceInterface;
 import com.primetech.primetech_store.product.domain.models.ProductImage;
 import lombok.AllArgsConstructor;

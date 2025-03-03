@@ -4,7 +4,7 @@ import com.primetech.primetech_store.auth.application.dto.LoginRequestDTO;
 import com.primetech.primetech_store.auth.domain.interfaces.AuthServiceInterface;
 import com.primetech.primetech_store.common.application.exception.InvalidCredentialsException;
 import com.primetech.primetech_store.user.domain.models.User;
-import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
+import com.primetech.primetech_store.user.infrastructure.CustomUserDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

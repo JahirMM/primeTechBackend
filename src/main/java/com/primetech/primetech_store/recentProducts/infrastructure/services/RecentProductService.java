@@ -21,6 +21,11 @@ public class RecentProductService implements RecentProductServiceInterface {
     }
 
     @Override
+    public List<RecentProduct> getRecentProductsByProductId(UUID productId) {
+        return recentProductRepository.findByProductProductId(productId);
+    }
+
+    @Override
     public RecentProduct saveRecentProduct(RecentProduct recentProduct) {
         return recentProductRepository.save(recentProduct);
     }

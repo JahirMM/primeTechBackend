@@ -1,7 +1,7 @@
 package com.primetech.primetech_store.config;
 
-import com.primetech.primetech_store.user.infraestructure.CustomUserDetails;
-import com.primetech.primetech_store.user.infraestructure.repositories.UserRepository;
+import com.primetech.primetech_store.user.infrastructure.CustomUserDetails;
+import com.primetech.primetech_store.user.infrastructure.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
