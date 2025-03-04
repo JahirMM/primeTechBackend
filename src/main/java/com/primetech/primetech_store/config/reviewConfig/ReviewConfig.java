@@ -23,6 +23,14 @@ public class ReviewConfig {
     }
 
     @Bean
+    public HasUserReviewedProductApplication hasUserReviewedProductApplication() {
+        return new HasUserReviewedProductApplication(
+                userService, reviewServices,
+                purchasedProductService
+        );
+    }
+
+    @Bean
     public AddReviewApplication addReviewApplication() {
         return new AddReviewApplication(
                 userService, productService,
