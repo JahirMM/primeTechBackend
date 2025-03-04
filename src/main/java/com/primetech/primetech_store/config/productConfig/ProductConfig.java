@@ -76,7 +76,8 @@ public class ProductConfig {
                 productService, userService,
                 categoryService, deviceTypeService,
                 deviceService, laptopService,
-                mobileDeviceService
+                mobileDeviceService, simCardService,
+                cameraService
         );
     }
 

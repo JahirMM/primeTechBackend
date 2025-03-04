@@ -25,6 +25,8 @@ public class UpdateProductApplication {
     private final DeviceServiceInterface deviceService;
     private final LaptopServiceInterface laptopService;
     private final MobileDeviceServiceInterface mobileDeviceService;
+    private final SimCardServiceInterface simCardService;
+    private final CameraServiceInterface cameraService;
 
     @Transactional
     public ProductDTO updateProductApplication(UUID productId, String email, ProductRequestDTO request) {
@@ -67,19 +69,49 @@ public class UpdateProductApplication {
         switch (category.getCategoryName().toLowerCase()) {
             case "cellular":
             case "tablet":
-                List<Laptop> laptops = laptopService.findLaptopInformationByDeviceId(deviceId);
-                if (!laptops.isEmpty()) {
-                    laptopService.deleteLaptopByLaptopId(laptops.get(0).getLaptopId());
-                }
+                deleteLaptopData(deviceId);
+                deleteCameraData(deviceId);
                 return deviceTypeService.findDeviceTypeByTypeName("mobile");
+
             case "laptop":
+                deleteMobileDeviceData(deviceId);
                 return deviceTypeService.findDeviceTypeByTypeName("laptop");
+
             default:
-                List<MobileDevice> mobileDevices = mobileDeviceService.findMobileDeviceInformationByDeviceId(deviceId);
-                if (!mobileDevices.isEmpty()) {
-                    mobileDeviceService.deleteMobileDeviceByMobileDeviceId(mobileDevices.get(0).getMobileDeviceId());
-                }
-                return  deviceTypeService.findDeviceTypeByTypeName("other");
+                deleteLaptopData(deviceId);
+                deleteMobileDeviceData(deviceId);
+                return deviceTypeService.findDeviceTypeByTypeName("other");
+        }
+    }
+
+    private void deleteLaptopData(UUID deviceId) {
+        List<Laptop> laptops = laptopService.findLaptopInformationByDeviceId(deviceId);
+        if (!laptops.isEmpty()) {
+            laptopService.deleteLaptopByLaptopId(laptops.get(0).getLaptopId());
+        }
+    }
+
+    private void deleteMobileDeviceData(UUID deviceId) {
+        List<MobileDevice> mobileDevices = mobileDeviceService.findMobileDeviceInformationByDeviceId(deviceId);
+        if (!mobileDevices.isEmpty()) {
+            UUID mobileDeviceId = mobileDevices.get(0).getMobileDeviceId();
+            deleteSimCardData(mobileDeviceId);
+            deleteCameraData(deviceId);
+            mobileDeviceService.deleteMobileDeviceByMobileDeviceId(mobileDeviceId);
+        }
+    }
+
+    private void deleteSimCardData(UUID mobileDeviceId) {
+        List<SimCard> simCards = simCardService.findSimCardInformationByMobileDevice(mobileDeviceId);
+        if (!simCards.isEmpty()) {
+            simCardService.deleteSimCardBySimCardId(simCards.get(0).getSimCardId());
+        }
+    }
+
+    private void deleteCameraData(UUID deviceId) {
+        List<Camera> cameras = cameraService.findCameraInformationByDeviceId(deviceId);
+        if (!cameras.isEmpty()) {
+            cameras.forEach(camera -> cameraService.deleteCameraByCameraId(camera.getCameraId()));
         }
     }
 }
