@@ -2,6 +2,8 @@ package com.primetech.primetech_store.product.infrastructure.services;
 
 import com.primetech.primetech_store.favoriteProduct.domain.models.FavoriteProduct;
 import com.primetech.primetech_store.favoriteProduct.infrastructure.services.FavoriteProductService;
+import com.primetech.primetech_store.offer.domain.interfaces.OfferServiceInterface;
+import com.primetech.primetech_store.offer.domain.models.Offer;
 import com.primetech.primetech_store.product.domain.interfaces.*;
 import com.primetech.primetech_store.product.domain.models.*;
 import com.primetech.primetech_store.recentProducts.domain.interfaces.RecentProductServiceInterface;
@@ -27,6 +29,7 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
     private final ProductImageService productImageService;
     private final ReviewServicesInterface reviewServices;
     private final RecentProductServiceInterface recentProductService;
+    private final OfferServiceInterface offerService;
 
     @Override
     public void deleteProductRelationships(UUID deviceId, UUID productId) {
@@ -66,7 +69,7 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
             laptopService.deleteLaptopByLaptopId(laptops.get(0).getLaptopId());
         }
 
-        // Eliminar el producto de la lista de productos favoritos
+        // Eliminar relacion de product con los favoriteProducts
         List<FavoriteProduct> favoriteProducts = favoriteProductService.findByProductId(productId);
         if (!favoriteProducts.isEmpty()) {
             favoriteProducts.forEach(product -> favoriteProductService.deleteFavoriteProduct(product));
@@ -78,16 +81,22 @@ public class ProductRelationshipService implements ProductRelationshipServiceInt
                     .forEach(productImage -> productImageService.deleteProductImage(productImage.getProductImageId()));
         }
 
-        // Eliminar reviews del product por productId
+        // Eliminar relacion de product con review
         List<Review> reviews = reviewServices.findByProductId(productId);
         if (!reviews.isEmpty()) {
             reviews.forEach(reviewServices::deleteByReviewId);
         }
 
-        // Elminar producto reciente por productId
+        // Elminar relacion de product con recentProduct
         List<RecentProduct> recentProducts = recentProductService.getRecentProductsByProductId(productId);
         if (!recentProducts.isEmpty()) {
             recentProducts.forEach(recentProductService::deleteRecentProduct);
+        }
+
+        // Eliminar la relacion de product con offer
+        if (offerService.existsByProductId(productId)) {
+            Offer offer = offerService.findByProductId(productId);
+            offerService.deleteOfferByProductId(offer);
         }
     }
 }
