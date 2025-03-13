@@ -60,7 +60,7 @@ public class ProductController {
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) Double minRating,
             @RequestParam(required = false) Boolean onSale,
-            @PageableDefault(page = 0, size = 45) Pageable pageable) {
+            @PageableDefault(page = 0, size = 30) Pageable pageable) {
 
         name = (name == null) ? "" : name;
         brand = (brand == null) ? "" : brand;

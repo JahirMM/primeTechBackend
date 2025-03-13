@@ -27,7 +27,7 @@ public class SoldProduct {
     @Column(name = "product_name", nullable = false)
     private String productName;
 
-    @Column(name = "product_description", nullable = false)
+    @Column(name = "product_description", nullable = false, length = 700)
     private String productDescription;
 
     @Column(name = "product_price", nullable = false)
