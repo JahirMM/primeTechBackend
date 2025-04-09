@@ -27,4 +27,9 @@ public class DeviceType {
         this();
         this.typeName = typeName;
     }
+
+    public DeviceType(UUID deviceTypeId, String typeName) {
+        this.deviceTypeId = deviceTypeId;
+        this.typeName = typeName;
+    }
 }

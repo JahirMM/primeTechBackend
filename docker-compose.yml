@@ -1,0 +1,41 @@
+services:
+  primetech-db:
+    image: postgres:16
+    container_name: primetech-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: prime_tech_db
+      POSTGRES_USER: ${SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    networks:
+      - primetech-network
+
+  primetech-backend:
+    build: .
+    container_name: primetech-backend
+    restart: always
+    depends_on:
+      - primetech-db
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - primetech-network
+    volumes:
+      - /primetech-store/images/public/productImage:/app/images/public/productImage
+      - /primetech-store/images/public/userImage:/app/images/public/userImage
+
+networks:
+  primetech-network:
+    name: primetech-network
+
+volumes:
+  pgdata:

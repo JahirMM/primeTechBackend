@@ -27,4 +27,9 @@ public class Category {
         this();
         this.categoryName = categoryName;
     }
+
+    public Category(UUID categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+    }
 }

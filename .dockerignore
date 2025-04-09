@@ -1,0 +1,18 @@
+# Ignorar binarios y compilaciones locales
+target/
+*.jar
+
+# Ignorar configuración de IDEs
+.idea/
+.vscode/
+
+# Ignorar archivos específicos del sistema operativo
+*.DS_Store
+
+# Ignorar archivos de control de versiones
+.git/
+.gitignore
+
+# Ignorar registros y otros datos innecesarios
+logs/
+*.log
